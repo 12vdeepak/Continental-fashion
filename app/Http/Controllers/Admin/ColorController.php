@@ -81,6 +81,6 @@ class ColorController extends Controller
         }
 
         $color->delete();
-        return redirect()->route('colors.index')->with('message', 'Banner deleted successfully.');
+        return redirect()->route('colors.index')->with('message', 'Color deleted successfully.');
     }
 }
