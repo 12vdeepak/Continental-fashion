@@ -59,7 +59,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('weight.update', $size->id) }}" role="form" id="quickForm"
+                        <form action="{{ route('weight.update', $weight->id) }}" role="form" id="quickForm"
                             method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

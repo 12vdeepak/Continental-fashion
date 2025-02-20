@@ -196,6 +196,18 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Bootstrap JS (necessary for the modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const masterCrudMenu = document.querySelector(".nav-item.has-treeview");
+            const masterCrudLink = masterCrudMenu.querySelector(".nav-link");
+
+            masterCrudLink.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent default behavior
+                masterCrudMenu.classList.toggle("menu-open");
+                masterCrudLink.classList.toggle("active");
+            });
+        });
+    </script>
 
 
     <script>
@@ -382,6 +394,24 @@
     <script>
         $(document).ready(function() {
             $('#summernote_cancellationPolicy').summernote({
+                tabsize: 2,
+                height: 200
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#remarks').summernote({
+                tabsize: 2,
+                height: 200
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#product_det').summernote({
                 tabsize: 2,
                 height: 200
             });

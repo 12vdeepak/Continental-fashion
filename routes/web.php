@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\PrefixController;
 use App\Http\Controllers\Admin\PriceController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionalController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -113,6 +114,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // BannerController
     Route::resource('banners', BannerController::class);
+
+    // ProductController
+    Route::resource('products', ProductController::class);
     // BannerController Custom route for toggling status
     Route::patch('banners/{banner}/toggle-status', [BannerController::class, 'toggleStatus'])->name('banners.toggle-status');
 

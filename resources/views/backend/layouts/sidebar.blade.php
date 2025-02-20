@@ -86,7 +86,7 @@
                             <a href="{{ route('weight.index') }}"
                                 class="nav-link {{ Request::is('admin/weight') ? 'active' : '' }}">
                                 <i class="fas fa-weight-hanging nav-icon"></i>
-                                <p>Weight</p>
+                                <p>Fabrics Weight(GSM)</p>
                             </a>
                         </li>
 
@@ -168,7 +168,7 @@
                             <a href="{{ route('article.index') }}"
                                 class="nav-link {{ Request::is('admin/article') ? 'active' : '' }}">
                                 <i class="fas fa-newspaper nav-icon"></i> <!-- Updated icon -->
-                                <p>Articles</p>
+                                <p>Article No.</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -189,7 +189,7 @@
                             <a href="{{ route('fabric.index') }}"
                                 class="nav-link {{ Request::is('admin/fabric') ? 'active' : '' }}">
                                 <i class="fas fa-scroll nav-icon"></i> <!-- Updated icon -->
-                                <p>Fabric</p>
+                                <p>Fabric Quality</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -233,6 +233,16 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('products.index') }}"
+                        class="nav-link {{ Request::is('admin/products*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Products -->
+                        <p>
+                            Products
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('faq.index') }}"
                         class="nav-link {{ Request::is('admin/faq') ? 'active' : '' }}">
