@@ -104,7 +104,8 @@
                 </tr>
                 <tr>
                     <th>Product Details:</th>
-                    <td>{{ $product->product_details }}</td>
+                    <td> {!! $product->product_details !!}</td>
+
                 </tr>
                 <tr>
                     <th>Stock:</th>
@@ -144,7 +145,8 @@
                 </tr>
                 <tr>
                     <th>Remark:</th>
-                    <td>{{ $product->remarks }}</td>
+                    <td>{!! $product->remarks !!}</td>
+
                 </tr>
                 <tr>
                     <th>Prices:</th>
