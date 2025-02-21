@@ -158,9 +158,13 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
+            <div class="float-left d-none d-sm-inline">
+                Developed By <a href="https://quantumitinnovation.com/" target="_blank"
+                    class="text-primary">QuantumIT</a>
             </div>
+
             <!-- Default to the left -->
+
 
         </footer>
     </div>
