@@ -58,9 +58,8 @@
                                     <th class="text-center">Material</th>
                                     <th class="text-center">Fabric Weight</th>
                                     <th class="text-center">Brand</th>
-                                   
+
                                     <th class="text-center">Stock</th>
-                                    <th class="text-center">Sale</th>
                                     <th class="text-center">Sale Percentage</th>
                                     <th class="text-center">Manufacturer</th>
                                     <th class="text-center">Actions</th>
@@ -82,14 +81,9 @@
                                                 N/A
                                             @endif
                                         </td>
-                                      
+
                                         <td class="text-center">{{ $product->add_stoke }}</td>
-                                        <td class="text-center">
-                                            <span
-                                                class="badge {{ $product->sale == 'yes' ? 'badge-success' : 'badge-danger' }}">
-                                                {{ $product->sale == 'yes' ? 'On Sale' : 'Not on Sale' }}
-                                            </span>
-                                        </td>
+
                                         <td class="text-center">{{ $product->sale_percentage }}%</td>
                                         <td class="text-center">{{ $product->manufacturer_name }}</td>
                                         <td class="text-center">
