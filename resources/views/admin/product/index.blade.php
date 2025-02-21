@@ -41,14 +41,14 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             <a href="{{ route('products.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Add Product
+                                </i> Add Product
                             </a>
                         </h3>
                     </div>
 
                     <!-- Table -->
                     <div class="card-body table-responsive">
-                        <table id="productTable" class="table table-bordered table-striped">
+                        <table id="example2" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th class="text-center">S.No</th>
@@ -57,8 +57,6 @@
                                     <th class="text-center">Sub Category</th>
                                     <th class="text-center">Material</th>
                                     <th class="text-center">Fabric Weight</th>
-                                    <th class="text-center">Brand</th>
-
                                     <th class="text-center">Stock</th>
                                     <th class="text-center">Sale Percentage</th>
                                     <th class="text-center">Manufacturer</th>
@@ -74,13 +72,6 @@
                                         <td class="text-center">{{ $product->subCategory->subcategory_name ?? 'N/A' }}</td>
                                         <td class="text-center">{{ $product->material->material_name ?? 'N/A' }}</td>
                                         <td class="text-center">{{ $product->weight->weight_name ?? 'N/A' }}</td>
-                                        <td class="text-center">
-                                            @if ($product->brands->count() > 0)
-                                                {{ $product->brands->pluck('brand_name')->implode(', ') }}
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
 
                                         <td class="text-center">{{ $product->add_stoke }}</td>
 
