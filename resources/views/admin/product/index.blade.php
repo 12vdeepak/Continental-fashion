@@ -58,7 +58,7 @@
                                     <th class="text-center">Material</th>
                                     <th class="text-center">Fabric Weight</th>
                                     <th class="text-center">Brand</th>
-                                    <th class="text-center">Prices</th>
+                                   
                                     <th class="text-center">Stock</th>
                                     <th class="text-center">Sale</th>
                                     <th class="text-center">Sale Percentage</th>
@@ -82,16 +82,7 @@
                                                 N/A
                                             @endif
                                         </td>
-                                        <td class="text-center">
-                                            <ul>
-                                                <li>Category 1: ${{ number_format($product->category_1_price, 2) }}</li>
-                                                <li>Category 2: ${{ number_format($product->category_2_price, 2) }}</li>
-                                                <li>Category 3: ${{ number_format($product->category_3_price, 2) }}</li>
-                                                <li>Category 4: ${{ number_format($product->category_4_price, 2) }}</li>
-                                                <li>Actual Price: ${{ number_format($product->actual_product_price, 2) }}
-                                                </li>
-                                            </ul>
-                                        </td>
+                                      
                                         <td class="text-center">{{ $product->add_stoke }}</td>
                                         <td class="text-center">
                                             <span
