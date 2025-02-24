@@ -22,7 +22,7 @@ class PrivacyPolicyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|string',
+            'description' => 'required|string|min:1',
         ];
     }
 }

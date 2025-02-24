@@ -6,7 +6,7 @@
 @section('style')
     <style>
         .error {
-            color: red;
+            color: #ff0000;
         }
     </style>
 @endsection

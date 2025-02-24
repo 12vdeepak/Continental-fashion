@@ -29,7 +29,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form action="{{ route('termscondition.update', ['termscondition' => $termscondition]) }}" method="post"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="termsForm">
                     @csrf
                     @method('put')
                     <div class="card-body">

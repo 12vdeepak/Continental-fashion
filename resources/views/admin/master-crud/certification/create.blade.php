@@ -50,36 +50,38 @@
                                 <div class="form-group">
                                     <label for="certification_logo">Certification Logo</label>
                                     <input type="file" name="certification_logo"
-                                        class="form-control @error('certification_logo') is-invalid @enderror">
+                                        class="form-control @error('certification_logo') is-invalid @enderror"
+                                        value="{{ old('certification_logo') }}>
                                     @error('certification_logo')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+<div class="invalid-feedback">{{ $message }}
                                 </div>
+                            @enderror
+                        </div>
 
-                                <div class="form-group">
-                                    <label for="certification_name">Certification Name</label>
-                                    <input type="text" name="certification_name"
-                                        class="form-control @error('certification_name') is-invalid @enderror"
-                                        value="{{ old('certification_name') }}">
-                                    @error('certification_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                        <div class="form-group">
+                            <label for="certification_name">Certification Name</label>
+                            <input type="text" name="certification_name"
+                                class="form-control @error('certification_name') is-invalid @enderror"
+                                value="{{ old('certification_name') }}">
+                            @error('certification_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                            </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.card -->
                 </div>
-                <!--/.col (left) -->
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                </form>
             </div>
+            <!-- /.card -->
         </div>
-    </section>
+        <!--/.col (left) -->
+    </div>
+</div>
+</section>
 </div>
 
 @endsection

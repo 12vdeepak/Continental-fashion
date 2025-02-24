@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CacellationRequest extends FormRequest
+class CancellationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,10 +19,19 @@ class CacellationRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'description' => 'required|string',
+            'description' => 'required|min:10|max:10000',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'description.required' => 'The cancellation policy description is required.',
+            'description.min' => 'The description must be at least 10 characters.',
+            'description.max' => 'The description cannot exceed 10000 characters.',
         ];
     }
 }

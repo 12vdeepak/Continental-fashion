@@ -363,27 +363,135 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Initialize Summernote
             $('#summernote_about_us').summernote({
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onChange: function(contents) {
+                        // Remove error styling when user starts typing
+                        $('.note-editor').removeClass('is-invalid');
+                        $('.error-message').remove(); // Remove any existing error message
+                    }
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
             });
+
+            // Add client-side validation
+            $('#aboutUsForm').on('submit', function(e) {
+                let description = $('#summernote_about_us').summernote('code');
+                let plainText = $('<div>').html(description).text().trim();
+
+                $('.error-message').remove(); // Remove any existing error message
+
+                if (plainText.length === 0) {
+                    e.preventDefault();
+                    $('.note-editor').addClass('is-invalid');
+                    $('<span class="invalid-feedback d-block error-message"><strong>The description field is required.</strong></span>')
+                        .insertAfter('.note-editor');
+                    return false;
+                }
+            });
+
+            // Apply error styling if validation failed
+            if ($(".is-invalid").length > 0) {
+                $('.note-editor').addClass('is-invalid');
+            }
         });
     </script>
     <script>
         $(document).ready(function() {
+            // Initialize Summernote
             $('#summernote_terms').summernote({
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onChange: function(contents) {
+                        // Remove error styling when user starts typing
+                        $('.note-editor').removeClass('is-invalid');
+                        $('.error-message').remove(); // Remove any existing error message
+                    }
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
             });
+
+            // Add client-side validation
+            $('#termsForm').on('submit', function(e) {
+                let description = $('#summernote_terms').summernote('code');
+                let plainText = $('<div>').html(description).text().trim();
+
+                $('.error-message').remove(); // Remove any existing error message
+
+                if (plainText.length === 0) {
+                    e.preventDefault();
+                    $('.note-editor').addClass('is-invalid');
+                    $('<span class="invalid-feedback d-block error-message"><strong>The description field is required.</strong></span>')
+                        .insertAfter('.note-editor');
+                    return false;
+                }
+            });
+
+            // Apply error styling if validation failed
+            if ($(".is-invalid").length > 0) {
+                $('.note-editor').addClass('is-invalid');
+            }
         });
     </script>
 
     <script>
         $(document).ready(function() {
+            // Initialize Summernote
             $('#summernote_privacy').summernote({
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onChange: function(contents) {
+                        // Remove error styling when user starts typing
+                        $('.note-editor').removeClass('is-invalid');
+                        $('.error-message').remove(); // Remove any existing error message
+                    }
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
             });
+
+            // Add client-side validation
+            $('#privacyForm').on('submit', function(e) {
+                let description = $('#summernote_privacy').summernote('code');
+                let plainText = $('<div>').html(description).text().trim();
+
+                $('.error-message').remove(); // Remove any existing error message
+
+                if (plainText.length === 0) {
+                    e.preventDefault();
+                    $('.note-editor').addClass('is-invalid');
+                    $('<span class="invalid-feedback d-block error-message"><strong>The description field is required.</strong></span>')
+                        .insertAfter('.note-editor');
+                    return false;
+                }
+            });
+
+            // Apply error styling if validation failed
+            if ($(".is-invalid").length > 0) {
+                $('.note-editor').addClass('is-invalid');
+            }
         });
     </script>
     <script>
@@ -397,12 +505,49 @@
 
     <script>
         $(document).ready(function() {
+            // Initialize Summernote
             $('#summernote_cancellationPolicy').summernote({
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onChange: function(contents) {
+                        // Remove error styling when user starts typing
+                        $('.note-editor').removeClass('is-invalid');
+                        $('.error-message').remove(); // Remove any existing error message
+                    }
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
             });
+
+            // Add client-side validation
+            $('#cancellationPolicyForm').on('submit', function(e) {
+                let description = $('#summernote_cancellationPolicy').summernote('code');
+                let plainText = $('<div>').html(description).text().trim();
+
+                $('.error-message').remove(); // Remove any existing error message
+
+                if (plainText.length === 0) {
+                    e.preventDefault();
+                    $('.note-editor').addClass('is-invalid');
+                    $('<span class="invalid-feedback d-block error-message"><strong>The description field is required.</strong></span>')
+                        .insertAfter('.note-editor');
+                    return false;
+                }
+            });
+
+            // Apply error styling if validation failed
+            if ($(".is-invalid").length > 0) {
+                $('.note-editor').addClass('is-invalid');
+            }
         });
     </script>
+
 
 
     <script>
@@ -443,6 +588,10 @@
             }, 1000); // Adjust the delay as needed
         }
     </script>
+
+    <script></script>
+
+
 
 
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CacellationRequest;
+use App\Http\Requests\Admin\CancellationRequest;
 use App\Models\CancellationPolicy;
 
 class CancellationPolicyController extends Controller
@@ -35,11 +35,15 @@ class CancellationPolicyController extends Controller
      * @param  CancellationPolicy  $cancellation_policy
      * @return \Illuminate\Http\Response
      */
-    public function update(CacellationRequest $request, CancellationPolicy $cancellation_policy)
+    public function update(CancellationRequest $request, CancellationPolicy $cancellation_policy)
     {
-        $cancellation_policy->description = $request->description;
+        $validated = $request->validated();
+
+        $cancellation_policy->description = $validated['description'];
         $cancellation_policy->save();
 
-        return redirect()->route('cancellation-policy.index')->with('message', 'Cancellation Policy updated successfully!');
+        return redirect()
+            ->route('cancellation-policy.index')
+            ->with('message', 'Cancellation Policy updated successfully!');
     }
 }

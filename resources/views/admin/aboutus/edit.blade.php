@@ -31,7 +31,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form action="{{ route('aboutus.update', ['aboutu' => $aboutu]) }}" method="post"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="aboutUsForm">
                     @csrf
                     @method('put')
                     <div class="card-body">

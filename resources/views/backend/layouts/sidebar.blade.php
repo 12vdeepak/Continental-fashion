@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin</a>
+                <a href="{{ url('dashboard') }}" class="d-block">Admin</a>
             </div>
         </div>
 
@@ -56,7 +56,8 @@
                     </a>
                 </li>  --}}
 
-                <li class="nav-item has-treeview {{ Request::is('admin/master-crud*') ? 'menu-open' : '' }}">
+                <li
+                    class="nav-item has-treeview {{ Request::is('admin/master-crud*') || Request::is('admin/prefix*') || Request::is('admin/size*') || Request::is('admin/weight*') || Request::is('admin/colors*') || Request::is('admin/price*') || Request::is('admin/discount*') || Request::is('admin/country*') || Request::is('admin/vat*') || Request::is('admin/department*') || Request::is('admin/brand*') || Request::is('admin/category*') || Request::is('admin/subcategory*') || Request::is('admin/material*') || Request::is('admin/article*') || Request::is('admin/certification*') || Request::is('admin/wear*') || Request::is('admin/fabric*') || Request::is('admin/dimension*') || Request::is('admin/promotional*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('admin/master-crud*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-database"></i>
 
@@ -92,7 +93,7 @@
 
                         <li class="nav-item">
                             <a href="{{ route('colors.index') }}"
-                                class="nav-link {{ Request::is('admin/color') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('admin/colors*') ? 'active' : '' }}">
                                 <i class="fas fa-palette nav-icon"></i>
                                 <p>Color</p>
                             </a>
@@ -205,7 +206,7 @@
                             <a href="{{ route('promotional.index') }}"
                                 class="nav-link {{ Request::is('admin/promotional') ? 'active' : '' }}">
                                 <i class="fas fa-bullhorn nav-icon"></i> <!-- Updated icon -->
-                                <p>Promotional Finishing Info</p>
+                                <p>Promotional Info</p>
                             </a>
                         </li>
 
