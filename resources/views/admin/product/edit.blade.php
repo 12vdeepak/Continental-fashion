@@ -275,7 +275,7 @@
 
                                 <!-- Country -->
                                 <div class="form-group">
-                                    <label for="country_id">Country</label>
+                                    <label for="country_id">Origin</label>
                                     <select name="country_id"
                                         class="form-control @error('country_id') is-invalid @enderror">
                                         <option value="">Select Country</option>

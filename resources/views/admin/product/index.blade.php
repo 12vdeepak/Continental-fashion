@@ -75,7 +75,10 @@
 
                                         <td class="text-center">{{ $product->add_stoke }}</td>
 
-                                        <td class="text-center">{{ $product->sale_percentage }}%</td>
+                                        <td class="text-center">
+                                            {{ $product->sale_percentage ? $product->sale_percentage . '%' : 'N/A' }}
+                                        </td>
+
                                         <td class="text-center">{{ $product->manufacturer_name }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('products.show', $product->id) }}"

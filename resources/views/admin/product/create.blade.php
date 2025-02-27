@@ -313,7 +313,8 @@
                                 <!-- Sale -->
                                 <div class="form-group">
                                     <label for="sale">On Sale?</label>
-                                    <select name="sale" class="form-control @error('sale') is-invalid @enderror">
+                                    <select name="sale" id="sale"
+                                        class="form-control @error('sale') is-invalid @enderror">
                                         <option value="no">No</option>
                                         <option value="yes">Yes</option>
                                     </select>
@@ -323,7 +324,7 @@
                                 </div>
 
                                 <!-- Sale Percentage -->
-                                <div class="form-group">
+                                <div class="form-group" id="salePercentageGroup" style="display: none;">
                                     <label for="sale_percentage">Sale Percentage</label>
                                     <input type="number" name="sale_percentage"
                                         class="form-control @error('sale_percentage') is-invalid @enderror"
