@@ -139,7 +139,7 @@
 
                                 <!-- Article -->
                                 <div class="form-group">
-                                    <label for="article_id">Article</label>
+                                    <label for="article_id">Article Number</label>
                                     <select name="article_id"
                                         class="form-control @error('article_id') is-invalid @enderror">
                                         <option value="">Select Article</option>
@@ -232,7 +232,7 @@
 
                                 <!-- Country -->
                                 <div class="form-group">
-                                    <label for="country_id">Country</label>
+                                    <label for="country_id">Origin</label>
                                     <select name="country_id"
                                         class="form-control @error('country_id') is-invalid @enderror">
                                         <option value="">Select Country</option>
@@ -308,17 +308,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Actual Product Price -->
-                                <div class="form-group">
-                                    <label for="actual_product_price">Actual Product Price</label>
-                                    <input type="number" name="actual_product_price"
-                                        class="form-control @error('actual_product_price') is-invalid @enderror"
-                                        value="{{ old('actual_product_price') }}"
-                                        placeholder="Enter Actual Product Price">
-                                    @error('actual_product_price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
 
                                 <!-- Sale -->
                                 <div class="form-group">

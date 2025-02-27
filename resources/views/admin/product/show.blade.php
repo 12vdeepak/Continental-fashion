@@ -152,11 +152,11 @@
                     <th>Prices:</th>
                     <td>
                         <ul>
-                            <li>Category 1: ${{ number_format($product->category_1_price, 2) }}</li>
-                            <li>Category 2: ${{ number_format($product->category_2_price, 2) }}</li>
-                            <li>Category 3: ${{ number_format($product->category_3_price, 2) }}</li>
-                            <li>Category 4: ${{ number_format($product->category_4_price, 2) }}</li>
-                            <li>Actual Price: ${{ number_format($product->actual_product_price, 2) }}</li>
+                            <li>Category 1: €{{ number_format($product->category_1_price, 2) }}</li>
+                            <li>Category 2: €{{ number_format($product->category_2_price, 2) }}</li>
+                            <li>Category 3: €{{ number_format($product->category_3_price, 2) }}</li>
+                            <li>Category 4: €{{ number_format($product->category_4_price, 2) }}</li>
+                            {{--  <li>Actual Price: €{{ number_format($product->actual_product_price, 2) }}</li>  --}}
                         </ul>
                     </td>
                 </tr>

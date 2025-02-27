@@ -359,17 +359,6 @@
                                     @enderror
                                 </div>
 
-                                <!-- Actual Product Price -->
-                                <div class="form-group">
-                                    <label for="actual_product_price">Actual Product Price</label>
-                                    <input type="number" name="actual_product_price"
-                                        class="form-control @error('actual_product_price') is-invalid @enderror"
-                                        value="{{ old('actual_product_price', $product->actual_product_price) }}"
-                                        placeholder="Enter Actual Product Price">
-                                    @error('actual_product_price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                 <!-- Sale -->
                                 <div class="form-group">

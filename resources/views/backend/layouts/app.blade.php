@@ -591,6 +591,28 @@
 
     <script></script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let saleSelect = document.getElementById("sale");
+            let salePercentageGroup = document.getElementById("salePercentageGroup");
+
+            // Function to toggle visibility
+            function toggleSalePercentage() {
+                if (saleSelect.value === "yes") {
+                    salePercentageGroup.style.display = "block";
+                } else {
+                    salePercentageGroup.style.display = "none";
+                }
+            }
+
+            // Attach event listener
+            saleSelect.addEventListener("change", toggleSalePercentage);
+
+            // Run on page load (in case of old input values)
+            toggleSalePercentage();
+        });
+    </script>
+
 
 
 

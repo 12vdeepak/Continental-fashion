@@ -28,7 +28,6 @@ class Product extends Model
         'category_2_price',
         'category_3_price',
         'category_4_price',
-        'actual_product_price',
         'sale',
         'sale_percentage',
         'promotion_id',

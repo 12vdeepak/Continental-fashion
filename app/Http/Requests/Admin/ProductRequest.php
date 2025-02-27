@@ -44,7 +44,7 @@ class ProductRequest extends FormRequest
             'category_2_price' => 'nullable|numeric|min:0',
             'category_3_price' => 'nullable|numeric|min:0',
             'category_4_price' => 'nullable|numeric|min:0',
-            'actual_product_price' => 'required|numeric|min:0',
+            'actual_product_price' => 'nullable|numeric|min:0',
             'sale' => 'required|in:yes,no',
             'sale_percentage' => 'nullable|integer|min:0|max:100',
             'promotion_id' => 'nullable|exists:promotionals,id',
@@ -87,8 +87,7 @@ class ProductRequest extends FormRequest
             'product_images.min' => 'Please upload at least one product image.',
             'add_stoke.required' => 'Please enter stock quantity.',
             'add_stoke.min' => 'Stock quantity must be at least 1.',
-            'actual_product_price.required' => 'Please enter the actual product price.',
-            'actual_product_price.min' => 'Price must be greater than zero.',
+
         ];
     }
 }
