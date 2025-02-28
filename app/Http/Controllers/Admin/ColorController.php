@@ -52,25 +52,27 @@ class ColorController extends Controller
     {
         $color = Color::findOrFail($id);
 
-        // Handle the description update
+        // Update color code
         $color->color_code = $request->input('color_code');
 
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($color->color_image) {
+        // Only update image if a new file is uploaded
+        if ($request->hasFile('color_image')) {
+            // Delete old image if exists
+            if ($color->color_image && Storage::disk('public')->exists($color->color_image)) {
                 Storage::disk('public')->delete($color->color_image);
             }
 
-            // Handle image upload
-            $imagePath = $request->file('image')->store('color_images', 'public');
+            // Store new image
+            $imagePath = $request->file('color_image')->store('color_images', 'public');
             $color->color_image = $imagePath;
         }
 
-        // Save the updated Banner instance to the database
+        // Save changes
         $color->save();
 
         return redirect()->route('colors.index')->with('message', 'Color updated successfully.');
     }
+
     public function destroy($id)
     {
         $color = Color::findOrFail($id);

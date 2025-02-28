@@ -612,6 +612,15 @@
             toggleSalePercentage();
         });
     </script>
+    {{--  <script>
+        function updateColor() {
+            let colorInput = document.getElementById("color_code");
+            let color = colorInput.value.trim().toLowerCase();
+
+            // Check if the input is a valid color
+            colorInput.style.backgroundColor = color;
+        }
+    </script>  --}}
 
 
 

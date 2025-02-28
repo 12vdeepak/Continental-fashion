@@ -87,13 +87,21 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="color_code">Color Code</label>
+                                    <label for="color_code">Color Name</label>
                                     <input type="text" id="color_code" name="color_code"
                                         class="form-control @error('color_code') is-invalid @enderror"
-                                        value="{{ $color->color_code }}">
+                                        value="{{ old('color_code', $color->color_code) }}">
                                     @error('color_code')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
+                                </div>
+
+                                <!-- Color Preview -->
+                                <div style="margin-top: 10px;">
+                                    <span
+                                        style="display: inline-block; width: 20px; height: 20px; background-color: {{ $color->color_code }};
+                                    border: 1px solid #000; border-radius: 3px; margin-right: 5px;"></span>
+
                                 </div>
 
 
@@ -103,8 +111,10 @@
 
 
 
+
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
-                                <a href="{{ route('colors.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                                <a href="{{ route('colors.index') }}"
+                                    class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </form>
                     </div>
                 </div>

@@ -22,8 +22,13 @@ class ColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'color_code' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'], // Ensures it's a valid hex color
-            'color_image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'], // Allows image uploads up to 2MB
+            'color_code' => ['required', 'string'],
+            'color_image' => [
+                $this->isMethod('post') ? 'required' : 'nullable',  // Required only on create
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048'
+            ],
         ];
     }
 }

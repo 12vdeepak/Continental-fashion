@@ -55,10 +55,10 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="color_code">Color Code</label>
+                                    <label for="color_code">Color Name</label>
                                     <input type="text" id="color_code" name="color_code"
                                         class="form-control @error('color_code') is-invalid @enderror"
-                                        value="{{ old('color_code') }}">
+                                        value="{{ old('color_code') }}" oninput="updateColor()">
                                     @error('color_code')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

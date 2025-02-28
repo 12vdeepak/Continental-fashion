@@ -53,7 +53,7 @@
                             <tr>
                                 <th class="text-center" style="width: 50px;">S.No</th>
                                 <th class="text-center" style="width: 120px;">Image</th> <!-- Set fixed width for images -->
-                                <th class="text-center" style="width: 150px;">Color Code</th>
+                                <th class="text-center" style="width: 150px;">Color</th>
                                 <th class="text-center" style="width: 150px;">Action</th>
                                 <!-- Set fixed width for action buttons -->
                             </tr>
@@ -66,7 +66,13 @@
                                         <img src="{{ asset('storage/' . $colors->color_image) }}" alt="Color Image"
                                             style="width: 100px; height: 100px;">
                                     </td>
-                                    <td class="text-center">{{ $colors->color_code }}</td>
+                                    <td class="text-center">
+                                        <span
+                                            style="display: inline-block; width: 20px; height: 20px; background-color: {{ $colors->color_code }};
+                                            border: 1px solid #000; border-radius: 3px; margin-right: 5px;"></span>
+                                    </td>
+
+
 
 
 

@@ -56,7 +56,7 @@
                                     <th class="text-center">Category</th>
                                     <th class="text-center">Sub Category</th>
                                     <th class="text-center">Material</th>
-                                    <th class="text-center">Fabric Weight</th>
+                                    <th class="text-center">Size</th>
                                     <th class="text-center">Stock</th>
                                     <th class="text-center">Sale Percentage</th>
                                     <th class="text-center">Manufacturer</th>
@@ -71,7 +71,12 @@
                                         <td class="text-center">{{ $product->category->category_name ?? 'N/A' }}</td>
                                         <td class="text-center">{{ $product->subCategory->subcategory_name ?? 'N/A' }}</td>
                                         <td class="text-center">{{ $product->material->material_name ?? 'N/A' }}</td>
-                                        <td class="text-center">{{ $product->weight->weight_name ?? 'N/A' }}</td>
+                                        <td>
+                                            @foreach ($product->sizes as $size)
+                                                {{ $size->size_name }}
+                                            @endforeach
+                                        </td>
+
 
                                         <td class="text-center">{{ $product->add_stoke }}</td>
 
