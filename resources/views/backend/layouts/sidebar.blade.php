@@ -122,13 +122,13 @@
                                 <p>Country</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{--  <li class="nav-item">
                             <a href="{{ route('vat.index') }}"
                                 class="nav-link {{ Request::is('admin/vat*') ? 'active' : '' }}">
                                 <i class="fas fa-receipt nav-icon"></i>
                                 <p>VAT%</p>
                             </a>
-                        </li>
+                        </li>  --}}
                         <li class="nav-item">
                             <a href="{{ route('department.index') }}"
                                 class="nav-link {{ Request::is('admin/department') ? 'active' : '' }}">
