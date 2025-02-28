@@ -294,7 +294,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('privacy.index') }}"
-                        class="nav-link {{ Request::is('admin/privacy') ? 'active' : '' }}">
+                        class="nav-link {{ Request::is('admin/privacy-policy') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-info-circle"></i>
                         <p>
                             Privacy Policy
