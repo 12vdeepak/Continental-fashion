@@ -37,7 +37,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="{{ route('privacy.update', ['privacy' => $privacy]) }}" method="post"
+            <form action="{{ route('privacy-policy.update', ['privacy' => $privacy]) }}" method="post"
                 enctype="multipart/form-data" id="privacyForm">
                 @csrf
                 @method('put')

@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <a href="{{ route('privacy.edit', ['privacy' => $privacy]) }}"
+                                <a href="{{ route('privacy-policy.edit', ['privacy' => $privacy]) }}"
                                     class="btn btn-primary">Edit</a>
                             </div>
                         </div>
