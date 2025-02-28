@@ -130,7 +130,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('aboutus', AboutUsController::class);
 
     //PrivacyController
-    Route::resource('privacy-policy', PrivacyPolicyController::class);
+    Route::resource('privacy', PrivacyPolicyController::class);
 
     // TermsAndConditionController
     Route::resource('termscondition', TermsConditionController::class);
