@@ -14,17 +14,17 @@
     <!-- ======= TAILWIND CDN LINK - start  ====== -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <!-- ======= TAILWIND CDN LINK - end ====== -->
-  
+
     <!-- ==== Icon Pack Lucide -- start  ==== -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- ==== Icon Pack Lucide -- end  ==== -->
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-  <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
 
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
 
-    
+
+
+
     <style>
         /* Prevent scrolling when dropdown is open */
         .no-scroll {
@@ -40,7 +40,7 @@
         }
 
         .highStock {
-            background-image: url("frontend/assets/images/highStock.png");
+            background-image: url("public/frontend/assets/images/highStock.png");
             background-position: center;
             background-repeat: no-repeat;
             background-size: 100% auto;
@@ -398,155 +398,40 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-       const placeOrderBtn = document.getElementById("placeOrderBtn");
-       const orderPopup = document.getElementById("orderSuccessPopup");
-       const closePopup = document.getElementById("closePopup");
-       const closePopupBtn = document.getElementById("closePopupBtn"); // Cross button
-       const popupContent = document.getElementById("popupContent");
-   
-       // Show popup when "Place Order" button is clicked
-       placeOrderBtn.addEventListener("click", function (event) {
-           event.preventDefault(); // Prevent default navigation
-           orderPopup.classList.remove("hidden");
-       });
-   
-       // Close popup when clicking "Continue Shopping"
-       closePopup.addEventListener("click", function () {
-           orderPopup.classList.add("hidden");
-       });
-   
-       // Close popup when clicking the "✖" button
-       closePopupBtn.addEventListener("click", function () {
-           orderPopup.classList.add("hidden");
-       });
-   
-       // Close popup when clicking outside the popup content
-       orderPopup.addEventListener("click", function (event) {
-           if (!popupContent.contains(event.target)) {
-               orderPopup.classList.add("hidden");
-           }
-       });
-   });
-   
-   
-     </script>
-   
-   
-     <script>
-         document.addEventListener("DOMContentLoaded", () => {
-             function updateTotals() {
-                 let netTotal = 0;
-                 document.querySelectorAll(".quantity").forEach((element) => {
-                     const quantity = parseInt(element.textContent);
-                     const price = 12;
-                     const total = quantity * price;
-                     element.closest(".bg-gray-100, tr").querySelector(".total-price")?.textContent = `$${total}`;
-                     netTotal += total;
-                 });
-   
-                 document.querySelector(".net-amount").textContent = `€${netTotal}`;
-                 const vat = (netTotal * 0.19).toFixed(2);
-                 document.querySelector(".vat-amount").textContent = `€${vat}`;
-                 const finalAmount = (netTotal + parseFloat(vat)).toFixed(2);
-                 document.querySelector(".final-amount").textContent = `€${finalAmount}`;
-             }
-   
-             document.querySelectorAll(".increment").forEach((button) => {
-                 button.addEventListener("click", () => {
-                     const quantityElement = button.parentElement.querySelector(".quantity");
-                     let quantity = parseInt(quantityElement.textContent);
-                     quantityElement.textContent = quantity + 1;
-                     updateTotals();
-                 });
-             });
-   
-             document.querySelectorAll(".decrement").forEach((button) => {
-                 button.addEventListener("click", () => {
-                     const quantityElement = button.parentElement.querySelector(".quantity");
-                     let quantity = parseInt(quantityElement.textContent);
-                     if (quantity > 1) {
-                         quantityElement.textContent = quantity - 1;
-                         updateTotals();
-                     }
-                 });
-             });
-   
-             document.querySelectorAll(".remove-item").forEach((button) => {
-                 button.addEventListener("click", () => {
-                     button.closest(".bg-gray-100, tr").remove();
-                     updateTotals();
-                 });
-             });
-   
-             updateTotals();
-         });
-     </script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const placeOrderBtn = document.getElementById("placeOrderBtn");
+            const orderPopup = document.getElementById("orderSuccessPopup");
+            const closePopup = document.getElementById("closePopup");
+            const closePopupBtn = document.getElementById("closePopupBtn"); // Cross button
+            const popupContent = document.getElementById("popupContent");
 
-     <script >
-        const counter = document.getElementById("counter");
-        const increaseBtn = document.getElementById("increase");
-        const decreaseBtn = document.getElementById("decrease");
-    
-        let count = 120; // Initial value
-    
-        increaseBtn.addEventListener("click", () => {
-            count++;
-            counter.textContent = count;
-        });
-    
-        decreaseBtn.addEventListener("click", () => {
-            if (count > 0) { // Prevents negative values
-                count--;
-                counter.textContent = count;
-            }
-        });
-    
-        document.addEventListener("DOMContentLoaded", () => {
-          const carousel = document.getElementById("carousel");
-          const prevBtn = document.getElementById("prevBtn");
-          const nextBtn = document.getElementById("nextBtn");
-      
-          prevBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: -360, behavior: "smooth" });
-          });
-      
-          nextBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: 360, behavior: "smooth" });
-          });
+            // Show popup when "Place Order" button is clicked
+            placeOrderBtn.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent default navigation
+                orderPopup.classList.remove("hidden");
+            });
+
+            // Close popup when clicking "Continue Shopping"
+            closePopup.addEventListener("click", function() {
+                orderPopup.classList.add("hidden");
+            });
+
+            // Close popup when clicking the "✖" button
+            closePopupBtn.addEventListener("click", function() {
+                orderPopup.classList.add("hidden");
+            });
+
+            // Close popup when clicking outside the popup content
+            orderPopup.addEventListener("click", function(event) {
+                if (!popupContent.contains(event.target)) {
+                    orderPopup.classList.add("hidden");
+                }
+            });
         });
     </script>
+
+
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const carousel = document.getElementById("carousel");
-          const prevBtn = document.getElementById("prevBtn");
-          const nextBtn = document.getElementById("nextBtn");
-      
-          prevBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: -360, behavior: "smooth" });
-          });
-      
-          nextBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: 360, behavior: "smooth" });
-          });
-        });
-        document.addEventListener("DOMContentLoaded", () => {
-          const carousel = document.getElementById("carousel2");
-          const prevBtn = document.getElementById("prevBtn2");
-          const nextBtn = document.getElementById("nextBtn2");
-      
-          prevBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: -360, behavior: "smooth" });
-          });
-      
-          nextBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: 360, behavior: "smooth" });
-          });
-        });
-      </script>
-
-
-      <script>
         document.addEventListener("DOMContentLoaded", () => {
             function updateTotals() {
                 let netTotal = 0;
@@ -554,17 +439,18 @@
                     const quantity = parseInt(element.textContent);
                     const price = 12;
                     const total = quantity * price;
-                    element.closest(".bg-gray-100, tr").querySelector(".total-price")?.textContent = `$${total}`;
+                    element.closest(".bg-gray-100, tr").querySelector(".total-price")?.textContent =
+                        `$${total}`;
                     netTotal += total;
                 });
-  
+
                 document.querySelector(".net-amount").textContent = `€${netTotal}`;
                 const vat = (netTotal * 0.19).toFixed(2);
                 document.querySelector(".vat-amount").textContent = `€${vat}`;
                 const finalAmount = (netTotal + parseFloat(vat)).toFixed(2);
                 document.querySelector(".final-amount").textContent = `€${finalAmount}`;
             }
-  
+
             document.querySelectorAll(".increment").forEach((button) => {
                 button.addEventListener("click", () => {
                     const quantityElement = button.parentElement.querySelector(".quantity");
@@ -573,7 +459,7 @@
                     updateTotals();
                 });
             });
-  
+
             document.querySelectorAll(".decrement").forEach((button) => {
                 button.addEventListener("click", () => {
                     const quantityElement = button.parentElement.querySelector(".quantity");
@@ -584,48 +470,186 @@
                     }
                 });
             });
-  
+
             document.querySelectorAll(".remove-item").forEach((button) => {
                 button.addEventListener("click", () => {
                     button.closest(".bg-gray-100, tr").remove();
                     updateTotals();
                 });
             });
-  
+
             updateTotals();
         });
     </script>
-    <script >
+
+    <script>
         const counter = document.getElementById("counter");
         const increaseBtn = document.getElementById("increase");
         const decreaseBtn = document.getElementById("decrease");
-    
+
         let count = 120; // Initial value
-    
+
         increaseBtn.addEventListener("click", () => {
             count++;
             counter.textContent = count;
         });
-    
+
         decreaseBtn.addEventListener("click", () => {
             if (count > 0) { // Prevents negative values
                 count--;
                 counter.textContent = count;
             }
         });
-    
+
         document.addEventListener("DOMContentLoaded", () => {
-          const carousel = document.getElementById("carousel");
-          const prevBtn = document.getElementById("prevBtn");
-          const nextBtn = document.getElementById("nextBtn");
-      
-          prevBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: -360, behavior: "smooth" });
-          });
-      
-          nextBtn.addEventListener("click", () => {
-            carousel.scrollBy({ left: 360, behavior: "smooth" });
-          });
+            const carousel = document.getElementById("carousel");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            prevBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: -360,
+                    behavior: "smooth"
+                });
+            });
+
+            nextBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: 360,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const carousel = document.getElementById("carousel");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            prevBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: -360,
+                    behavior: "smooth"
+                });
+            });
+
+            nextBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: 360,
+                    behavior: "smooth"
+                });
+            });
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const carousel = document.getElementById("carousel2");
+            const prevBtn = document.getElementById("prevBtn2");
+            const nextBtn = document.getElementById("nextBtn2");
+
+            prevBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: -360,
+                    behavior: "smooth"
+                });
+            });
+
+            nextBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: 360,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function updateTotals() {
+                let netTotal = 0;
+                document.querySelectorAll(".quantity").forEach((element) => {
+                    const quantity = parseInt(element.textContent);
+                    const price = 12;
+                    const total = quantity * price;
+                    element.closest(".bg-gray-100, tr").querySelector(".total-price")?.textContent =
+                        `$${total}`;
+                    netTotal += total;
+                });
+
+                document.querySelector(".net-amount").textContent = `€${netTotal}`;
+                const vat = (netTotal * 0.19).toFixed(2);
+                document.querySelector(".vat-amount").textContent = `€${vat}`;
+                const finalAmount = (netTotal + parseFloat(vat)).toFixed(2);
+                document.querySelector(".final-amount").textContent = `€${finalAmount}`;
+            }
+
+            document.querySelectorAll(".increment").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const quantityElement = button.parentElement.querySelector(".quantity");
+                    let quantity = parseInt(quantityElement.textContent);
+                    quantityElement.textContent = quantity + 1;
+                    updateTotals();
+                });
+            });
+
+            document.querySelectorAll(".decrement").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const quantityElement = button.parentElement.querySelector(".quantity");
+                    let quantity = parseInt(quantityElement.textContent);
+                    if (quantity > 1) {
+                        quantityElement.textContent = quantity - 1;
+                        updateTotals();
+                    }
+                });
+            });
+
+            document.querySelectorAll(".remove-item").forEach((button) => {
+                button.addEventListener("click", () => {
+                    button.closest(".bg-gray-100, tr").remove();
+                    updateTotals();
+                });
+            });
+
+            updateTotals();
+        });
+    </script>
+    <script>
+        const counter = document.getElementById("counter");
+        const increaseBtn = document.getElementById("increase");
+        const decreaseBtn = document.getElementById("decrease");
+
+        let count = 120; // Initial value
+
+        increaseBtn.addEventListener("click", () => {
+            count++;
+            counter.textContent = count;
+        });
+
+        decreaseBtn.addEventListener("click", () => {
+            if (count > 0) { // Prevents negative values
+                count--;
+                counter.textContent = count;
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const carousel = document.getElementById("carousel");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            prevBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: -360,
+                    behavior: "smooth"
+                });
+            });
+
+            nextBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: 360,
+                    behavior: "smooth"
+                });
+            });
         });
     </script>
     <script>
@@ -633,15 +657,15 @@
             const addAddressButton = document.querySelector(".addAddressButton button");
             const popup = document.getElementById("addressPopup");
             const closePopup = document.getElementById("closePopup"); // Get the cancel button
-    
+
             addAddressButton.addEventListener("click", () => {
                 popup.classList.remove("hidden");
             });
-    
+
             closePopup.addEventListener("click", () => {
                 popup.classList.add("hidden");
             });
-    
+
             // Optional: Close popup when clicking outside
             popup.addEventListener("click", (e) => {
                 if (e.target === popup) {
@@ -650,7 +674,7 @@
             });
         });
     </script>
-       
+
 
 
 
