@@ -55,11 +55,13 @@ class UserController extends Controller
     {
         $request->validate([
             'customer_id' => 'required|unique:company_registrations,customer_id,' . $user->id,
+            'price_category_type' => 'required|in:1,2,3,4',
         ]);
 
         $user->customer_id = $request->customer_id;
+        $user->price_category_type = $request->price_category_type; // Store the selected price category
         $user->save();
 
-        return redirect()->route('users.index')->with('message', 'Customer ID assigned successfully.');
+        return redirect()->route('users.index')->with('message', 'Customer ID and Price Category assigned successfully.');
     }
 }

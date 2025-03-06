@@ -45,6 +45,29 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <!-- Price Category Dropdown -->
+                        <div class="form-group">
+                            <label for="price_category_type">Price Category</label>
+                            <select name="price_category_type" id="price_category_type"
+                                class="form-control @error('price_category_type') is-invalid @enderror" required>
+                                <option value="">Select Price Category</option>
+                                <option value="1"
+                                    {{ isset($user) && $user->price_category_type == 1 ? 'selected' : '' }}>Category 1
+                                </option>
+                                <option value="2"
+                                    {{ isset($user) && $user->price_category_type == 2 ? 'selected' : '' }}>Category 2
+                                </option>
+                                <option value="3"
+                                    {{ isset($user) && $user->price_category_type == 3 ? 'selected' : '' }}>Category 3
+                                </option>
+                                <option value="4"
+                                    {{ isset($user) && $user->price_category_type == 4 ? 'selected' : '' }}>Category 4
+                                </option>
+                            </select>
+                            @error('price_category_type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                         <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
                     </form>
