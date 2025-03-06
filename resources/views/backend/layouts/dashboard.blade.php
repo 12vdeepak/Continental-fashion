@@ -18,6 +18,22 @@
                 <!-- Small boxes (Stat box) -->
                 <div class="row" style="margin-top: 2%;">
 
+                    <!-- Users Count -->
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                <h3>{{ $userCount }}</h3>
+                                <p>Users</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users"></i> <!-- Users icon -->
+                            </div>
+                            <a href="{{ route('users.index') }}" class="small-box-footer">
+                                More info <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
                     <!-- Banner Count -->
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-danger">

@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#030821 !important;">
     <!-- Brand Logo -->
     <a href="{{ url('dashboard') }}" class="brand-link">
         <img src="{{ asset('backend/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
@@ -11,8 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="pb-3 mt-3 mb-3 user-panel d-flex">
             <div class="image">
-                <img src="{{ asset('backend/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                    alt="User Image">
+                <img src="{{ asset('backend/dist/img/admin.gif') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="{{ url('dashboard') }}" class="d-block">Admin</a>
@@ -46,15 +45,14 @@
                         </p>
                     </a>
                 </li>
-                {{--  <li class="nav-item">
-                    <a href="{{ url('list-categories') }}"
-                        class="nav-link {{ Request::is('list-categories') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-list"></i>
-                        <p>
-                            Categories
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ route('users.index') }}"
+                        class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i> <!-- Updated icon for Users -->
+                        <p>Users</p>
                     </a>
-                </li>  --}}
+                </li>
+
 
                 <li
                     class="nav-item has-treeview {{ Request::is('admin/master-crud*') || Request::is('admin/prefix*') || Request::is('admin/size*') || Request::is('admin/weight*') || Request::is('admin/colors*') || Request::is('admin/price*') || Request::is('admin/discount*') || Request::is('admin/country*') || Request::is('admin/vat*') || Request::is('admin/department*') || Request::is('admin/brand*') || Request::is('admin/category*') || Request::is('admin/subcategory*') || Request::is('admin/material*') || Request::is('admin/article*') || Request::is('admin/certification*') || Request::is('admin/wear*') || Request::is('admin/fabric*') || Request::is('admin/dimension*') || Request::is('admin/promotional*') ? 'menu-open' : '' }}">
@@ -243,6 +241,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('subscriptions.index') }}"
+                        class="nav-link {{ Request::is('admin/subscriptions*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-envelope"></i> <!-- Updated icon for Subscriptions -->
+                        <p>Subscriptions</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ Request::is('admin/measurementchart') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-ruler-combined"></i>

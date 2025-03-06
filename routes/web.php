@@ -25,9 +25,14 @@ use App\Http\Controllers\Admin\PromotionalController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TermsConditionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VatController;
 use App\Http\Controllers\Admin\WearController;
 use App\Http\Controllers\Admin\WeightController;
+use App\Http\Controllers\Frontend\AuthController;
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\SubscriptionController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,9 +47,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -55,6 +60,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::get('/users/{user}/assign-customer-id', [UserController::class, 'assignCustomerID'])->name('users.assignCustomerID');
+    Route::post('/users/{user}/store-customer-id', [UserController::class, 'storeCustomerID'])->name('users.storeCustomerID');
+
+    // SubscriptionController
+
+    Route::get('/subscriptions', [DashboardController::class, 'subscription'])->name('subscriptions.index'); // List all subscriptions
+    Route::delete('/subscriptions/{id}', [DashboardController::class, 'destroy'])->name('subscriptions.destroy'); // Delete subscription
 
 
     // Master Crud Routes
@@ -142,3 +160,28 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+
+// Frontend Controller
+
+// AuthController
+Route::get('/company-login', [AuthController::class, 'userLogin'])->name('frontend.login');
+Route::post('/company-login', [AuthController::class, 'Login'])->name('post.frontend.login');
+Route::get('/company-register', [AuthController::class, 'userRegister'])->name('frontend.register');
+Route::post('/company-register', [AuthController::class, 'register'])->name('register');
+Route::get('/logout', [AuthController::class, 'logout'])->name('frontend.logout');
+
+
+// SubscriptionController
+Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('frontend.subscribe');
+
+
+// ProductController
+Route::get('/', [FrontendController::class, 'publicHome'])->name('frontend.home');
+Route::get('/all-products', [FrontendProductController::class, 'allProduct'])->name('frontend.all.product');
+Route::get('/product-page', [FrontendProductController::class, 'productPage'])->name('frontend.all.product-page');
+Route::get('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
+Route::get('/my-cart', [FrontendProductController::class, 'myCart'])->name('frontend.my-cart');
+Route::get('/product-logged', [FrontendProductController::class, 'productLogged'])->name('frontend.product-logged');
+Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
