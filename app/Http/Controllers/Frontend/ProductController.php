@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,9 @@ class ProductController extends Controller
     {
         $products = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category'])
             ->paginate(9); // 9 products per page
+        $categories = Category::with('subcategories')->get();
 
-        return view('frontend.product.all-product', compact('products'));
+        return view('frontend.product.all-product', compact('products', 'categories'));
     }
 
 
@@ -45,8 +47,9 @@ class ProductController extends Controller
         $recentProducts = Product::latest()
             ->take(6)
             ->get();
+        $categories = Category::with('subcategories')->get();
 
-        return view('frontend.product.product-page', compact('product', 'relatedProducts', 'recentProducts'));
+        return view('frontend.product.product-page', compact('product', 'relatedProducts', 'recentProducts', 'categories'));
     }
 
 
