@@ -356,6 +356,7 @@
                                     <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
                                         alt="{{ $related->name }}" class="w-full h-auto object-contain rounded-xl">
                                 </div>
+
                                 <div class="flex items-center justify-between mb-3 productSubIcons">
                                     <div class="productLeft text-[#6E6E6E]">{{ $related->sku }}</div>
                                     <div class="flex items-center gap-2 productIconSet">
@@ -365,7 +366,8 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $related->name }}</div>
+                                <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $related->product_name }}
+                                </div>
                                 <div class="productTag mb-2 text-[#E2001A] text-[12px]">
                                     @if ($related->brands->count() > 0)
                                         @foreach ($related->brands as $brand)
@@ -447,7 +449,15 @@
                                 </div>
                                 <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $product->product_name }}
                                 </div>
-                                <div class="productTag mb-2 text-[#E2001A] text-[12px]">{{ $product->brand_name }}</div>
+                                <div class="productTag mb-2 text-[#E2001A] text-[12px]">
+                                    @if ($product->brands->count() > 0)
+                                        @foreach ($product->brands as $brand)
+                                            {{ $brand->brand_name }}{{ !$loop->last ? ', ' : '' }}
+                                        @endforeach
+                                    @else
+                                        No Brand
+                                    @endif
+                                </div>
                                 <div class="mb-2 productColors">
                                     <div class="flex items-center space-x-2">
                                         <div class="relative flex -space-x-3">
