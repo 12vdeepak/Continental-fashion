@@ -28,7 +28,7 @@ class CompanyAuthMiddleware
 
         $company = CompanyRegistration::find($companyId);
 
-        if (!$company || $company->status != 1) {
+        if (!$company || $company->is_approve != 1) {
             Session::forget('company_user_id');
             return redirect()->route('frontend.home')->with([
                 'message' => 'Your account is pending approval. Please wait for admin approval.',

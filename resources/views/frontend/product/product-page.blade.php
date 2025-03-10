@@ -59,7 +59,7 @@
                         <!-- Main Image with Arrows & Dots -->
                         <div class="flex items-center justify-center arrowImageDots">
                             <!-- Left Arrow -->
-                            <div onclick="prevImage()"
+                            <div onclick=""
                                 class="leftArrow rounded-full lg:bg-[#F4F4F4] flex justify-center items-center p-4 h-[48px] w-[48px] cursor-pointer">
                                 <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="Previous">
                             </div>
@@ -83,7 +83,7 @@
                             </div>
 
                             <!-- Right Arrow -->
-                            <div onclick="nextImage()"
+                            <div onclick=""
                                 class="rightArrow rounded-full lg:bg-[#F4F4F4] flex justify-center items-center p-4 h-[48px] w-[48px] cursor-pointer">
                                 <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt="Next">
                             </div>
@@ -341,58 +341,63 @@
             </div>
 
             <div class="relative mt-10">
-                <div id="carousel"
-                    class="flex gap-10 overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-hide">
-                    @foreach ($relatedProducts as $related)
-                        <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
-                            @if ($related->sale_percentage)
-                                <div
-                                    class="absolute top-5 left-2 bg-sky-500 text-white text-sm px-2 lg:px-3 py-1 rounded-md">
-                                    {{ $related->sale_percentage }}% offer
-                                </div>
-                            @endif
-                            <div class="mb-4 productImage">
-                                <img src="{{ asset('storage/' . $related->images->first()->image_path) }}"
-                                    alt="{{ $related->name }}" class="rounded-xl">
-                            </div>
-                            <div class="flex items-center justify-between mb-3 productSubIcons">
-                                <div class="productLeft text-[#6E6E6E]">{{ $related->sku }}</div>
-                                <div class="flex items-center gap-2 productIconSet">
-                                    @if ($related->gender)
-                                        <img src="{{ asset('frontend/assets/images/' . $related->gender) }}"
-                                            alt="{{ $related->gender }}">
-                                    @endif
-
-                                </div>
-                            </div>
-                            <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $related->name }}</div>
-                            <div class="productTag mb-2 text-[#E2001A] text-[12px]">
-                                @if ($related->brands->count() > 0)
-                                    @foreach ($related->brands as $brand)
-                                        {{ $brand->brand_name }}{{ !$loop->last ? ', ' : '' }}
-                                    @endforeach
-                                @else
-                                    No Brand
-                                @endif
-                            </div>
-
-                            <div class="mb-2 productColors">
-                                <div class="flex items-center space-x-2">
-                                    <div class="relative flex -space-x-3">
-                                        @foreach ($related->colors as $color)
-                                            <div class="w-6 h-6 border-2 border-white rounded-full lg:w-8 lg:h-8"
-                                                style="background-color: {{ $color->color_code }}"></div>
-                                        @endforeach
+                @if ($relatedProducts->count() > 0)
+                    <div id="carousel"
+                        class="flex gap-10 overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-hide">
+                        @foreach ($relatedProducts as $related)
+                            <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
+                                @if ($related->sale_percentage)
+                                    <div
+                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm px-2 lg:px-3 py-1 rounded-md">
+                                        {{ $related->sale_percentage }}% offer
                                     </div>
-                                    <span
-                                        class="text-sm font-medium text-gray-500 lg:text-md">{{ count($related->colors) }}+</span>
+                                @endif
+                                <div class="mb-4 productImage">
+                                    <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
+                                        alt="{{ $related->name }}" class="w-full h-auto object-contain rounded-xl">
+                                </div>
+                                <div class="flex items-center justify-between mb-3 productSubIcons">
+                                    <div class="productLeft text-[#6E6E6E]">{{ $related->sku }}</div>
+                                    <div class="flex items-center gap-2 productIconSet">
+                                        @if ($related->gender)
+                                            <img src="{{ asset('frontend/assets/images/' . $related->gender) }}"
+                                                alt="{{ $related->gender }}">
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $related->name }}</div>
+                                <div class="productTag mb-2 text-[#E2001A] text-[12px]">
+                                    @if ($related->brands->count() > 0)
+                                        @foreach ($related->brands as $brand)
+                                            {{ $brand->brand_name }}{{ !$loop->last ? ', ' : '' }}
+                                        @endforeach
+                                    @else
+                                        No Brand
+                                    @endif
+                                </div>
+
+                                <div class="mb-2 productColors">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="relative flex -space-x-3">
+                                            @foreach ($related->colors as $color)
+                                                <div class="w-6 h-6 border-2 border-white rounded-full lg:w-8 lg:h-8"
+                                                    style="background-color: {{ $color->color_code }}"></div>
+                                            @endforeach
+                                        </div>
+                                        <span class="text-sm font-medium text-gray-500 lg:text-md">
+                                            {{ count($related->colors) }}+
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-center text-lg text-gray-500">No related products available.</p>
+                @endif
             </div>
         </section>
+
 
         <!-- your recent views -->
         <!-- final  -->
@@ -415,53 +420,57 @@
 
             <!-- Carousel Wrapper -->
             <div class="relative mt-10">
-                <div id="carousel2"
-                    class="flex gap-10 overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-hide">
+                @if ($recentProducts->count() > 0)
+                    <div id="carousel2"
+                        class="flex gap-10 overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-hide">
 
-                    @foreach ($recentProducts as $product)
-                        <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
-                            @if ($product->sale_percentage)
-                                <div
-                                    class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                    {{ $product->sale_percentage }}% offer
-                                </div>
-                            @endif
-                            <div class="mb-4 productImage">
-                                <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                    alt="{{ $product->name }}" class="rounded-xl">
-                            </div>
-                            <div class="flex items-center justify-between mb-3 productSubIcons">
-                                <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
-                                <div class="flex items-center justify-between gap-2 productIconSet">
-                                    @if ($product->category)
-                                        <span
-                                            class="text-gray-700 font-medium">{{ $product->category->category_name }}</span>
-                                    @endif
-
-
-                                </div>
-                            </div>
-                            <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $product->product_name }}
-                            </div>
-                            <div class="productTag mb-2 text-[#E2001A] text-[12px]">{{ $product->brand_name }}</div>
-                            <div class="mb-2 productColors">
-                                <div class="flex items-center space-x-2">
-                                    <div class="relative flex -space-x-3">
-                                        @foreach ($product->colors as $color)
-                                            <div class="w-6 h-6 border-2 border-white rounded-full lg:w-8 lg:h-8"
-                                                style="background-color: {{ $color->color_code }};"></div>
-                                        @endforeach
+                        @foreach ($recentProducts as $product)
+                            <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
+                                @if ($product->sale_percentage)
+                                    <div
+                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular px-2 text-[12px] lg:px-3 py-1 rounded-md">
+                                        {{ $product->sale_percentage }}% offer
                                     </div>
-                                    <span
-                                        class="text-sm font-medium text-gray-500 lg:text-md">{{ count($product->colors) }}+</span>
+                                @endif
+                                <div class="mb-4 productImage">
+                                    <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
+                                        alt="{{ $product->name }}" class="w-full h-auto object-contain rounded-xl">
+                                </div>
+                                <div class="flex items-center justify-between mb-3 productSubIcons">
+                                    <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
+                                    {{--  <div class="flex items-center justify-between gap-2 productIconSet">
+                                        @if ($product->category)
+                                            <span
+                                                class="text-gray-700 font-medium">{{ $product->category->category_name }}</span>
+                                        @endif
+                                    </div>  --}}
+                                </div>
+                                <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $product->product_name }}
+                                </div>
+                                <div class="productTag mb-2 text-[#E2001A] text-[12px]">{{ $product->brand_name }}</div>
+                                <div class="mb-2 productColors">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="relative flex -space-x-3">
+                                            @foreach ($product->colors as $color)
+                                                <div class="w-6 h-6 border-2 border-white rounded-full lg:w-8 lg:h-8"
+                                                    style="background-color: {{ $color->color_code }};"></div>
+                                            @endforeach
+                                        </div>
+                                        <span class="text-sm font-medium text-gray-500 lg:text-md">
+                                            {{ count($product->colors) }}+
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
-                </div>
+                    </div>
+                @else
+                    <p class="text-center text-lg text-gray-500">No recent products available.</p>
+                @endif
             </div>
         </section>
+
 
     </main>
 @endsection

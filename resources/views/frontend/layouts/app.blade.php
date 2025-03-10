@@ -174,7 +174,7 @@
             document.getElementById('mainImage').src = imageSrc;
         }
     </script>
-    <script>
+    {{--  <script>
         let currentIndex = 0;
         let images = @json($product->images->pluck('image_path'));
 
@@ -184,7 +184,7 @@
             currentIndex = (currentIndex + 1) % images.length; // Loop back after last image
             document.getElementById('mainImage').src = "{{ asset('storage/') }}/" + images[currentIndex];
         }
-    </script>
+    </script>  --}}
 
 
     <!-- Add this JavaScript at the end of your file -->
@@ -264,6 +264,55 @@
             this.textContent = type === 'password' ? '👁️' : '🙈'; // Toggle icon
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentIndex = 0;
+            let imageElements = document.querySelectorAll(".dots .dot");
+            let mainImage = document.getElementById("mainImage");
+            let imagePaths = [];
+
+            // Extract image paths from dot elements
+            imageElements.forEach((dot) => {
+                let match = dot.getAttribute("onclick").match(/'([^']+)'/);
+                if (match) imagePaths.push(match[1]);
+            });
+
+            function updateImage() {
+                if (imagePaths.length === 0) return;
+                mainImage.src = imagePaths[currentIndex];
+
+                // Update active dot styling
+                document.querySelectorAll(".dots .dot").forEach((dot, index) => {
+                    dot.style.backgroundColor = index === currentIndex ? "#E2001A" : "#6E6E6E";
+                });
+            }
+
+            document.querySelector(".rightArrow").addEventListener("click", function() {
+                if (imagePaths.length === 0) return;
+                currentIndex = (currentIndex + 1) % imagePaths.length;
+                updateImage();
+            });
+
+            document.querySelector(".leftArrow").addEventListener("click", function() {
+                if (imagePaths.length === 0) return;
+                currentIndex = (currentIndex - 1 + imagePaths.length) % imagePaths.length;
+                updateImage();
+            });
+
+            // Add event listeners to dots for manual image switching
+            imageElements.forEach((dot, index) => {
+                dot.addEventListener("click", function() {
+                    currentIndex = index;
+                    updateImage();
+                });
+            });
+
+            // Set initial image and active dot
+            updateImage();
+        });
+    </script>
+
+
 
     <script>
         // Password visibility toggle
