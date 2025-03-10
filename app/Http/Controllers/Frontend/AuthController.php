@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Frontend\CompanyRegistrationRequest;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\CompanyRegistration;
 
 class AuthController extends Controller
