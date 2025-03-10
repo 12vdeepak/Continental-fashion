@@ -137,7 +137,7 @@
                                     <div class="productImg w-full">
                                         @if ($product->images->isNotEmpty())
                                             <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                                class="rounded-2xl w-full h-[300px] object-cover"
+                                                class="w-full h-auto object-contain rounded-xl"
                                                 alt="{{ $product->product_name }}">
                                         @else
                                             <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
