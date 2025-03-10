@@ -147,7 +147,7 @@
                         Article number: <span class="text-[#000000]">{{ $product->articles->article_name }}</span>
                     </div>
                     <div class="GSM text-[14px]">
-                        GSM: <span class="text-[#000000]">622080</span>
+                        GSM: <span class="text-[#000000]">{{ $product->weight->weight_name }}</span>
 
                     </div>
                 </div>
@@ -165,7 +165,7 @@
                                     <div class="icon">
                                         <img src="{{ asset('frontend/assets/images/womenIconCol.svg') }}" alt="">
                                     </div>
-                                    <div class="text-sm name">Women</div>
+                                    <div class="text-sm name">{{ $product->wear->wear_name }}</div>
                                 </div>
                                 <div class="info">
                                     <img src="{{ asset('frontend/assets/images/infoCol.svg') }}" alt="">
@@ -173,22 +173,7 @@
 
                             </button>
                         </div>
-                        <div class="combButtonSecond">
-                            <button
-                                class="flex gap-20 items-center border border-gray-200 border-solid p-[12px] rounded-md ">
-                                <div class="flex items-center gap-2 iconAndName">
-                                    <div class="icon">
-                                        <img src="{{ asset('frontend/assets/images/womenIconCol.svg') }}" alt="">
-                                    </div>
-                                    <div class="text-sm name">Women</div>
-                                </div>
-                                <div class="info">
-                                    <img src="{{ asset('frontend/assets/images/infoCol.svg') }}" alt="">
-                                </div>
 
-                            </button>
-
-                        </div>
                     </div>
 
                 </div>
@@ -207,7 +192,7 @@
                     <p class="text-gray-500">No promotional finishing information available.</p>
                 @endif
 
-                <div class="mt-5 licenseLabel">
+                {{--  <div class="mt-5 licenseLabel">
                     <div class="labelheading text-[16px] text-[#6E6E6E] font-medium">
                         Labels:
                     </div>
@@ -215,7 +200,7 @@
                         <img src="{{ asset('frontend/assets/images/topseller.jpeg') }}" alt="" class="h-[60px]">
                         <img src="{{ asset('frontend/assets/images/topseller.jpeg') }}" alt="" class="h-[60px]">
                     </div>
-                </div>
+                </div>  --}}
                 <div class="w-full mt-5 mainButton">
                     @if (session()->has('company_user_id'))
                         @php

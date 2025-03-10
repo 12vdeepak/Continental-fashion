@@ -50,6 +50,7 @@ class Product extends Model
         return $this->belongsTo(Material::class);
     }
 
+
     public function weight(): BelongsTo
     {
         return $this->belongsTo(Weight::class, 'weight_id');

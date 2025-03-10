@@ -562,8 +562,9 @@
                                             <div class="productImage mb-4">
                                                 <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
                                                     alt="{{ $product->name }}"
-                                                    class="w-full h-auto object-contain rounded-xl">
+                                                    class="w-full h-[300px] object-cover rounded-xl">
                                             </div>
+
                                             <div class="productSubIcons mb-3 flex justify-between items-center">
                                                 <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
                                                 <div class="productIconSet flex gap-2">

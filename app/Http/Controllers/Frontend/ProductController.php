@@ -29,7 +29,7 @@ class ProductController extends Controller
 
     public function productPage($id)
     {
-        $product = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category'])
+        $product = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category', 'weight', 'wear'])
             ->find($id);
 
         if (!$product) {
