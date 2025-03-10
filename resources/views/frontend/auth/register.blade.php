@@ -401,6 +401,28 @@
                     class="bg-[#54114C] text-white p-[16px] rounded-2xl cursor-pointer hover:bg-purple-700 transition text-[16px] font-bold mt-5 ">
             </form>
         </div>
+        <!-- Add this success modal HTML right after your form closing div -->
+        <div id="successModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-2xl p-8 max-w-md w-full">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Your Account Registration request send
+                        Successful!</h3>
+                    <p class="text-gray-600 mb-6">Your account Registration request has been send successfully and you
+                        will receive Confirmation mail soon.</p>
+                    <button onclick="closeModal()"
+                        class="bg-[#54114C] text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </section>
 

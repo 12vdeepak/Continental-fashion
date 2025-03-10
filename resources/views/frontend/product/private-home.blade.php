@@ -115,7 +115,7 @@
                         we’ve got you covered </div>
 
                 </div>
-                <a href="/pages/AllProducts.html">
+                <a href="{{ route('frontend.all.product') }}">
                     <div class="viewAllButton">
                         <button class="px-[24px] py-[14px] font-medium bg-[#54114C] text-[#FFFFFF] rounded-2xl ">
                             View All
@@ -125,145 +125,42 @@
             </div>
 
             <!-- ============== product showcase ============= -->
-            <div id="product_showcase" class="my-[50px] flex flex-col gap-10 w-full   ">
-
-                <!-- ================ row one ========= -->
-                <div
-                    class="product_row_one flex  flex-col  gap-10 lg:flex-row md:flex-row items-center  justify-between w-full ">
-
-                    <!-- =============== product card=================== -->
-                    <a href="{{ route('frontend.all.product-page') }}">
-                        <div class="productCard flex flex-col  w-full    ">
-                            <div class="productImg  w-full   ">
-                                <img src="{{ asset('frontend/assets/images/productDemImg.jpeg') }}" class="rounded-2xl"
-                                    alt="">
-                            </div>
-                            <div class="productCardIcons mt-3">
-                                <p class="text-[12px] text-[#6E6E6E]">241 Items</p>
-                            </div>
-                            <div class="productName text-[24px] font-medium mb-3">Product name</div>
-                            <div class="seeProductsButton flex items-center gap-2  text-[#54114C] font-bold w-full ">See All
-                                Products <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                    alt="" class="mt-1">
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <!-- ======== -->
-                    <!-- =============== product card=================== -->
-                    <a href="/pages/productPage.html">
-                        <div class="productCard flex flex-col  w-full    ">
-                            <div class="productImg  w-full   ">
-                                <img src="{{ asset('frontend/assets/images/productDemImg.jpeg') }}" class="rounded-2xl"
-                                    alt="">
-                            </div>
-                            <div class="productCardIcons mt-3">
-                                <p class="text-[12px] text-[#6E6E6E]">241 Items</p>
-                            </div>
-                            <div class="productName text-[24px] font-medium mb-3">Product name</div>
-                            <div class="seeProductsButton flex items-center gap-2  text-[#54114C] font-bold w-full ">See All
-                                Products <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                    alt="" class="mt-1">
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <!-- ======== -->
-                    <!-- =============== product card=================== -->
-                    <a href="/pages/productPage.html">
-
-                        <div class="productCard flex flex-col  w-full   ">
-                            <div class="productImg  w-full   ">
-                                <img src="{{ asset('frontend/assets/images/productDemImg.jpeg') }}" class="rounded-2xl"
-                                    alt="">
-                            </div>
-                            <div class="productCardIcons mt-3">
-                                <p class="text-[12px] text-[#6E6E6E]">241 Items</p>
-                            </div>
-                            <div class="productName text-[24px] font-medium mb-3">Product name</div>
-                            <div class="seeProductsButton flex items-center gap-2  text-[#54114C] font-bold w-full ">See All
-                                Products <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                    alt="" class="mt-1">
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <!-- ======== -->
-
-                </div>
-                <!-- ===============row one end ================ -->
-                <!-- ============row two ==================== -->
-                <div
-                    class="product_row_one lg:flex    lg:gap-10 lg:flex-row md:flex md:gap-10 md:flex-row items-center  justify-between w-full hidden ">
-
-                    <!-- =============== product card=================== -->
-                    <a href="/pages/productPage.html">
-                        <div class="productCard flex flex-col  w-full    ">
-                            <div class="productImg  w-full   ">
-                                <img src="{{ asset('frontend/assets/images/productDemImg.jpeg') }}" class="rounded-2xl"
-                                    alt="">
-                            </div>
-                            <div class="productCardIcons mt-3">
-                                <p class="text-[12px] text-[#6E6E6E]">241 Items</p>
-                            </div>
-                            <div class="productName text-[24px] font-medium mb-3">Product name</div>
-                            <div class="seeProductsButton flex items-center gap-2  text-[#54114C] font-bold w-full ">See
-                                All Products <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                    alt="" class="mt-1"> </div>
-                        </div>
-                    </a>
-
-
-                    <!-- ======== -->
-                    <!-- =============== product card=================== -->
-                    <a href="/pages/productPage.html">
-                        <div class="productCard flex flex-col  w-full    ">
-                            <div class="productImg  w-full   ">
-                                <img src="{{ asset('frontend/assets/images/productDemImg.jpeg') }}" class="rounded-2xl"
-                                    alt="">
-                            </div>
-                            <div class="productCardIcons mt-3">
-                                <p class="text-[12px] text-[#6E6E6E]">241 Items</p>
-                            </div>
-                            <div class="productName text-[24px] font-medium mb-3">Product name</div>
-                            <div class="seeProductsButton flex items-center gap-2  text-[#54114C] font-bold w-full ">See
-                                All Products <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                    alt="" class="mt-1"> </div>
-                        </div>
-                    </a>
-
-
-                    <!-- ======== -->
-                    <!-- =============== product card=================== -->
-                    <a href="/pages/productPage.html">
-                        <div class="productCard flex flex-col  w-full    ">
-                            <div class="productImg  w-full   ">
-                                <img src="{{ asset('frontend/assets/images/productDemImg.jpeg') }}" class="rounded-2xl"
-                                    alt="">
-                            </div>
-                            <div class="productCardIcons mt-3">
-                                <p class="text-[12px] text-[#6E6E6E]">241 Items</p>
-                            </div>
-                            <div class="productName text-[24px] font-medium mb-3">Product name</div>
-                            <div class="seeProductsButton flex items-center gap-2  text-[#54114C] font-bold w-full ">See
-                                All Products <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                    alt="" class="mt-1"> </div>
-                        </div>
-                    </a>
-
-
-                    <!-- ======== -->
-
-                </div>
-
-                <!-- ============row two end ==================== -->
-
-
-
+            <div id="product_showcase" class="my-[50px] flex flex-col gap-10 w-full">
+                @foreach ($products->chunk(3) as $productRow)
+                    <!-- Each Row -->
+                    <div
+                        class="product_row_one flex flex-col gap-10 lg:flex-row md:flex-row items-center justify-between w-full">
+                        @foreach ($productRow as $product)
+                            <a href="{{ route('frontend.all.product-page', $product->id) }}"
+                                class="w-full lg:w-1/3 md:w-1/3">
+                                <div class="productCard flex flex-col w-full">
+                                    <div class="productImg w-full">
+                                        @if ($product->images->isNotEmpty())
+                                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
+                                                class="rounded-2xl w-full h-[300px] object-cover"
+                                                alt="{{ $product->product_name }}">
+                                        @else
+                                            <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
+                                                class="rounded-2xl w-full h-[300px] object-cover" alt="No Image Available">
+                                        @endif
+                                    </div>
+                                    <div class="productCardIcons mt-3">
+                                        <p class="text-[12px] text-[#6E6E6E]">{{ $product->add_stoke }} Items</p>
+                                    </div>
+                                    <div class="productName text-[24px] font-medium mb-3">{{ $product->product_name }}</div>
+                                    <div class="seeProductsButton flex items-center gap-2 text-[#54114C] font-bold w-full">
+                                        See All Products
+                                        <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
+                                            alt="" class="mt-1">
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
+
+
 
         </section>
 

@@ -16,7 +16,7 @@ class AuthController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function userLogin()
+    public function userLogin(Request $request)
     {
         return view('frontend.auth.login');
     }
@@ -33,13 +33,13 @@ class AuthController extends Controller
     {
         // Find user by email
         $user = CompanyRegistration::where('email', $request->email)->first();
-    
+
         // Check if user exists and password is correct
         if ($user && Hash::check($request->password, $user->password)) {
             // Check if the account is approved
             if ($user->is_approve == 1) {
                 session(['company_user_id' => $user->id]); // Store user ID in session
-                return redirect()->route('frontend.home')->with([
+                return redirect()->route('frontend.home.private')->with([
                     'message' => 'Login successful!',
                     'alert-type' => 'success'
                 ]);
@@ -50,11 +50,13 @@ class AuthController extends Controller
                 ]);
             }
         }
-    
+
         // Authentication failed
         return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
     }
-    
+
+
+
 
     public function logout(Request $request)
     {

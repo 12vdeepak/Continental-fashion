@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -12,8 +13,16 @@ class FrontendController extends Controller
      */
     public function publicHome()
     {
-        return view('frontend.product.public-home');
+        $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
+        return view('frontend.product.public-home', compact('products'));
     }
+
+    public function publicPrivateHome()
+    {
+        $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
+        return view('frontend.product.public-home', compact('products'));
+    }
+
 
 
     // public function allProduct()

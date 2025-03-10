@@ -179,9 +179,19 @@ Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('front
 
 // ProductController
 Route::get('/', [FrontendController::class, 'publicHome'])->name('frontend.home');
-Route::get('/all-products', [FrontendProductController::class, 'allProduct'])->name('frontend.all.product');
-Route::get('/product-page', [FrontendProductController::class, 'productPage'])->name('frontend.all.product-page');
-Route::get('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
-Route::get('/my-cart', [FrontendProductController::class, 'myCart'])->name('frontend.my-cart');
-Route::get('/product-logged', [FrontendProductController::class, 'productLogged'])->name('frontend.product-logged');
-Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
+Route::get('/product-page/{id}', [FrontendProductController::class, 'productPage'])->name('frontend.all.product-page');
+
+
+
+
+
+// Private (Logged-In) Homepage
+Route::middleware(['company', 'company.auth.status'])->group(function () {
+
+    Route::get('/user-dashboard', [FrontendController::class, 'publicPrivateHome'])->name('frontend.home.private');
+    Route::get('/all-products', [FrontendProductController::class, 'allProduct'])->name('frontend.all.product');
+    Route::get('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
+    Route::get('/my-cart', [FrontendProductController::class, 'myCart'])->name('frontend.my-cart');
+    Route::get('/product-logged', [FrontendProductController::class, 'productLogged'])->name('frontend.product-logged');
+    Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
+});

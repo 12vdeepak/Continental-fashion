@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,10 +16,38 @@ class ProductController extends Controller
         return view('frontend.product.all-product');
     }
 
-    public function productPage()
+    // public function productPage()
+    // {
+    //     return view('frontend.product.product-page');
+    // }
+
+    public function productPage($id)
     {
-        return view('frontend.product.product-page');
+        $product = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category'])
+            ->find($id);
+
+        if (!$product) {
+            return redirect()->route('frontend.home')->withErrors(['error' => 'Product not available']);
+        }
+
+        // Fetch related products based on category
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest()
+            ->take(6)
+            ->get();
+
+        // Fetch recent products without status filtering
+        $recentProducts = Product::latest()
+            ->take(6)
+            ->get();
+
+        return view('frontend.product.product-page', compact('product', 'relatedProducts', 'recentProducts'));
     }
+
+
+
+
     public function confirmOrder()
     {
         return view('frontend.product.confirm-order');

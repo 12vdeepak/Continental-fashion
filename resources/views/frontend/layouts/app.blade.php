@@ -170,6 +170,51 @@
         }
     </script>
     <script>
+        function changeImage(imageSrc) {
+            document.getElementById('mainImage').src = imageSrc;
+        }
+    </script>
+    <script>
+        let currentIndex = 0;
+        let images = @json($product->images->pluck('image_path'));
+
+        function nextImage() {
+            if (images.length === 0) return; // If no images, do nothing
+
+            currentIndex = (currentIndex + 1) % images.length; // Loop back after last image
+            document.getElementById('mainImage').src = "{{ asset('storage/') }}/" + images[currentIndex];
+        }
+    </script>
+
+
+    <!-- Add this JavaScript at the end of your file -->
+    <script>
+        // Function to toggle password visibility for new password
+
+
+
+
+
+
+
+
+        // Function to Close the Modal
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        // Check if there's a success message from the server and show modal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the URL has a success parameter or if there's a session success message
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasSuccess = "{{ Session::has('message') && Session::get('alert-type') === 'success' }}";
+
+            if (hasSuccess === "1" || urlParams.has('success')) {
+                document.getElementById('successModal').classList.remove('hidden');
+            }
+        });
+    </script>
+    <script>
         const newPass = document.getElementById("newPass");
         const confirmPass = document.getElementById("confirmPass");
         const message = document.getElementById("message");

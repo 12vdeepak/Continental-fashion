@@ -101,6 +101,12 @@ class Product extends Model
         return $this->belongsTo(Fabric::class, 'fabric_id', 'id');
     }
 
+    public function articles()
+    {
+        return $this->belongsTo(Article::class, 'article_id');
+    }
+
+
 
 
     // public function category()
