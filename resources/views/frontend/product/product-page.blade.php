@@ -192,6 +192,50 @@
                     <p class="text-gray-500">No promotional finishing information available.</p>
                 @endif
 
+                {{-- Price Section --}}
+                <div class="mt-5 priceInfo">
+                    <div class="priceHeading text-[16px] text-[#6E6E6E] font-medium">
+                        Product Price:
+                    </div>
+                    <div class="mt-2">
+                        @if (session()->has('company_user_id'))
+                            @php
+                                $user = \App\Models\CompanyRegistration::find(session('company_user_id'));
+                            @endphp
+
+                            @if ($user && $user->price_category_type)
+                                @php
+                                    // Get the price category type from the user
+                                    $priceCategory = 'category_' . $user->price_category_type . '_price';
+
+                                    // Check if the price column exists in the product and is not null, otherwise fallback to default price
+                                    $priceToShow = !empty($product->$priceCategory)
+                                        ? $product->$priceCategory
+                                        : $product->price;
+                                @endphp
+
+                                <span class="text-lg font-bold text-black">
+                                    €{{ number_format($priceToShow, 2) }}
+                                </span>
+                            @else
+                                <p class="text-gray-500">
+                                    <a href="{{ route('frontend.login') }}" class="text-blue-500 underline">
+                                        Please login to see the price
+                                    </a>
+                                </p>
+                            @endif
+                        @else
+                            <p class="text-gray-500">
+                                <a href="{{ route('frontend.login') }}" class="text-blue-500 underline">
+                                    Please login to see the price
+                                </a>
+                            </p>
+                        @endif
+                    </div>
+                </div>
+
+
+
                 {{--  <div class="mt-5 licenseLabel">
                     <div class="labelheading text-[16px] text-[#6E6E6E] font-medium">
                         Labels:
@@ -208,18 +252,26 @@
                         @endphp
 
                         @if ($user)
-                            <!-- Show price if user is logged in -->
-                            <button class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl">
-                                Price: ${{ $product->price }}
-                            </button>
+                            <!-- Show "Add to Cart" button if user is logged in -->
+                            {{--  {{ route('cart.add', $product->id) }}  --}}
+                            <form action="#" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl hover:bg-[#6A1B61] transition">
+                                    Add to Cart
+                                </button>
+                            </form>
                         @endif
                     @else
-                        <!-- Show login message if user is NOT logged in -->
-                        <button class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl">
-                            Please login to see the prices
+                        <!-- Show disabled button if user is NOT logged in -->
+                        <button
+                            class="bg-gray-400 text-white text-[16px] font-medium w-full p-4 rounded-xl cursor-not-allowed"
+                            disabled>
+                            Please login to add to cart
                         </button>
                     @endif
                 </div>
+
 
 
 
