@@ -22,13 +22,13 @@
 
                 <!-- Dropdown Menu -->
                 <div
-                    class="lg:fixed lg:top-0 lg:left-0 lg:w-screen lg:h-[100vh] lg:mt-10 lg:bg-gray-100 lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:justify-center lg:items-center hidden">
+                    class="lg:fixed lg:top-0 lg:left-0 lg:w-screen lg:h-[100vh] lg:mt-10 lg:bg-gray-100 lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:justify-start lg:items-start hidden">
 
-                    <div class="container mx-auto grid grid-cols-6 gap-10 bg-white p-10">
+                    <div class="container mx-auto grid grid-cols-6 gap-4 bg-white p-5">
                         @foreach ($categories as $category)
-                            <div>
+                            <div class="space-y-1">
                                 <h3 class="font-bold text-black">{{ $category->category_name }}</h3>
-                                <ul class="text-gray-600">
+                                <ul class="text-gray-600 space-y-1">
                                     @foreach ($category->subcategories as $subcategory)
                                         <li>{{ $subcategory->subcategory_name }}</li>
                                     @endforeach
@@ -38,6 +38,7 @@
                     </div>
 
                 </div>
+
             </li>
 
         </a>
