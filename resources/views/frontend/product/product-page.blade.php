@@ -134,7 +134,6 @@
 
 
             <div class="productSelection  w-full lg:w-[50%]   flex flex-col  ">
-                <div class="category text-[#3CC4D5] text-sm">Shopping Bag</div>
                 <div class="productName text-[26px] font-bold mt-2">
                     {{ $product->product_name }}
                 </div>
@@ -252,10 +251,10 @@
                         @endphp
 
                         @if ($user)
-                            <!-- Show "Add to Cart" button if user is logged in -->
-                            {{--  {{ route('cart.add', $product->id) }}  --}}
-                            <form action="#" method="POST">
-                                @csrf
+                            {{--  Show "Add to Cart" button if user is logged in   --}}
+
+                            <form action="#">
+
                                 <button type="submit"
                                     class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl hover:bg-[#6A1B61] transition">
                                     Add to Cart
@@ -263,7 +262,6 @@
                             </form>
                         @endif
                     @else
-                        <!-- Show disabled button if user is NOT logged in -->
                         <button
                             class="bg-gray-400 text-white text-[16px] font-medium w-full p-4 rounded-xl cursor-not-allowed"
                             disabled>
