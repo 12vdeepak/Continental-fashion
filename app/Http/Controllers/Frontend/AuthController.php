@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Frontend\CompanyRegistrationRequest;
+use App\Models\Category;
 use App\Models\CompanyRegistration;
 
 class AuthController extends Controller
@@ -18,7 +19,8 @@ class AuthController extends Controller
      */
     public function userLogin(Request $request)
     {
-        return view('frontend.auth.login');
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.auth.login', compact('categories'));
     }
 
     /**
@@ -26,7 +28,8 @@ class AuthController extends Controller
      */
     public function userRegister()
     {
-        return view('frontend.auth.register');
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.auth.register', compact('categories'));
     }
 
     public function login(CompanyLoginRequest $request)

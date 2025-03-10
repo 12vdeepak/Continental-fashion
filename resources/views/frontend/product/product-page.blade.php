@@ -17,7 +17,7 @@
                 All Products
                 <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
                 <span class="text-[#E2001A]">
-                    {{ $product->product_name ?? 'Product not available' }}
+                    {{ $product->category->category_name ?? 'Category not available' }}
                 </span>
             </div>
 
