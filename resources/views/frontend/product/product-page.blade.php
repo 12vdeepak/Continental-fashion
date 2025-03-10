@@ -265,7 +265,7 @@
 
             </div>
 
-            <div
+            {{--  <div
                 class="productInfoTable w-full lg:w-[70%] bg-[#E7E6E7] flex flex-col gap-4 p-6 rounded-xl mt-10 border border-dashed border-gray-500 font-medium ">
                 <div class="flex justify-between w-full rowOne ">
                     <div class="columnOneRowOne text-[#6E6E6E] w-1/2">
@@ -299,7 +299,7 @@
                         Classic Hooded Sweat
                     </div>
                 </div>
-            </div>
+            </div>  --}}
 
             <div class="manufactureInfo mt-7 ">
                 <div class="manufactureHeading font-bold text-[18px]">
@@ -448,7 +448,9 @@
                                     </div>  --}}
                                 </div>
                                 <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $product->product_name }}
+
                                 </div>
+
                                 <div class="productTag mb-2 text-[#E2001A] text-[12px]">
                                     @if ($product->brands->count() > 0)
                                         @foreach ($product->brands as $brand)
