@@ -22,9 +22,9 @@
 
                 <!-- Dropdown Menu -->
                 <div
-                    class="lg:fixed lg:top-0 lg:left-0 lg:w-screen lg:h-[100vh] lg:mt-10 lg:bg-gray-100 lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:justify-start lg:items-start hidden">
+                    class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[300px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
 
-                    <div class="container mx-auto grid grid-cols-6 gap-4 bg-white p-5">
+                    <div class="container mx-auto grid grid-cols-3 gap-4 bg-white p-5">
                         @foreach ($categories as $category)
                             <div class="space-y-1">
                                 <h3 class="font-bold text-black">{{ $category->category_name }}</h3>
