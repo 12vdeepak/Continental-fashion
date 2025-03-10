@@ -169,7 +169,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="productSection mt-5 flex flex-col gap-10">
+                    {{--  <div class="productSection mt-5 flex flex-col gap-10">
                         <div class="productRow flex justify-between items-center gap-4  ">
                             <a href="/pages/productPage.html">
                                 <div class=" relative product w-full  ">
@@ -540,26 +540,107 @@
                         </div>
 
 
+                    </div>  --}}
+                    <div class="productSection mt-5 flex flex-col gap-10">
+                        @foreach ($products->chunk(3) as $chunk)
+                            <div class="productRow grid grid-cols-1 md:grid-cols-3 gap-4"> {{-- Grid layout for proper alignment --}}
+                                @foreach ($chunk as $product)
+                                    <a href="{{ route('frontend.all.product-page', $product->id) }}">
+                                        <div class="relative product">
+                                            @if ($product->sale_percentage)
+                                                <div
+                                                    class="absolute top-5 left-2 bg-sky-500 text-white text-sm px-3 py-1 rounded-md">
+                                                    {{ $product->sale_percentage }}% offer
+                                                </div>
+                                            @else
+                                                <div
+                                                    class="absolute top-5 left-2 bg-gray-400 text-white text-sm px-3 py-1 rounded-md">
+                                                    No Discount
+                                                </div>
+                                            @endif
+
+                                            <div class="productImage mb-4">
+                                                <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
+                                                    alt="{{ $product->name }}"
+                                                    class="w-full h-auto object-contain rounded-xl">
+                                            </div>
+                                            <div class="productSubIcons mb-3 flex justify-between items-center">
+                                                <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
+                                                <div class="productIconSet flex gap-2">
+                                                    @if ($product->is_male)
+                                                        <img src="{{ asset('frontend/assets/images/male.svg') }}"
+                                                            alt="">
+                                                    @endif
+                                                    @if ($product->is_female)
+                                                        <img src="{{ asset('frontend/assets/images/female.svg') }}"
+                                                            alt="">
+                                                    @endif
+                                                    @if ($product->is_kid)
+                                                        <img src="{{ asset('frontend/assets/images/kid.svg') }}"
+                                                            alt="">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="productTitle mb-1 text-md font-medium lg:text-xl">
+                                                {{ $product->product_name }}
+                                            </div>
+                                            <div class="productTag mb-2 text-[#E2001A] text-[12px]">
+                                                {{ $product->brand_name }}
+                                            </div>
+                                            <div class="productColors mb-2">
+                                                <div class="flex items-center space-x-2">
+                                                    <div class="relative flex -space-x-3">
+                                                        @foreach ($product->colors as $color)
+                                                            <div class="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white"
+                                                                style="background-color: {{ $color->color_code }};"></div>
+                                                        @endforeach
+                                                    </div>
+                                                    <span class="text-gray-500 text-sm lg:text-md font-medium">
+                                                        {{ count($product->colors) }}+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endforeach
                     </div>
+
+
                     <div class="pages flex justify-center items-center mt-10">
-                        <div class="flex flex-wrap items-center gap-2 sm:gap-4">
-                            <!-- Previous button -->
-                            <button class="px-3 py-2 text-gray-500 hover:text-black">&lt;</button>
+                        @if ($products->lastPage() > 1)
+                            <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+                                <!-- Previous Page Button -->
+                                @if ($products->onFirstPage())
+                                    <button class="px-3 py-2 text-gray-400 cursor-not-allowed">&lt;</button>
+                                @else
+                                    <a href="{{ $products->previousPageUrl() }}"
+                                        class="px-3 py-2 text-gray-500 hover:text-black">&lt;</a>
+                                @endif
 
-                            <!-- Page Numbers -->
-                            <button class="px-4 py-3 bg-red-600 text-white font-medium rounded-md">1</button>
-                            <button class="px-3 py-2 text-gray-700 hover:bg-gray-200 rounded-md">2</button>
-                            <button class="px-3 py-2 text-gray-700 hover:bg-gray-200 rounded-md">3</button>
-                            <span class="px-2 text-gray-500">...</span>
-                            <button class="px-3 py-2 text-gray-700 hover:bg-gray-200 rounded-md">10</button>
+                                <!-- Page Numbers -->
+                                @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                                    @if ($page == $products->currentPage())
+                                        <button
+                                            class="px-4 py-3 bg-red-600 text-white font-medium rounded-md">{{ $page }}</button>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-3 py-2 text-gray-700 hover:bg-gray-200 rounded-md">{{ $page }}</a>
+                                    @endif
+                                @endforeach
 
-                            <!-- Next button -->
-                            <button class="px-3 py-2 text-gray-500 hover:text-black">&gt;</button>
-
-                            <!-- Double arrow (Last Page) -->
-                            <button class="px-3 py-2 text-gray-500 hover:text-black">&raquo;</button>
-                        </div>
+                                <!-- Next Page Button -->
+                                @if ($products->hasMorePages())
+                                    <a href="{{ $products->nextPageUrl() }}"
+                                        class="px-3 py-2 text-gray-500 hover:text-black">&gt;</a>
+                                @else
+                                    <button class="px-3 py-2 text-gray-400 cursor-not-allowed">&gt;</button>
+                                @endif
+                            </div>
+                        @endif
                     </div>
+
 
                 </div>
 

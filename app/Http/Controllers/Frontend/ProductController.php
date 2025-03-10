@@ -13,8 +13,12 @@ class ProductController extends Controller
      */
     public function allProduct()
     {
-        return view('frontend.product.all-product');
+        $products = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category'])
+            ->paginate(9); // 9 products per page
+
+        return view('frontend.product.all-product', compact('products'));
     }
+
 
     // public function productPage()
     // {
