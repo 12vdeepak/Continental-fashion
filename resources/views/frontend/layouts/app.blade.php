@@ -49,7 +49,7 @@
         }
 
         .poster {
-            background-image: url("frontend/assets/images/poster.jpeg");
+            background-image: url("public/frontend/assets/images/poster.jpeg");
             background-position: top center;
             background-repeat: no-repeat;
             background-size: cover;
