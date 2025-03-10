@@ -134,16 +134,18 @@
                             <a href="{{ route('frontend.all.product-page', $product->id) }}"
                                 class="w-full lg:w-1/3 md:w-1/3">
                                 <div class="productCard flex flex-col w-full">
-                                    <div class="productImg w-full">
+                                    <div
+                                        class="productImg w-full h-[300px] overflow-hidden flex justify-center items-center">
                                         @if ($product->images->isNotEmpty())
                                             <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                                class="w-full h-auto object-contain rounded-xl"
+                                                class="w-full h-full object-cover rounded-xl"
                                                 alt="{{ $product->product_name }}">
                                         @else
                                             <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
-                                                class="rounded-2xl w-full h-[300px] object-cover" alt="No Image Available">
+                                                class="rounded-2xl w-full h-full object-cover" alt="No Image Available">
                                         @endif
                                     </div>
+
                                     <div class="productCardIcons mt-3">
                                         <p class="text-[12px] text-[#6E6E6E]">{{ $product->add_stoke }} Items</p>
                                     </div>

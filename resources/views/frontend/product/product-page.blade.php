@@ -352,10 +352,12 @@
                                         {{ $related->sale_percentage }}% offer
                                     </div>
                                 @endif
-                                <div class="mb-4 productImage">
+                                <div
+                                    class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
                                     <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
-                                        alt="{{ $related->name }}" class="w-full h-auto object-contain rounded-xl">
+                                        alt="{{ $related->name }}" class="w-full h-full object-cover rounded-xl">
                                 </div>
+
 
                                 <div class="flex items-center justify-between mb-3 productSubIcons">
                                     <div class="productLeft text-[#6E6E6E]">{{ $related->sku }}</div>
@@ -434,10 +436,12 @@
                                         {{ $product->sale_percentage }}% offer
                                     </div>
                                 @endif
-                                <div class="mb-4 productImage">
-                                    <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
-                                        alt="{{ $product->name }}" class="w-full h-auto object-contain rounded-xl">
+                                <div
+                                    class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
+                                    <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
+                                        alt="{{ $related->name }}" class="w-full h-full object-cover rounded-xl">
                                 </div>
+
                                 <div class="flex items-center justify-between mb-3 productSubIcons">
                                     <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
                                     {{--  <div class="flex items-center justify-between gap-2 productIconSet">
