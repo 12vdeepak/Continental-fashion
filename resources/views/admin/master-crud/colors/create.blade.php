@@ -44,15 +44,6 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Color Image</label>
-                                    <input type="file" name="color_image"
-                                        class="form-control @error('color_image') is-invalid @enderror"
-                                        value="{{ old('color_image') }}" placeholder="Enter Image">
-                                    @error('color_image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                 <div class="form-group">
                                     <label for="color_code">Color Name</label>

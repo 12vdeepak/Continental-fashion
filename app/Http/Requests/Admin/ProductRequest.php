@@ -31,7 +31,7 @@ class ProductRequest extends FormRequest
             'article_id' => 'required|exists:articles,id',
             'size_ids' => 'required|array|min:1',
             'size_ids.*' => 'exists:sizes,id',
-            'color_ids' => 'required|array|min:1',
+            'color_ids' => 'nullable|array|min:1',
             'color_ids.*' => 'exists:colors,id',
             'brand_ids' => 'required|array|min:1',
             'brand_ids.*' => 'exists:brands,id',
@@ -62,6 +62,11 @@ class ProductRequest extends FormRequest
             $rules['new_product_images.*'] = 'image|mimes:jpeg,png,jpg|max:2048';
             $rules['remove_image_ids'] = 'nullable|array';
             $rules['remove_image_ids.*'] = 'exists:product_images,id';
+        }
+
+        if ($this->isMethod('POST')) {
+            $rules['color_specific_images'] = 'required|array|min:1';
+            $rules['color_specific_images.*'] = 'nullable|exists:colors,id';
         }
 
         return $rules;

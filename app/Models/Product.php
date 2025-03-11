@@ -82,6 +82,12 @@ class Product extends Model
         return $this->belongsToMany(Size::class, 'product_size');
     }
 
+    public function imageColors()
+    {
+        return $this->hasManyThrough(Color::class, ProductImage::class, 'product_id', 'id', 'id', 'color_id');
+    }
+
+
     public function colors(): BelongsToMany
     {
         return $this->belongsToMany(Color::class, 'product_color');

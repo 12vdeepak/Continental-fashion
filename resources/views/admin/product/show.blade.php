@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.papp')
 @section('title', 'Admin - Show Product')
 
 @section('content')
@@ -74,20 +74,29 @@
                         @endif
                     </td>
                 </tr>
-                <tr>
+                {{--  <tr>
                     <th>Colors:</th>
                     <td>
-                        @if ($product->colors->count() > 0)
-                            @foreach ($product->colors as $color)
-                                <span
-                                    style="display: inline-block; width: 20px; height: 20px; background-color: {{ $color->color_code }}; border: 1px solid #000; border-radius: 3px; margin-right: 5px;"></span>
-                                {{ $color->color_name }}
+                        @if ($product->images->count() > 0)
+                            @foreach ($product->images as $image)
+                                @if (!empty($image->color) && !empty($image->color->color_code))
+                                    <span
+                                        style="display: inline-block; width: 20px; height: 20px; background-color: {{ $image->color->color_code }}; border: 1px solid #000; border-radius: 3px; margin-right: 5px;">
+                                    </span>
+                                    {{ $image->color->color_code }}
+                                @else
+                                    <span
+                                        style="display: inline-block; width: 20px; height: 20px; background-color: #ccc; border: 1px solid #000; border-radius: 3px; margin-right: 5px;">
+                                    </span>
+                                    Default (All Colors)
+                                @endif
                             @endforeach
                         @else
                             N/A
                         @endif
                     </td>
-                </tr>
+
+                </tr>  --}}
                 <tr>
                     <th>Brand:</th>
                     <td>
@@ -162,18 +171,40 @@
                 </tr>
                 <tr>
                     <th>Product Images:</th>
+
                     <td>
                         @if ($product->images->isNotEmpty())
-                            <div class="d-flex flex-wrap">
+                            <div style="display: flex; flex-wrap: wrap;">
                                 @foreach ($product->images as $image)
-                                    <img src="{{ asset('storage/' . $image->image_path) }}" class="product-image"
-                                        alt="Product Image">
+                                    <div style="margin: 5px; text-align: center;">
+                                        <img src="{{ asset('storage/' . $image->image_path) }}"
+                                            style="width: 80px; height: 80px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 5px;"
+                                            alt="Product Image">
+                                        <div style="display: flex; align-items: center; justify-content: center;">
+                                            <span
+                                                style="
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            background-color: {{ $image->colors->color_code ?? '#555' }};
+                            border: 1px solid #000;
+                            border-radius: 3px;
+                            margin-right: 5px;">
+                                            </span>
+                                            <p style="font-size: 14px; color: #555; margin: 0;">
+                                                {{ $image->colors->color_code ?? 'N/A' }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </div>
                         @else
                             No Images Available
                         @endif
                     </td>
+
+
+
                 </tr>
             </table>
 

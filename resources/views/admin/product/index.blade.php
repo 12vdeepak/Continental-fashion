@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.papp')
 @section('title', 'Admin - Products')
 
 @section('content')

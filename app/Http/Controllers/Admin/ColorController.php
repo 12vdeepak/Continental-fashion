@@ -30,10 +30,6 @@ class ColorController extends Controller
         $color = new Color();
         $color->color_code = $request->input('color_code');
         // Handle image upload
-        if ($request->hasFile('color_image')) {
-            $imagePath = $request->file('color_image')->store('color_images', 'public'); // Store the image in the storage folder
-            $color->color_image = $imagePath; // Save the file path to the image attribute
-        }
 
         // Save the Banner instance to the database
         $color->save();
@@ -55,17 +51,7 @@ class ColorController extends Controller
         // Update color code
         $color->color_code = $request->input('color_code');
 
-        // Only update image if a new file is uploaded
-        if ($request->hasFile('color_image')) {
-            // Delete old image if exists
-            if ($color->color_image && Storage::disk('public')->exists($color->color_image)) {
-                Storage::disk('public')->delete($color->color_image);
-            }
 
-            // Store new image
-            $imagePath = $request->file('color_image')->store('color_images', 'public');
-            $color->color_image = $imagePath;
-        }
 
         // Save changes
         $color->save();
@@ -77,10 +63,7 @@ class ColorController extends Controller
     {
         $color = Color::findOrFail($id);
 
-        // Delete the image if it exists
-        if ($color->color_image) {
-            Storage::disk('public')->delete($color->color_image);
-        }
+
 
         $color->delete();
         return redirect()->route('colors.index')->with('message', 'Color deleted successfully.');

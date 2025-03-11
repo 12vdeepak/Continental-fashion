@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.papp')
 @section('title', 'Admin - Add Products')
 
 @section('content')
@@ -91,11 +91,15 @@
                                 <div class="form-group">
                                     <label for="product_images">Product Images</label>
                                     <input type="file" name="product_images[]"
-                                        class="form-control @error('product_images') is-invalid @enderror" multiple>
+                                        class="form-control @error('product_images') is-invalid @enderror"
+                                        id="product_images" multiple>
                                     @error('product_images')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+
+                                <div class="row" id="imagePreviewContainer"></div>
 
                                 <!-- Product Details -->
                                 <div class="form-group">
@@ -170,7 +174,7 @@
                                 </div>
 
                                 <!-- Color -->
-                                <div class="form-group">
+                                {{--  <div class="form-group">
                                     <label for="color_ids">Color</label>
                                     @foreach ($colors as $color)
                                         <div class="form-check">
@@ -184,7 +188,7 @@
                                     @error('color_ids')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div>  --}}
 
                                 <!-- Brand -->
                                 <div class="form-group">
@@ -388,3 +392,7 @@
 </div>
 
 @endsection
+
+
+@push('script')
+@endpush

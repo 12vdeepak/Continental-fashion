@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend.layouts.papp')
 @section('title', 'Admin - Edit Product')
 
 @section('content')
@@ -96,12 +96,13 @@
                                 <div class="form-group">
                                     <label for="product_images">Product Images</label>
                                     <input type="file" name="product_images[]"
-                                        class="form-control @error('product_images') is-invalid @enderror" multiple>
+                                        class="form-control @error('product_images') is-invalid @enderror" multiple
+                                        accept="image/*">
                                     @error('product_images')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
 
-                                    @if ($product->images->isNotEmpty())
+                                    @if (!empty($product->images) && $product->images->isNotEmpty())
                                         <div class="mt-2">
                                             <strong>Current Images:</strong>
                                             <div class="d-flex flex-wrap" style="gap: 15px;">
@@ -110,12 +111,42 @@
                                                         style="padding: 5px; border: 1px solid #ddd; border-radius: 5px;">
                                                         <img src="{{ asset('storage/' . $image->image_path) }}"
                                                             width="100" alt="Product Image">
+
+                                                        <!-- Image Upload Field -->
+                                                        <div class="mt-2">
+                                                            <label for="updated_image_{{ $image->id }}">Change
+                                                                Image:</label>
+                                                            <input type="file"
+                                                                id="updated_image_{{ $image->id }}"
+                                                                name="updated_images[{{ $image->id }}]"
+                                                                class="form-control" accept="image/*">
+                                                        </div>
+
+                                                        <!-- Color Dropdown -->
+                                                        <div class="mt-2">
+                                                            <label for="color_{{ $image->id }}">Assigned
+                                                                Color:</label>
+                                                            <select name="existing_image_colors[{{ $image->id }}]"
+                                                                id="color_{{ $image->id }}" class="form-control">
+                                                                <option value="">Default (All Colors)</option>
+                                                                @foreach ($colors as $color)
+                                                                    <option value="{{ $color->id }}"
+                                                                        {{ $image->color_id == $color->id ? 'selected' : '' }}>
+                                                                        {{ $color->color_name }}
+                                                                        ({{ $color->color_code }})
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     @endif
                                 </div>
+
+
+
 
 
 
@@ -199,25 +230,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="color_ids">Color</label>
-                                    <div style="display: flex; flex-wrap: wrap; gap: 30px;">
-                                        @foreach ($colors as $color)
-                                            <div class="form-check d-flex align-items-center" style="gap: 10px;">
-                                                <input type="checkbox" name="color_ids[]" value="{{ $color->id }}"
-                                                    class="form-check-input @error('color_ids') is-invalid @enderror"
-                                                    {{ in_array($color->id, old('color_ids', $product->colors->pluck('id')->toArray())) ? 'checked' : '' }}>
-                                                <label class="form-check-label"
-                                                    style="margin-right: 10px;">{{ $color->color_name }}</label>
-                                                <span
-                                                    style="display: inline-block; width: 20px; height: 20px; background-color: {{ $color->color_code }}; border: 1px solid #000; border-radius: 3px;"></span>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    @error('color_ids')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
 
 
 

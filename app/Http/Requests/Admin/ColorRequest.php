@@ -24,7 +24,7 @@ class ColorRequest extends FormRequest
         return [
             'color_code' => ['required', 'string'],
             'color_image' => [
-                $this->isMethod('post') ? 'required' : 'nullable',  // Required only on create
+                $this->isMethod('post') ? 'nullable' : 'nullable',  // Required only on create
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048'

@@ -235,7 +235,7 @@
     </script>
 
     <!-- Add this JavaScript to the bottom of your form -->
-    {{--  <script>
+    <script>
         // When product images are selected
         document.getElementById('product_images').addEventListener('change', function(event) {
             const files = event.target.files;
@@ -301,7 +301,7 @@
                 reader.readAsDataURL(file);
             });
         });
-    </script>  --}}
+    </script>
 
     <script>
         $(document).on("click", "#delete", function(e) {

@@ -52,7 +52,6 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;">S.No</th>
-                                <th class="text-center" style="width: 120px;">Image</th> <!-- Set fixed width for images -->
                                 <th class="text-center" style="width: 150px;">Color</th>
                                 <th class="text-center" style="width: 150px;">Action</th>
                                 <!-- Set fixed width for action buttons -->
@@ -62,10 +61,7 @@
                             @foreach ($color as $index => $colors)
                                 <tr>
                                     <td class="text-center">{{ $index + 1 }}</td>
-                                    <td class="text-center">
-                                        <img src="{{ asset('storage/' . $colors->color_image) }}" alt="Color Image"
-                                            style="width: 100px; height: 100px;">
-                                    </td>
+
                                     <td class="text-center">
                                         <span
                                             style="display: inline-block; width: 20px; height: 20px; background-color: {{ $colors->color_code }};

@@ -64,27 +64,7 @@
                             @csrf
                             @method('PUT')
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="color_image">{{ __('Color Image') }}</label>
-                                    <input id="color_image" type="file"
-                                        class="form-control @error('color_image') is-invalid @enderror"
-                                        name="color_image" accept="image/*">
-                                    <div id="imagePreview" style="width: 150px; height: 150px; overflow: hidden;">
-                                        <br><br>
-                                        @if ($color->color_image)
-                                            <img src="{{ asset('storage/' . $color->color_image) }}" alt="Color Image"
-                                                style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                                        @else
-                                            <p>No image available</p>
-                                        @endif
-                                    </div>
 
-                                    @error('color_image')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
 
                                 <div class="form-group">
                                     <label for="color_code">Color Name</label>
@@ -113,8 +93,7 @@
 
 
                                 <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
-                                <a href="{{ route('colors.index') }}"
-                                    class="btn btn-secondary">{{ __('Cancel') }}</a>
+                                <a href="{{ route('colors.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </form>
                     </div>
                 </div>

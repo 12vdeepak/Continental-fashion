@@ -14,11 +14,22 @@ class ProductImage extends Model
     protected $fillable = [
         'product_id',
         'image_path',
-        'is_primary'
+        'is_primary',
+        'color_id'
     ];
 
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(ProductColor::class, 'color_id');
+    }
+
+    public function colors()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
     }
 }
