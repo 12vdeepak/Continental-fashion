@@ -57,20 +57,24 @@ class ProductController extends Controller
 
     public function confirmOrder()
     {
-        return view('frontend.product.confirm-order');
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.product.confirm-order', compact('categories'));
     }
     public function myCart()
     {
-        return view('frontend.product.my-cart');
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.product.my-cart', compact('categories'));
     }
     public function productLogged()
     {
-        return view('frontend.product.product-page-logged-in');
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.product.product-page-logged-in', compact('categories'));
     }
 
     public function selectAddress()
     {
-        return view('frontend.product.select-address');
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.product.select-address', compact('categories'));
     }
 
     /**
