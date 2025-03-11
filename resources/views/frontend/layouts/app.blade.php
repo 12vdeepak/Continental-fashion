@@ -312,6 +312,26 @@
         });
     </script>
 
+    {{-- JavaScript for Quantity Buttons --}}
+    <script>
+        document.getElementById('increaseQty').addEventListener('click', function() {
+            let qtyElement = document.getElementById('quantity');
+            qtyElement.textContent = parseInt(qtyElement.textContent) + 1;
+        });
+
+        document.getElementById('decreaseQty').addEventListener('click', function() {
+            let qtyElement = document.getElementById('quantity');
+            let currentQty = parseInt(qtyElement.textContent);
+            if (currentQty > 1) {
+                qtyElement.textContent = currentQty - 1;
+            }
+        });
+    </script>
+
+
+
+
+
 
 
     <script>

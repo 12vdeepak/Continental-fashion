@@ -36,9 +36,8 @@
                 <div class="flex flex-col flex-col-reverse gap-10 md:gap-0 md:flex-row md:space-x-8">
 
                     <div class="flex flex-col md:flex-row md:space-x-8">
-
                         <!-- Thumbnails (Left Side) -->
-                        <div class="flex items-center gap-2 md:flex md:flex-col">
+                        <div class="flex items-center gap-2 md:flex md:flex-col" id="thumbnailContainer">
                             @if ($product->images->count() > 0)
                                 @foreach ($product->images as $image)
                                     <div class="p-1 border border-gray-200 rounded cursor-pointer"
@@ -48,7 +47,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <!-- Show a default placeholder if no images are available -->
+                                <!-- Default Image if No Images Available -->
                                 <div class="p-1 border border-gray-200 rounded">
                                     <img src="{{ asset('frontend/assets/images/default-image.png') }}"
                                         alt="No Image Available" class="object-cover w-16 h-16" />
@@ -59,7 +58,7 @@
                         <!-- Main Image with Arrows & Dots -->
                         <div class="flex items-center justify-center arrowImageDots">
                             <!-- Left Arrow -->
-                            <div onclick=""
+                            <div onclick="prevImage()"
                                 class="leftArrow rounded-full lg:bg-[#F4F4F4] flex justify-center items-center p-4 h-[48px] w-[48px] cursor-pointer">
                                 <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="Previous">
                             </div>
@@ -83,33 +82,29 @@
                             </div>
 
                             <!-- Right Arrow -->
-                            <div onclick=""
+                            <div onclick="nextImage()"
                                 class="rightArrow rounded-full lg:bg-[#F4F4F4] flex justify-center items-center p-4 h-[48px] w-[48px] cursor-pointer">
                                 <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt="Next">
                             </div>
                         </div>
-
                     </div>
-
-
-
                 </div>
 
                 <!-- Colors Options -->
                 <div class="mt-6">
-                    <h3 class="mb-2 text-lg font-semibold">Colors options:</h3>
+                    <h3 class="mb-2 text-lg font-semibold">Color Options:</h3>
                     <div class="flex flex-wrap gap-2">
                         @if ($product->colors->count() > 0)
                             @foreach ($product->colors as $color)
-                                <button class="w-8 h-8 rounded-full border border-gray-300"
-                                    style="background-color: {{ $color->color_code }};">
+                                <button class="colorButton w-8 h-8 rounded-full border border-gray-300"
+                                    style="background-color: {{ $color->color_code }};"
+                                    onclick="changeColor('{{ $color->id }}')">
                                 </button>
                             @endforeach
                         @else
                             <p class="text-gray-500">No colors available</p>
                         @endif
                     </div>
-
                 </div>
 
                 <!-- Size Options -->
@@ -235,32 +230,21 @@
 
 
 
-                {{--  <div class="mt-5 licenseLabel">
-                    <div class="labelheading text-[16px] text-[#6E6E6E] font-medium">
-                        Labels:
+                {{-- Quantity and Add to Cart --}}
+                <div class="w-full mt-5 flex items-center gap-3">
+                    <div class="flex items-center border border-gray-400 rounded-md px-3 py-2">
+                        <button id="decreaseQty" class="text-black text-lg px-3">-</button>
+                        <span id="quantity" class="text-black mx-3 text-lg">1</span>
+                        <button id="increaseQty" class="text-black text-lg px-3">+</button>
                     </div>
-                    <div class="flex items-center gap-1 mt-2 labels">
-                        <img src="{{ asset('frontend/assets/images/topseller.jpeg') }}" alt="" class="h-[60px]">
-                        <img src="{{ asset('frontend/assets/images/topseller.jpeg') }}" alt="" class="h-[60px]">
-                    </div>
-                </div>  --}}
-                <div class="w-full mt-5 mainButton">
+
                     @if (session()->has('company_user_id'))
-                        @php
-                            $user = \App\Models\CompanyRegistration::find(session('company_user_id'));
-                        @endphp
-
-                        @if ($user)
-                            {{--  Show "Add to Cart" button if user is logged in   --}}
-
-                            <form action="#">
-
-                                <button type="submit"
-                                    class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl hover:bg-[#6A1B61] transition">
-                                    Add to Cart
-                                </button>
-                            </form>
-                        @endif
+                        <form action="#" class="flex-1">
+                            <button type="submit"
+                                class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl hover:bg-[#6A1B61] transition">
+                                Add to Cart
+                            </button>
+                        </form>
                     @else
                         <button
                             class="bg-gray-400 text-white text-[16px] font-medium w-full p-4 rounded-xl cursor-not-allowed"
@@ -269,6 +253,9 @@
                         </button>
                     @endif
                 </div>
+            </div>
+            </div>
+
 
 
 
