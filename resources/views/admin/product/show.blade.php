@@ -163,12 +163,17 @@
                                             </p>
                                         </div>
 
-                                        <!-- Assigned Sizes -->
+                                        <!-- Assigned Sizes & Quantities -->
                                         <div style="margin-top: 5px;">
-                                            <strong style="font-size: 12px; color: #333;">Sizes:</strong>
+                                            <strong style="font-size: 12px; color: #333;">Sizes & Quantities:</strong>
                                             <p style="font-size: 12px; color: #555; margin: 0;">
                                                 @if ($image->sizes->isNotEmpty())
-                                                    {{ implode(', ', $image->sizes->pluck('size_name')->toArray()) }}
+                                                    @foreach ($image->sizes as $size)
+                                                        {{ $size->size_name }} ({{ $size->pivot->quantity ?? 0 }})
+                                                        @if (!$loop->last)
+                                                            ,
+                                                        @endif
+                                                    @endforeach
                                                 @else
                                                     N/A
                                                 @endif
@@ -181,6 +186,7 @@
                             No Images Available
                         @endif
                     </td>
+
 
 
 
