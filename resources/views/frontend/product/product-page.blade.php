@@ -467,8 +467,8 @@
                                 @endif
                                 <div
                                     class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
-                                    <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
-                                        alt="{{ $related->name }}" class="w-full h-full object-cover rounded-xl">
+                                    <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
+                                        alt="{{ $product->name }}" class="w-full h-full object-cover rounded-xl">
                                 </div>
 
                                 <div class="flex items-center justify-between mb-3 productSubIcons">
