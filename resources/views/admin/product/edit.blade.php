@@ -113,6 +113,7 @@
                                                 @foreach ($product->images as $image)
                                                     <div
                                                         style="padding: 5px; border: 1px solid #ddd; border-radius: 5px;">
+                                                        <!-- Existing Image Preview -->
                                                         <img src="{{ asset('storage/' . $image->image_path) }}"
                                                             width="100" alt="Product Image">
 
@@ -142,12 +143,46 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
+
+                                                        <!-- Assign Sizes & Quantities -->
+                                                        <div class="mt-2">
+                                                            <label>Assigned Sizes & Quantities:</label>
+                                                            @foreach ($sizes as $size)
+                                                                @php
+                                                                    // Fetch the quantity for this size if it exists
+                                                                    $quantity =
+                                                                        optional(
+                                                                            $image->sizes
+                                                                                ->where('id', $size->id)
+                                                                                ->first(),
+                                                                        )->pivot->quantity ?? 0;
+                                                                @endphp
+                                                                <div class="d-flex align-items-center mb-2">
+                                                                    <!-- Checkbox for selecting the size -->
+                                                                    <input type="checkbox"
+                                                                        name="existing_image_sizes[{{ $image->id }}][]"
+                                                                        value="{{ $size->id }}" class="mr-2"
+                                                                        {{ in_array($size->id, $image->sizes->pluck('id')->toArray()) ? 'checked' : '' }}>
+
+                                                                    <span class="mr-2">{{ $size->size_name }}</span>
+
+                                                                    <!-- Quantity input for the selected size -->
+                                                                    <input type="number"
+                                                                        name="existing_image_quantities[{{ $image->id }}][{{ $size->id }}]"
+                                                                        class="form-control ml-2" style="width: 80px;"
+                                                                        min="0" value="{{ $quantity }}">
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     @endif
                                 </div>
+
+
+
 
 
 
@@ -217,7 +252,7 @@
                                 </div>
 
                                 <!-- Size -->
-                                <div class="form-group">
+                                {{--  <div class="form-group">
                                     <label for="size_ids">Size</label>
                                     <div>
                                         @foreach ($sizes as $size)
@@ -232,7 +267,7 @@
                                     @error('size_ids')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div>  --}}
 
 
 
@@ -319,17 +354,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Add Stock -->
-                                <div class="form-group">
-                                    <label for="add_stoke">Add Stock</label>
-                                    <input type="number" name="add_stoke"
-                                        class="form-control @error('add_stoke') is-invalid @enderror"
-                                        value="{{ old('add_stoke', $product->add_stoke) }}"
-                                        placeholder="Enter Stock">
-                                    @error('add_stoke')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
 
                                 <!-- Price Fields -->
                                 <div class="form-group">

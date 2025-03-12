@@ -1,4 +1,4 @@
-@extends('backend.layouts.papp')
+@extends('backend.layouts.capp')
 @section('title', 'Admin - Add Products')
 
 @section('content')
@@ -157,7 +157,7 @@
                                 </div>
 
                                 <!-- Size -->
-                                <div class="form-group">
+                                {{--  <div class="form-group">
                                     <label for="size_ids">Size</label>
                                     @foreach ($sizes as $size)
                                         <div class="form-check">
@@ -171,7 +171,7 @@
                                     @error('size_ids')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div>  --}}
 
                                 <!-- Color -->
                                 {{--  <div class="form-group">
@@ -260,16 +260,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Add Stock -->
-                                <div class="form-group">
-                                    <label for="add_stoke">Add Stock</label>
-                                    <input type="number" name="add_stoke"
-                                        class="form-control @error('add_stoke') is-invalid @enderror"
-                                        value="{{ old('add_stoke') }}" placeholder="Enter Stock">
-                                    @error('add_stoke')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
 
                                 <!-- Price Fields -->
                                 <div class="form-group">

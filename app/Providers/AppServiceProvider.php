@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Color;
+use App\Models\Size;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,9 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $colors = Color::all(); // or Color::pluck('name'); if you only need names
+        $colors = Color::all();
+        $sizes = Size::all();
 
-        // Share this variable with all views
-        View::share('colors', $colors);
+        // Correct way to share multiple variables with all views
+        View::share([
+            'colors' => $colors,
+            'sizes' => $sizes
+        ]);
     }
 }

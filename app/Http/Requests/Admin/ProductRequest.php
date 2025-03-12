@@ -29,7 +29,7 @@ class ProductRequest extends FormRequest
             'material_id' => 'required|exists:materials,id',
             'weight_id' => 'required|exists:weights,id',
             'article_id' => 'required|exists:articles,id',
-            'size_ids' => 'required|array|min:1',
+            'size_ids' => 'nullable|array|min:1',
             'size_ids.*' => 'exists:sizes,id',
             'color_ids' => 'nullable|array|min:1',
             'color_ids.*' => 'exists:colors,id',
@@ -39,7 +39,7 @@ class ProductRequest extends FormRequest
             'pack_poly' => 'nullable|integer|min:0',
             'country_id' => 'required|exists:countries,id',
             'manufacturer_name' => 'nullable|string|max:255',
-            'add_stoke' => 'required|integer|min:1',
+            'add_stoke' => 'nullable|integer|min:1',
             'category_1_price' => 'nullable|numeric|min:0',
             'category_2_price' => 'nullable|numeric|min:0',
             'category_3_price' => 'nullable|numeric|min:0',
@@ -90,8 +90,7 @@ class ProductRequest extends FormRequest
             'brand_ids.min' => 'Please select at least one brand.',
             'product_images.required' => 'Please upload at least one product image.',
             'product_images.min' => 'Please upload at least one product image.',
-            'add_stoke.required' => 'Please enter stock quantity.',
-            'add_stoke.min' => 'Stock quantity must be at least 1.',
+
 
         ];
     }

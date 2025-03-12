@@ -64,39 +64,7 @@
                     <th>Article:</th>
                     <td>{{ $product->article->article_name ?? 'N/A' }}</td>
                 </tr>
-                <tr>
-                    <th>Sizes:</th>
-                    <td>
-                        @if ($product->sizes->count() > 0)
-                            {{ $product->sizes->pluck('size_name')->implode(', ') }}
-                        @else
-                            N/A
-                        @endif
-                    </td>
-                </tr>
-                {{--  <tr>
-                    <th>Colors:</th>
-                    <td>
-                        @if ($product->images->count() > 0)
-                            @foreach ($product->images as $image)
-                                @if (!empty($image->color) && !empty($image->color->color_code))
-                                    <span
-                                        style="display: inline-block; width: 20px; height: 20px; background-color: {{ $image->color->color_code }}; border: 1px solid #000; border-radius: 3px; margin-right: 5px;">
-                                    </span>
-                                    {{ $image->color->color_code }}
-                                @else
-                                    <span
-                                        style="display: inline-block; width: 20px; height: 20px; background-color: #ccc; border: 1px solid #000; border-radius: 3px; margin-right: 5px;">
-                                    </span>
-                                    Default (All Colors)
-                                @endif
-                            @endforeach
-                        @else
-                            N/A
-                        @endif
-                    </td>
 
-                </tr>  --}}
                 <tr>
                     <th>Brand:</th>
                     <td>
@@ -115,10 +83,6 @@
                     <th>Product Details:</th>
                     <td> {!! $product->product_details !!}</td>
 
-                </tr>
-                <tr>
-                    <th>Stock:</th>
-                    <td>{{ $product->add_stoke }}</td>
                 </tr>
                 <tr>
                     <th>Wear By:</th>
@@ -177,22 +141,37 @@
                             <div style="display: flex; flex-wrap: wrap;">
                                 @foreach ($product->images as $image)
                                     <div style="margin: 5px; text-align: center;">
+                                        <!-- Product Image -->
                                         <img src="{{ asset('storage/' . $image->image_path) }}"
                                             style="width: 80px; height: 80px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 5px;"
                                             alt="Product Image">
+
+                                        <!-- Color Display (Fixed) -->
                                         <div style="display: flex; align-items: center; justify-content: center;">
                                             <span
                                                 style="
-                            display: inline-block;
-                            width: 20px;
-                            height: 20px;
-                            background-color: {{ $image->colors->color_code ?? '#555' }};
-                            border: 1px solid #000;
-                            border-radius: 3px;
-                            margin-right: 5px;">
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                background-color: {{ $image->colors ? $image->colors->color_code : '#555' }};
+                                border: 1px solid #000;
+                                border-radius: 3px;
+                                margin-right: 5px;">
                                             </span>
                                             <p style="font-size: 14px; color: #555; margin: 0;">
-                                                {{ $image->colors->color_code ?? 'N/A' }}
+                                                {{ $image->colors ? $image->colors->color_name : 'N/A' }}
+                                            </p>
+                                        </div>
+
+                                        <!-- Assigned Sizes -->
+                                        <div style="margin-top: 5px;">
+                                            <strong style="font-size: 12px; color: #333;">Sizes:</strong>
+                                            <p style="font-size: 12px; color: #555; margin: 0;">
+                                                @if ($image->sizes->isNotEmpty())
+                                                    {{ implode(', ', $image->sizes->pluck('size_name')->toArray()) }}
+                                                @else
+                                                    N/A
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -202,6 +181,8 @@
                             No Images Available
                         @endif
                     </td>
+
+
 
 
 

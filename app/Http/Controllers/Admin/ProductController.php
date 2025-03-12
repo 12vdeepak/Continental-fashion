@@ -132,7 +132,6 @@ class ProductController extends Controller
                 'pack_poly',
                 'country_id',
                 'manufacturer_name',
-                'add_stoke',
                 'category_1_price',
                 'category_2_price',
                 'category_3_price',
@@ -145,7 +144,7 @@ class ProductController extends Controller
                 'remarks'
             ]));
 
-            // Step 2: Attach Related Data (Sizes, Colors, Brands)
+            // Step 2: Attach Related Data
             $product->sizes()->attach($request->size_ids);
             $product->colors()->attach($request->color_ids);
             $product->brands()->attach($request->brand_ids);
@@ -153,26 +152,35 @@ class ProductController extends Controller
             // Step 3: Handle Product Images
             if ($request->hasFile('product_images')) {
                 $images = $request->file('product_images');
-                $colorImages = array_values($request->input('color_specific_images', []));
+                $imageIds = $request->input('image_ids', []);
+                $colorImages = $request->input('color_specific_images', []);
+                $sizeImages = $request->input('size_specific_images', []);
 
                 foreach ($images as $index => $image) {
                     $path = $image->store('product_images', 'public');
 
-                    // Step 4: Assign the Correct Color ID
-                    $colorId = isset($colorImages[$index]) && $colorImages[$index] !== ""
-                        ? $colorImages[$index]  // Use provided color ID
-                        : null;                 // Default (All Colors)
+                    // Get the unique image ID
+                    $imageId = $imageIds[$index] ?? null;
 
-                    // Step 5: Prevent Duplicate Image Entries
-                    if (!ProductImage::where('product_id', $product->id)
-                        ->where('color_id', $colorId)
-                        ->exists()) {
-                        ProductImage::create([
-                            'product_id' => $product->id,
-                            'image_path' => $path,
-                            'is_primary' => $index === 0, // First image as primary
-                            'color_id' => $colorId
-                        ]);
+                    // Get assigned color
+                    $colorId = isset($colorImages[$imageId]) && $colorImages[$imageId] != "" ? $colorImages[$imageId] : null;
+
+                    // Step 4: Save Product Image
+                    $productImage = ProductImage::create([
+                        'product_id' => $product->id,
+                        'image_path' => $path,
+                        'is_primary' => $index === 0,
+                        'color_id' => $colorId
+                    ]);
+
+                    // Step 5: Attach Sizes and Quantities to Image
+                    if (isset($sizeImages[$imageId])) {
+                        foreach ($sizeImages[$imageId]['sizes'] ?? [] as $sizeId) {
+                            $quantity = $sizeImages[$imageId]['quantities'][$sizeId] ?? 0;
+
+                            // Attach size and quantity to pivot table
+                            $productImage->sizes()->attach($sizeId, ['quantity' => $quantity]);
+                        }
                     }
                 }
             }
@@ -184,6 +192,9 @@ class ProductController extends Controller
             return back()->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
         }
     }
+
+
+
 
 
 
@@ -225,6 +236,125 @@ class ProductController extends Controller
     }
 
 
+    // public function update(ProductRequest $request, $id)
+    // {
+    //     try {
+    //         DB::beginTransaction();
+
+    //         $product = Product::findOrFail($id);
+
+    //         // Step 1: Update Product Details
+    //         $product->update($request->only([
+    //             'category_id',
+    //             'sub_category_id',
+    //             'product_name',
+    //             'product_details',
+    //             'material_id',
+    //             'weight_id',
+    //             'article_id',
+    //             'fabric_id',
+    //             'pack_poly',
+    //             'country_id',
+    //             'manufacturer_name',
+    //             'add_stoke',
+    //             'category_1_price',
+    //             'category_2_price',
+    //             'category_3_price',
+    //             'category_4_price',
+    //             'actual_product_price',
+    //             'sale',
+    //             'sale_percentage',
+    //             'promotion_id',
+    //             'wear_id',
+    //             'remarks'
+    //         ]));
+
+    //         // Step 2: Sync Relationships (Sizes, Colors, Brands)
+    //         $product->sizes()->sync($request->size_ids ?? []);
+    //         $product->colors()->sync($request->color_ids ?? []);
+    //         $product->brands()->sync($request->brand_ids ?? []);
+
+    //         // Step 3: Handle New Image Uploads
+    //         if ($request->hasFile('product_images')) {
+    //             $images = $request->file('product_images');
+    //             $colorImages = array_values($request->input('color_specific_images', []));
+
+    //             foreach ($images as $index => $image) {
+    //                 $path = $image->store('product_images', 'public');
+    //                 $colorId = isset($colorImages[$index]) && $colorImages[$index] !== "" ? $colorImages[$index] : null;
+
+    //                 $newImage = ProductImage::create([
+    //                     'product_id' => $product->id,
+    //                     'image_path' => $path,
+    //                     'is_primary' => $index === 0,
+    //                     'color_id' => $colorId
+    //                 ]);
+
+    //                 // Assign sizes & quantities to newly uploaded images (if any selected)
+    //                 if ($request->has('size_ids')) {
+    //                     $sizeData = [];
+    //                     foreach ($request->size_ids as $sizeId) {
+    //                         $sizeData[$sizeId] = ['quantity' => $request->input("size_quantities.$sizeId", 0)];
+    //                     }
+    //                     $newImage->sizes()->sync($sizeData);
+    //                 }
+    //             }
+    //         }
+
+    //         // Step 4: Handle Existing Image Updates
+    //         if ($request->has('updated_images')) {
+    //             foreach ($request->updated_images as $imageId => $updatedImage) {
+    //                 if ($updatedImage) {
+    //                     $existingImage = ProductImage::find($imageId);
+    //                     if ($existingImage) {
+    //                         // Delete old image
+    //                         Storage::disk('public')->delete($existingImage->image_path);
+
+    //                         // Upload new image
+    //                         $path = $updatedImage->store('product_images', 'public');
+    //                         $existingImage->update(['image_path' => $path]);
+    //                     }
+    //                 }
+    //             }
+    //         }
+
+    //         // Step 5: Handle Image Color Updates
+    //         if ($request->has('existing_image_colors')) {
+    //             foreach ($request->existing_image_colors as $imageId => $colorId) {
+    //                 $existingImage = ProductImage::find($imageId);
+    //                 if ($existingImage) {
+    //                     $existingImage->update(['color_id' => $colorId]);
+    //                 }
+    //             }
+    //         }
+
+    //         // Step 6: Handle Image Size & Quantity Updates (NEW)
+    //         if ($request->has('existing_image_sizes')) {
+    //             foreach ($request->existing_image_sizes as $imageId => $sizeIds) {
+    //                 $sizeQuantities = $request->input("existing_image_quantities.$imageId", []);
+
+    //                 $sizeData = [];
+    //                 foreach ($sizeIds as $sizeId) {
+    //                     $sizeData[$sizeId] = ['quantity' => $sizeQuantities[$sizeId] ?? 0];
+    //                 }
+
+    //                 $existingImage = ProductImage::find($imageId);
+    //                 if ($existingImage) {
+    //                     $existingImage->sizes()->sync($sizeData);
+    //                 }
+    //             }
+    //         }
+
+    //         DB::commit();
+    //         return redirect()->route('products.index')->with('message', 'Product updated successfully.');
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return back()->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
+    //     }
+    // }
+
+
+
     public function update(ProductRequest $request, $id)
     {
         try {
@@ -245,7 +375,6 @@ class ProductController extends Controller
                 'pack_poly',
                 'country_id',
                 'manufacturer_name',
-                'add_stoke',
                 'category_1_price',
                 'category_2_price',
                 'category_3_price',
@@ -258,29 +387,47 @@ class ProductController extends Controller
                 'remarks'
             ]));
 
-            // Step 2: Sync Relationships
+            // Step 2: Sync Relationships (Sizes, Colors, Brands)
             $product->sizes()->sync($request->size_ids ?? []);
             $product->colors()->sync($request->color_ids ?? []);
             $product->brands()->sync($request->brand_ids ?? []);
 
-            // Step 3: Handle Image Updates
+            // Step 3: Handle New Image Uploads
             if ($request->hasFile('product_images')) {
-                // Upload new images
                 $images = $request->file('product_images');
-                $colorImages = array_values($request->input('color_specific_images', []));
 
-                foreach ($images as $index => $image) {
-                    $path = $image->store('product_images', 'public');
-                    $colorId = isset($colorImages[$index]) && $colorImages[$index] !== ""
-                        ? $colorImages[$index]  // Provided color ID
-                        : null;                  // Default (All Colors)
+                // Get all the image IDs that were generated in the frontend
+                $imageIds = $request->input('image_ids', []);
 
-                    ProductImage::create([
-                        'product_id' => $product->id,
-                        'image_path' => $path,
-                        'is_primary' => $index === 0, // First image as primary
-                        'color_id' => $colorId
-                    ]);
+                foreach ($imageIds as $index => $imageId) {
+                    if (isset($images[$index])) {
+                        $image = $images[$index];
+                        $path = $image->store('product_images', 'public');
+
+                        // Get color ID for this specific image
+                        $colorId = $request->input("color_specific_images.$imageId", null);
+
+                        $newImage = ProductImage::create([
+                            'product_id' => $product->id,
+                            'image_path' => $path,
+                            'is_primary' => $index === 0,
+                            'color_id' => $colorId
+                        ]);
+
+                        // Process sizes and quantities for this specific image
+                        if ($request->has("size_specific_images.$imageId.sizes")) {
+                            $selectedSizes = $request->input("size_specific_images.$imageId.sizes", []);
+                            $sizeQuantities = $request->input("size_specific_images.$imageId.quantities", []);
+
+                            $sizeData = [];
+                            foreach ($selectedSizes as $sizeId) {
+                                $quantity = $sizeQuantities[$sizeId] ?? 0;
+                                $sizeData[$sizeId] = ['quantity' => $quantity];
+                            }
+
+                            $newImage->sizes()->sync($sizeData);
+                        }
+                    }
                 }
             }
 
@@ -311,14 +458,33 @@ class ProductController extends Controller
                 }
             }
 
-            DB::commit();
+            // Step 6: Handle Image Size & Quantity Updates
+            if ($request->has('existing_image_sizes')) {
+                foreach ($request->existing_image_sizes as $imageId => $sizeIds) {
+                    $sizeQuantities = $request->input("existing_image_quantities.$imageId", []);
 
+                    $sizeData = [];
+                    foreach ($sizeIds as $sizeId) {
+                        $sizeData[$sizeId] = ['quantity' => $sizeQuantities[$sizeId] ?? 0];
+                    }
+
+                    $existingImage = ProductImage::find($imageId);
+                    if ($existingImage) {
+                        $existingImage->sizes()->sync($sizeData);
+                    }
+                }
+            }
+
+            DB::commit();
             return redirect()->route('products.index')->with('message', 'Product updated successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
         }
     }
+
+
+
 
     public function show($id)
     {

@@ -32,4 +32,10 @@ class ProductImage extends Model
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_image_size', 'product_image_id', 'size_id')
+            ->withPivot('quantity'); // Include quantity from pivot table
+    }
 }
