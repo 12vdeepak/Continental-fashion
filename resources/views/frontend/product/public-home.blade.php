@@ -126,41 +126,51 @@
 
             <!-- ============== product showcase ============= -->
             <div id="product_showcase" class="my-[50px] flex flex-col gap-10 w-full">
-                @foreach ($products->chunk(3) as $productRow)
-                    <!-- Each Row -->
-                    <div
-                        class="product_row_one flex flex-col gap-10 lg:flex-row md:flex-row items-center justify-between w-full">
-                        @foreach ($productRow as $product)
-                            <a href="{{ route('frontend.all.product-page', $product->id) }}"
-                                class="w-full lg:w-1/3 md:w-1/3">
-                                <div class="productCard flex flex-col w-full">
-                                    <div
-                                        class="productImg w-full h-[300px] overflow-hidden flex justify-center items-center">
-                                        @if ($product->images->isNotEmpty())
-                                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                                class="w-full h-full object-cover rounded-xl"
-                                                alt="{{ $product->product_name }}">
-                                        @else
-                                            <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
-                                                class="rounded-2xl w-full h-full object-cover" alt="No Image Available">
-                                        @endif
-                                    </div>
-
-                                    <div class="productCardIcons mt-3">
-                                        <p class="text-[12px] text-[#6E6E6E]">{{ $product->add_stoke }} Items</p>
-                                    </div>
-                                    <div class="productName text-[24px] font-medium mb-3">{{ $product->product_name }}</div>
-                                    <div class="seeProductsButton flex items-center gap-2 text-[#54114C] font-bold w-full">
-                                        See All Products
-                                        <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                            alt="" class="mt-1">
-                                    </div>
-                                </div>
-                            </a>
-                        @endforeach
+                @if ($products->isEmpty())
+                    <!-- No Products Message -->
+                    <div class="text-center text-gray-500 text-lg font-semibold">
+                        No products available.
                     </div>
-                @endforeach
+                @else
+                    @foreach ($products->chunk(3) as $productRow)
+                        <!-- Each Row -->
+                        <div
+                            class="product_row_one flex flex-col gap-10 lg:flex-row md:flex-row items-center justify-between w-full">
+                            @foreach ($productRow as $product)
+                                <a href="{{ route('frontend.all.product-page', $product->id) }}"
+                                    class="w-full lg:w-1/3 md:w-1/3">
+                                    <div class="productCard flex flex-col w-full">
+                                        <div
+                                            class="productImg w-full h-[300px] overflow-hidden flex justify-center items-center">
+                                            @if ($product->images->isNotEmpty())
+                                                <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
+                                                    class="w-full h-full object-cover rounded-xl"
+                                                    alt="{{ $product->product_name }}">
+                                            @else
+                                                <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
+                                                    class="rounded-2xl w-full h-full object-cover" alt="No Image Available">
+                                            @endif
+                                        </div>
+
+                                        <div class="productCardIcons mt-3">
+                                            <p class="text-[12px] text-[#6E6E6E]">{{ $product->add_stoke }} Items</p>
+                                        </div>
+                                        <div class="productName text-[24px] font-medium mb-3">{{ $product->product_name }}
+                                        </div>
+                                        <div
+                                            class="seeProductsButton flex items-center gap-2 text-[#54114C] font-bold w-full">
+                                            See All Products
+                                            <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
+                                                alt="" class="mt-1">
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    @endforeach
+                @endif
             </div>
+
 
 
 
