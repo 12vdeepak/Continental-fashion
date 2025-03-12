@@ -351,7 +351,7 @@
 
 
 
-    {{--  <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('product_images').addEventListener('change', function(event) {
                 const files = event.target.files;
@@ -496,10 +496,10 @@
                 });
             });
         });
-    </script>  --}}
+    </script>
 
 
-    <script>
+    {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('product_images').addEventListener('change', function(event) {
                 const files = event.target.files;
@@ -643,7 +643,9 @@
                 });
             });
         });
-    </script>
+    </script>  --}}
+
+
 
 
 
