@@ -447,6 +447,25 @@
 
 
     <script>
+        function changeColor(colorId, imageUrl, element) {
+            // Update the main product image
+            document.getElementById('mainImage').src = imageUrl;
+
+            // Remove the black border from all color buttons
+            document.querySelectorAll('.colorButton').forEach(button => {
+                button.classList.remove('border-black', 'ring-2', 'ring-gray-900');
+            });
+
+            // Add a black border to the selected button
+            element.classList.add('border-black', 'ring-2', 'ring-gray-900');
+        }
+    </script>
+
+
+
+
+
+    <script>
         // all product filter dropdown
 
         function toggleFilter(id) {

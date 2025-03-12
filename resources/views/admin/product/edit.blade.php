@@ -95,13 +95,17 @@
                                 <!-- Product Images -->
                                 <div class="form-group">
                                     <label for="product_images">Product Images</label>
-                                    <input type="file" name="product_images[]"
+                                    <input type="file" name="product_images[]" id="product_images"
                                         class="form-control @error('product_images') is-invalid @enderror" multiple
                                         accept="image/*">
                                     @error('product_images')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
 
+                                    <!-- Display Newly Selected Images -->
+                                    <div class="row mt-3" id="imagePreviewContainer"></div>
+
+                                    <!-- Display Existing Images -->
                                     @if (!empty($product->images) && $product->images->isNotEmpty())
                                         <div class="mt-2">
                                             <strong>Current Images:</strong>
@@ -112,7 +116,7 @@
                                                         <img src="{{ asset('storage/' . $image->image_path) }}"
                                                             width="100" alt="Product Image">
 
-                                                        <!-- Image Upload Field -->
+                                                        <!-- Change Image -->
                                                         <div class="mt-2">
                                                             <label for="updated_image_{{ $image->id }}">Change
                                                                 Image:</label>
@@ -122,7 +126,7 @@
                                                                 class="form-control" accept="image/*">
                                                         </div>
 
-                                                        <!-- Color Dropdown -->
+                                                        <!-- Assign Color -->
                                                         <div class="mt-2">
                                                             <label for="color_{{ $image->id }}">Assigned
                                                                 Color:</label>

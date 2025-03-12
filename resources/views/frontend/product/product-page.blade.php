@@ -94,18 +94,25 @@
                 <div class="mt-6">
                     <h3 class="mb-2 text-lg font-semibold">Color Options:</h3>
                     <div class="flex flex-wrap gap-2">
-                        @if ($product->colors->count() > 0)
-                            @foreach ($product->colors as $color)
-                                <button class="colorButton w-8 h-8 rounded-full border border-gray-300"
-                                    style="background-color: {{ $color->color_code }};"
-                                    onclick="changeColor('{{ $color->id }}')">
-                                </button>
+                        @if ($product->images->pluck('color_id')->unique()->count() > 0)
+                            @foreach ($product->images->pluck('color_id')->unique() as $colorId)
+                                @php
+                                    $color = \App\Models\Color::find($colorId);
+                                    $image = $product->images->where('color_id', $colorId)->first();
+                                @endphp
+                                @if ($color && $image)
+                                    <button class="colorButton w-8 h-8 rounded-full border border-gray-300"
+                                        style="background-color: {{ $color->color_code }};"
+                                        onclick="changeColor('{{ $color->id }}', '{{ asset('storage/' . $image->image_path) }}')">
+                                    </button>
+                                @endif
                             @endforeach
                         @else
                             <p class="text-gray-500">No colors available</p>
                         @endif
                     </div>
                 </div>
+
 
                 <!-- Size Options -->
                 <div class="mt-6">
