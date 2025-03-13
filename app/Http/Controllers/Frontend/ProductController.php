@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class ProductController extends Controller
 
     public function productPage($id)
     {
-        $product = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category', 'weight', 'wear'])
+        $product = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category', 'weight', 'wear', 'images.sizes'])
             ->find($id);
 
         if (!$product) {
@@ -54,28 +55,40 @@ class ProductController extends Controller
 
 
 
+    public function confirmOrder(Request $request)
+    {
+        $categories = Category::with('subcategories')->get();
+        $userId = session('company_user_id'); // Get user ID from session
 
-    public function confirmOrder()
-    {
-        $categories = Category::with('subcategories')->get();
-        return view('frontend.product.confirm-order', compact('categories'));
+        // Fetch all addresses for the user
+        $addresses = Address::where('user_id', $userId)->get();
+
+        // Check if an address was selected (either from request or session)
+        $selectedAddressId = $request->address_id ?? session('selected_address_id');
+
+        // Find the selected address, otherwise default to first
+        $selectedAddress = $addresses->where('id', $selectedAddressId)->first() ?? $addresses->first();
+
+        // Store selected address in session
+        session(['selected_address_id' => $selectedAddress->id ?? null]);
+
+        return view('frontend.product.confirm-order', compact('categories', 'addresses', 'selectedAddress'));
     }
-    public function myCart()
-    {
-        $categories = Category::with('subcategories')->get();
-        return view('frontend.product.my-cart', compact('categories'));
-    }
+
+
+
+
     public function productLogged()
     {
         $categories = Category::with('subcategories')->get();
         return view('frontend.product.product-page-logged-in', compact('categories'));
     }
 
-    public function selectAddress()
-    {
-        $categories = Category::with('subcategories')->get();
-        return view('frontend.product.select-address', compact('categories'));
-    }
+    // public function selectAddress()
+    // {
+    //     $categories = Category::with('subcategories')->get();
+    //     return view('frontend.product.select-address', compact('categories'));
+    // }
 
     /**
      * Show the form for creating a new resource.

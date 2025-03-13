@@ -29,7 +29,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VatController;
 use App\Http\Controllers\Admin\WearController;
 use App\Http\Controllers\Admin\WeightController;
+use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\AuthController;
+use App\Http\Controllers\Frontend\CartItemController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\SubscriptionController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
@@ -190,8 +192,18 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
 
     Route::get('/user-dashboard', [FrontendController::class, 'publicPrivateHome'])->name('frontend.home.private');
     Route::get('/all-products', [FrontendProductController::class, 'allProduct'])->name('frontend.all.product');
-    Route::get('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
-    Route::get('/my-cart', [FrontendProductController::class, 'myCart'])->name('frontend.my-cart');
+    Route::post('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
+
+
+    Route::get('/my-cart', [CartItemController::class, 'myCart'])->name('frontend.my-cart');
+    Route::post('/cart/add', [CartItemController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/update/{id}', [CartItemController::class, 'updateCartItem'])->name('cart.update');
+    Route::delete('/cart/remove/{id}', [CartItemController::class, 'removeCartItem'])->name('cart.remove');
+
+
+
     Route::get('/product-logged', [FrontendProductController::class, 'productLogged'])->name('frontend.product-logged');
-    Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
+    // Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
+
+    Route::resource('addresses', AddressController::class);
 });

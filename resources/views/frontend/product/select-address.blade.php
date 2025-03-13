@@ -1,152 +1,206 @@
-
-
 @extends('frontend.layouts.app')
 @section('content')
     <main>
 
 
-<div id="pageNavShow " class="flex items-center bg-[#F4F4F4] gap-4 py-4 px-4 lg:px-[120px] ">
-    <div class="backIcon">
-        <img src="{{ asset('frontend/assets/images/backIcon.svg') }}" alt="">
-    </div>
-    <div class="homeIcon flex gap-2 items-center font-[500] text-[#6E6E6E] text-[16px]">
-        <img src="{{ asset('frontend/assets/images/HomeIcon.svg') }}" alt=""> Home
-    </div>
-    <div class="line">
-        <img src="{{ asset('frontend/assets/images/Line.svg') }}" alt="">
-    </div>
-    <div class="currentPage text-[#6E6E6E] font-[500] text-[16px] flex items-center gap-2">
-        Cart
-        <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
-        <span class="text-[#E2001A]">
-
-            Select Address
-        </span>
-
-    </div>
-
-</div>
-
-<!-- Select Address Section -->
-
-<section id="selectAddress" class="px-4 lg:px-[120px] py-[80px]">
-    <div class="heading">Select a delivery address</div>
-    <div class="description">
-        Please select delivery address to confirm your order
-    </div>
-    <div class="shortHeading mt-7 font-medium text-[24px]">
-        Delivery addresses (2)
-
-    </div>
-    <div class="addresses mt-5 flex flex-col gap-5 ">
-        <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg">
-            <div class="selection flex justify-center items-center">
-                <img src="{{ asset('frontend/assets/images/checked.svg') }}" alt="" class="w-[25px] h-[25px]">
+        <div id="pageNavShow " class="flex items-center bg-[#F4F4F4] gap-4 py-4 px-4 lg:px-[120px] ">
+            <div class="backIcon">
+                <img src="{{ asset('frontend/assets/images/backIcon.svg') }}" alt="">
             </div>
-            <div class="info">
-                <div class="nameAndDef flex gap-3 items-center">
-                    <div class="name text-[20px] font-medium">Kishore MS</div>
-                    <div class="defaultButton text-[#3CC4D5] bg-[#3CC4D51A] p-1 rounded-lg">
-                        Default
-                    </div>
-                </div>
-                <div class="description mt-2">
-                    Wallstrasse 93, Kettig, Rheinland-Pfalz <br>
-                    Phone number:  02637 86 23 95
-                </div>
+            <div class="homeIcon flex gap-2 items-center font-[500] text-[#6E6E6E] text-[16px]">
+                <img src="{{ asset('frontend/assets/images/HomeIcon.svg') }}" alt=""> Home
+            </div>
+            <div class="line">
+                <img src="{{ asset('frontend/assets/images/Line.svg') }}" alt="">
+            </div>
+            <div class="currentPage text-[#6E6E6E] font-[500] text-[16px] flex items-center gap-2">
+                Cart
+                <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
+                <span class="text-[#E2001A]">
+
+                    Select Address
+                </span>
+
             </div>
 
         </div>
-        <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg">
-            <div class="selection flex justify-center items-center">
-                <div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>
+
+        <!-- Select Address Section -->
+
+        <section id="selectAddress" class="px-4 lg:px-[120px] py-[80px]">
+            <div class="heading">Select a delivery address</div>
+            <div class="description">
+                Please select delivery address to confirm your order
             </div>
-            <div class="info">
-                <div class="nameAndDef flex gap-3 items-center">
-                    <div class="name text-[20px] font-medium">Kishore MS</div>
-                    
-                </div>
-                <div class="description mt-2">
-                    Wallstrasse 93, Kettig, Rheinland-Pfalz <br>
-                    Phone number:  02637 86 23 95
+            <div class="shortHeading mt-7 font-medium text-[24px]">
+                Delivery addresses (2)
+            </div>
+            <div class="addresses mt-5 flex flex-col gap-5">
+                @if ($addresses->isNotEmpty())
+                    @foreach ($addresses as $key => $address)
+                        <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg" data-address-id="{{ $address->id }}">
+                            <div class="selection flex justify-center items-center">
+                                @if ($key == 0)
+                                    <img src="{{ asset('frontend/assets/images/checked.svg') }}" alt=""
+                                        class="w-[25px] h-[25px]">
+                                @else
+                                    <div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>
+                                @endif
+                            </div>
+                            <div class="info">
+                                <div class="nameAndDef flex gap-3 items-center">
+                                    <div class="name text-[20px] font-medium">
+                                        {{ $address->first_name }} {{ $address->last_name }}
+                                    </div>
+                                    @if ($key == 0)
+                                        <div class="defaultButton text-[#3CC4D5] bg-[#3CC4D51A] p-1 rounded-lg">
+                                            Default
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="description mt-2">
+                                    {{ $address->street }}, {{ $address->city }}, {{ $address->state }} <br>
+                                    Phone number: {{ $address->phone_number }}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <!-- Hidden Input for Selected Address -->
+                    <form action="{{ route('frontend.confirm-order') }}" method="POST">
+                        @csrf
+                        <input type="hidden" id="selectedAddressId" name="address_id"
+                            value="{{ $addresses->first()->id ?? '' }}">
+                        <div class="addAddressButton mt-4 flex justify-end items-center">
+                            <button type="submit"
+                                class="text-[#54114C] rounded-lg font-medium bg-[#54114C] px-6 py-4 text-[#FFFFFF]">
+                                Deliver to this address
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <!-- Show "No Address Available" Message -->
+                    <div class="text-center text-gray-500 text-lg font-semibold py-6">
+                        No Address Available
+                    </div>
+                @endif
+
+                <!-- Add New Address Button -->
+                <div class="addAddressButton">
+                    <button class="text-[#54114C] w-full bg-gray-100 p-4 rounded-lg font-bold">
+                        Add New Address
+                    </button>
                 </div>
             </div>
 
-        </div>
-        <div class="addAddressButton ">
-            <button class="text-[#54114C] w-full bg-gray-100 p-4 rounded-lg font-bold">
-                Add New Address
-            </button>
-        </div>
-        <div class="addAddressButton  mt-4 flex justify-end items-center ">
-            <a href="{{ route('frontend.confirm-order') }}">
-            <button class="text-[#54114C]  rounded-lg font-medium bg-[#54114C] px-6 py-4 text-[#FFFFFF]">
-                Deliver to this adddress
-            </button>
+        </section>
+        <!-- Add this inside <body>, preferably after the 'Add New Address' button -->
+        <div id="addressPopup"
+            class="fixed inset-0 bg-opacity-30 backdrop-blur-sm hidden flex justify-center items-start overflow-y-auto scrollbar-hide ">
+            <div class="bg-white px-4 lg:px-20 py-10 mt-10 rounded-lg shadow-lg w-full max-w-2xl">
+                <div class="text-[24px] font-semibold mb-2 flex justify-between items-center">
+                    Add a new delivery address
+                    <img src="{{ asset('frontend/assets/images/cancel.svg') }}" alt="Close" id="closePopup"
+                        class="w-[20px] h-[20px] cursor-pointer">
+                </div>
+                <p class="description">Please fill the required delivery information to deliver the products</p>
 
-            </a>
-        </div>
-    </div>
-</section>
-<!-- Add this inside <body>, preferably after the 'Add New Address' button -->
-    <div id="addressPopup" class="fixed inset-0 bg-opacity-30 backdrop-blur-sm hidden flex justify-center items-start overflow-y-auto scrollbar-hide ">
-        <div class="bg-white px-4 lg:px-20 py-10 mt-10 rounded-lg shadow-lg w-full max-w-2xl">
-            <div class="text-[24px] font-semibold mb-2 flex justify-between items-center">
-                Add a new delivery address
-                <img src="{{ asset('frontend/assets/images/cancel.svg') }}" alt="Close" id="closePopup" class="w-[20px] h-[20px] cursor-pointer">
+                <form action="{{ route('addresses.store') }}" method="POST" class="mt-4 lg:mt-6 flex flex-col gap-5">
+                    @csrf
+
+                    <div id="firstAndLastName" class="flex flex-col md:flex-row w-full gap-5">
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="firstName">First Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="first_name" id="firstName" value="{{ old('first_name') }}"
+                                placeholder="Enter First Name"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('first_name') border-red-500 @enderror">
+                            @error('first_name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="lastName">Last Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="last_name" id="lastName" value="{{ old('last_name') }}"
+                                placeholder="Enter Last Name"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('last_name') border-red-500 @enderror">
+                            @error('last_name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div id="companyAndStreet" class="flex flex-col md:flex-row w-full gap-5">
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="companyName">Company Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="company_name" id="companyName" value="{{ old('company_name') }}"
+                                placeholder="Enter Company Name"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('company_name') border-red-500 @enderror">
+                            @error('company_name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="street">Street <span class="text-red-500">*</span></label>
+                            <input type="text" name="street" id="street" value="{{ old('street') }}"
+                                placeholder="Enter Street Name"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('street') border-red-500 @enderror">
+                            @error('street')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div id="zipCodeAndCity" class="flex flex-col md:flex-row w-full gap-5">
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="zipCode">Zip Code <span class="text-red-500">*</span></label>
+                            <input type="text" name="zip_code" id="zipCode" value="{{ old('zip_code') }}"
+                                placeholder="Enter Zip Code"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('zip_code') border-red-500 @enderror">
+                            @error('zip_code')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="city">City <span class="text-red-500">*</span></label>
+                            <input type="text" name="city" id="city" value="{{ old('city') }}"
+                                placeholder="Enter City Name"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('city') border-red-500 @enderror">
+                            @error('city')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div id="countryAndPhoneNumber" class="flex flex-col md:flex-row w-full gap-5">
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="country">Country <span class="text-red-500">*</span></label>
+                            <input type="text" name="country" id="country" value="{{ old('country') }}"
+                                placeholder="Enter Country Name"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('country') border-red-500 @enderror">
+                            @error('country')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="flex flex-col md:w-1/2 gap-1">
+                            <label for="phoneNumber">Phone Number <span class="text-red-500">*</span></label>
+                            <input type="text" name="phone_number" id="phoneNumber"
+                                value="{{ old('phone_number') }}" placeholder="Enter Phone Number"
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('phone_number') border-red-500 @enderror">
+                            @error('phone_number')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Add Address"
+                        class="bg-[#6D28D9] text-white rounded-lg p-[10px] cursor-pointer hover:bg-purple-700 transition text-[16px] font-bold mt-5">
+                </form>
+
+
             </div>
-            <p class="description">Please fill the required delivery information to deliver the products</p>
-            
-            <form action="" class="mt-4 lg:mt-6 flex flex-col gap-5">
-                <div id="firstAndLastName" class="flex flex-col md:flex-row w-full gap-5">
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="firstName">First Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="firstName" placeholder="Enter First Name" required class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="lastName">Last Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="lastName" placeholder="Enter Last Name" class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                </div>
-    
-                <div id="companyAndStreet" class="flex flex-col md:flex-row w-full gap-5">
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="companyName">Company Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="companyName" placeholder="Enter Company Name" required class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="Street">Street <span class="text-red-500">*</span></label>
-                        <input type="text" id="Street" placeholder="Enter Street Name" class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                </div>
-    
-                <div id="zipCodeAndCity" class="flex flex-col md:flex-row w-full gap-5">
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="zipCode">Zip Code <span class="text-red-500">*</span></label>
-                        <input type="text" id="zipCode" placeholder="Enter Zip Code" required class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="city">City <span class="text-red-500">*</span></label>
-                        <input type="text" id="city" placeholder="Enter City Name" class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                </div>
-    
-                <div id="countryAndPhoneNumber" class="flex flex-col md:flex-row w-full gap-5">
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="country">Country <span class="text-red-500">*</span></label>
-                        <input type="text" id="country" placeholder="Enter Country Name" required class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                    <div class="flex flex-col md:w-1/2 gap-1">
-                        <label for="phoneNumber">Phone Number <span class="text-red-500">*</span></label>
-                        <input type="number" id="phoneNumber" placeholder="Enter Phone Number" class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    </div>
-                </div>
-    
-                <input type="submit" value="Add Address" class="bg-[#54114C] text-white p-[16px] rounded-lg cursor-pointer hover:bg-purple-700 transition text-[16px] font-bold mt-5">
-            </form>
         </div>
-    </div>
 
-</main>
-
+    </main>
 @endsection

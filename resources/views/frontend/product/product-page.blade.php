@@ -68,7 +68,7 @@
                                 <div class="activeProductImage">
                                     <img id="mainImage"
                                         src="{{ $product->images->first() ? asset('storage/' . $product->images->first()->image_path) : asset('frontend/assets/images/default-image.png') }}"
-                                        alt="Main Product Image" class="object-cover w-64 h-64">
+                                        class="object-cover w-64 h-64">
                                 </div>
 
                                 <!-- Thumbnail Dots -->
@@ -103,7 +103,7 @@
                                 @if ($color && $image)
                                     <button class="colorButton w-8 h-8 rounded-full border border-gray-300"
                                         style="background-color: {{ $color->color_code }};"
-                                        onclick="changeColor('{{ $color->id }}', '{{ asset('storage/' . $image->image_path) }}')">
+                                        onclick="changeColors('{{ $color->id }}', '{{ asset('storage/' . $image->image_path) }}')">
                                     </button>
                                 @endif
                             @endforeach
@@ -115,21 +115,23 @@
 
 
                 <!-- Size Options -->
+                <!-- Size Options -->
                 <div class="mt-6">
                     <h3 class="mb-2 text-lg font-semibold">Size:</h3>
-                    <div class="flex flex-wrap gap-2">
-                        @if ($product->sizes->count() > 0)
-                            @foreach ($product->sizes as $size)
-                                <button class="px-4 py-2 border rounded-md hover:bg-gray-100">
+                    <div class="flex flex-wrap gap-2" id="sizeContainer">
+                        @foreach ($product->images as $image)
+                            @foreach ($image->sizes as $size)
+                                <button class="px-4 py-2 border rounded-md hover:bg-gray-100 sizeButton"
+                                    data-color="{{ $image->color_id }}" data-size-id="{{ $size->id }}"
+                                    data-image="{{ asset('storage/' . $image->image_path) }}" style="display: none;">
                                     {{ strtoupper($size->size_name) }}
                                 </button>
                             @endforeach
-                        @else
-                            <p class="text-gray-500">No sizes available</p>
-                        @endif
+                        @endforeach
                     </div>
-
                 </div>
+
+
 
             </div>
 
@@ -246,7 +248,12 @@
                     </div>
 
                     @if (session()->has('company_user_id'))
-                        <form action="#" class="flex-1">
+                        <form action="{{ route('cart.add') }}" method="POST" class="flex-1">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="color_id" id="selectedColor" value="">
+                            <input type="hidden" name="size_id" id="selectedSize" value="">
+                            <input type="hidden" name="quantity" id="productQuantity" value="1">
                             <button type="submit"
                                 class="bg-[#54114C] text-[#ffffff] text-[16px] font-medium w-full p-4 rounded-xl hover:bg-[#6A1B61] transition">
                                 Add to Cart
