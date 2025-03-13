@@ -33,8 +33,9 @@
                 Please select delivery address to confirm your order
             </div>
             <div class="shortHeading mt-7 font-medium text-[24px]">
-                Delivery addresses (2)
+                Delivery addresses ({{ $addresses->count() }})
             </div>
+
             <div class="addresses mt-5 flex flex-col gap-5">
                 @if ($addresses->isNotEmpty())
                     @foreach ($addresses as $key => $address)
