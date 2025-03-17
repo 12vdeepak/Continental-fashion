@@ -1,0 +1,111 @@
+@extends('backend.layouts.app')
+@section('title', 'Assign Customer ID')
+
+@section('content')
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="mb-2 row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @if (session('success'))
+            <div class="card-body">
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5>{{ session('success') }}</h5>
+                </div>
+            </div>
+        @endif
+
+        <div class="container">
+            <h2>Orders Details</h2>
+            <table id="example2" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th  class="text-center">Order ID</th>
+                        <th  class="text-center">Product Name</th>
+                        <th  class="text-center">Size </th>
+                        <th  class="text-center">Color </th>
+                        <th  class="text-center">Quantity</th>
+                        <th  class="text-center">Price</th>
+                        <th  class="text-center">Amount</th>
+                        <th class="text-center">Tracking Information</th>
+
+                        <th>Address </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($orders as $order)
+                        <tr>
+                            <td class="text-center">{{ $order->id }}</td>
+                            <td class="text-center">{{ $order->product->product_name ?? 'N/A' }}</td>
+                            <td class="text-center">{{ $order->size->size_name ?? 'N/A' }}</td>
+                            <td class="text-center">{{ $order->color->color_code ?? 'N/A' }}</td>
+                            <td class="text-center">{{ $order->quantity }}</td>
+                            <td class="text-center">€{{ number_format($order->price, 2) }}</td>
+                            <td class="text-center">€{{ number_format($order->amount, 2) }}</td>
+                            <td class="text-center"> <a href="{{ route('orders.tracking.edit', $order->id) }}"
+                                    class="btn btn-success btn-sm">
+                                    Add
+                                </a></td>
+                            <td>
+                                @php
+                                    $fullAddress = $order->address->full_address ?? 'N/A';
+                                @endphp
+
+                                @if (strlen($fullAddress) > 20)
+                                    <span>{{ substr($fullAddress, 0, 20) }}...</span>
+                                    <button class="btn btn-link p-0 m-0 text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addressModal{{ $order->id }}">
+                                        Show More
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addressModal{{ $order->id }}" tabindex="-1"
+                                        aria-labelledby="addressModalLabel{{ $order->id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addressModalLabel{{ $order->id }}">Full
+                                                        Address</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{ $fullAddress }}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    {{ $fullAddress }}
+                                @endif
+                            </td>
+
+
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="10" class="text-center">No orders found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+@endsection

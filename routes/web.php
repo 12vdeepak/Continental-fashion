@@ -71,6 +71,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::get('/users/{user}/assign-customer-id', [UserController::class, 'assignCustomerID'])->name('users.assignCustomerID');
     Route::post('/users/{user}/store-customer-id', [UserController::class, 'storeCustomerID'])->name('users.storeCustomerID');
+    Route::get('/users/{id}/order', [UserController::class, 'showOrders'])->name('users.order');
+    Route::get('/orders/tracking/edit/{id}', [UserController::class, 'editTracking'])->name('orders.tracking.edit');
+    Route::post('/orders/tracking/update/{id}', [UserController::class, 'updateTracking'])->name('orders.tracking.update');
+
 
     // SubscriptionController
 

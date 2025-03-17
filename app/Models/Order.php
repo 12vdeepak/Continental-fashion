@@ -19,4 +19,33 @@ class Order extends Model
         'amount',
 
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(CompanyRegistration::class, 'user_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    // Relationship with Size
+    public function size()
+    {
+        return $this->belongsTo(Size::class, 'size_id');
+    }
+
+    // Relationship with Color
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
+    }
+
+    // Relationship with Address
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
 }

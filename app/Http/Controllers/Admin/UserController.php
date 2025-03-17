@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CompanyRegistration;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -63,5 +64,43 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('users.index')->with('message', 'Customer ID and Price Category assigned successfully.');
+    }
+    public function showOrders($id)
+    {
+        // Fetch orders with related data
+        $orders = Order::where('user_id', $id)
+            ->with(['product', 'size', 'color', 'address'])
+            ->get();
+
+        // Check if orders exist
+        if ($orders->isEmpty()) {
+            return redirect()->back()->with('message', 'No orders found for this user.');
+        }
+
+        return view('users.orders', compact('orders'));
+    }
+
+    public function editTracking($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('users.tracking_edit', compact('order'));
+    }
+
+    public function updateTracking(Request $request, $id)
+    {
+        $request->validate([
+            'courier_partner_name' => 'required|string|max:255',
+            'tracking_id' => 'required|string|max:255',
+            'link' => 'required|url'
+        ]);
+
+        // Update or Add Tracking Info
+        Order::where('id', $id)->update([
+            'courier_partner_name' => $request->courier_partner_name,
+            'tracking_id' => $request->tracking_id,
+            'link' => $request->link
+        ]);
+
+        return redirect()->route('users.index')->with('message', 'Tracking information updated successfully.');
     }
 }

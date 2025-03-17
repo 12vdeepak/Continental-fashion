@@ -25,4 +25,8 @@ class Address extends Model
     {
         return $this->belongsTo(CompanyRegistration::class, 'user_id');
     }
+    public function getFullAddressAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}, {$this->company_name}, {$this->street}, {$this->zip_code} {$this->city}, {$this->country}, Ph: {$this->phone_number}";
+    }
 }

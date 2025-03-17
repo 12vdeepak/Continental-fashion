@@ -74,6 +74,9 @@
                                             class="btn btn-warning btn-sm">
                                             <i class="fas fa-user-tag"></i>
                                         </a>
+                                        <a href="{{ route('users.order', $user->id) }}" class="btn btn-success btn-sm">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
                                         <form action="{{ route('users.destroy', $user->id) }}" method="POST"
                                             style="display: inline-block;">
                                             @csrf
