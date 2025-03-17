@@ -28,7 +28,14 @@
             </div>
         @endif
 
+
+
+
+
+
         <section class="content">
+
+
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Assign Customer ID to {{ $user->first_name }} {{ $user->last_name }}</h3>
@@ -73,6 +80,7 @@
                     </form>
                 </div>
             </div>
+
         </section>
     </div>
 @endsection
