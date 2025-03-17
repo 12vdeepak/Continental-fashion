@@ -159,7 +159,7 @@
                                 <!-- Price and Action -->
                                 <div class="flex justify-between items-center">
                                     <p class="text-gray-800 font-medium">Total: <span
-                                            class="font-semibold">${{ number_format($item->price * $item->quantity, 2) }}</span>
+                                            class="font-semibold">€{{ number_format($item->price * $item->quantity, 2) }}</span>
                                     </p>
                                     <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                         @csrf
@@ -185,17 +185,17 @@
                             <p class="flex justify-between text-sm text-gray-700">
                                 <span>Total net:</span>
                                 <span
-                                    class="net-amount">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
+                                    class="net-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
                             </p>
                             <p class="flex justify-between text-sm my-2 text-gray-700">
                                 <span>VAT (19%):</span>
                                 <span
-                                    class="vat-amount">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 0.19, 2) }}</span>
+                                    class="vat-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 0.19, 2) }}</span>
                             </p>
                             <p class="flex justify-between text-md font-semibold mt-3 border-y border-dashed">
                                 <span>Final amount:</span>
                                 <span
-                                    class="final-amount text-[#3CC4D5]">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
+                                    class="final-amount text-[#3CC4D5]">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
                             </p>
                             <a href="{{ route('addresses.index') }}"
                                 class="mt-10 bg-[#54114C] text-white px-6 py-2 rounded-lg w-full text-center block">

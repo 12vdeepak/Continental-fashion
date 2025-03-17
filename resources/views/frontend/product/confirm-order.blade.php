@@ -213,17 +213,17 @@
                         <p class="flex justify-between text-sm text-gray-700">
                             <span>Total net:</span>
                             <span
-                                class="net-amount">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
+                                class="net-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
                         </p>
                         <p class="flex justify-between text-sm my-2 text-gray-700">
                             <span>VAT (19%):</span>
                             <span
-                                class="vat-amount">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 0.19, 2) }}</span>
+                                class="vat-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 0.19, 2) }}</span>
                         </p>
                         <p class="flex justify-between text-md font-semibold mt-3 border-y border-dashed">
                             <span>Final amount:</span>
                             <span
-                                class="final-amount text-[#3CC4D5]">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
+                                class="final-amount text-[#3CC4D5]">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
                         </p>
                         <form id="" action="{{ route('order.store') }}" method="POST">
                             @csrf <!-- CSRF token for Laravel security -->
@@ -278,9 +278,9 @@
                                     <span>Qty: 120</span>
                                 </div>
                                 <div class="mt-2 text-sm flex gap-4">
-                                    <span class="text-gray-600">Unit Price: <span class="font-semibold">$12</span></span>
+                                    <span class="text-gray-600">Unit Price: <span class="font-semibold">€12</span></span>
                                     <span class="text-gray-600">Total Price: <span
-                                            class="font-semibold text-blue-600">$126</span></span>
+                                            class="font-semibold text-blue-600">€126</span></span>
                                 </div>
                             </div>
                         </div>
