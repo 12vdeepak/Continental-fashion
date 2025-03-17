@@ -33,7 +33,7 @@ use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartItemController;
 use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\frontend\OrderController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\SubscriptionController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\ProfileController;
