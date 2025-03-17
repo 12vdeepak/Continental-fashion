@@ -7,6 +7,8 @@
     <title>Continental Fashion</title>
 
     <!-- ======= IMPORTED CSS - start  ====== -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/global.css') }}">
 
@@ -929,7 +931,7 @@
         });
     </script>
 
-    <script>
+    {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             const placeOrderBtn = document.getElementById("placeOrderBtn");
             const orderPopup = document.getElementById("orderSuccessPopup");
@@ -960,7 +962,22 @@
                 }
             });
         });
+    </script>  --}}
+    <script>
+        document.getElementById('closePopup')?.addEventListener('click', () => {
+            document.getElementById('orderSuccessPopup').style.display = 'none';
+        });
+
+        document.getElementById('closePopupBtn')?.addEventListener('click', () => {
+            document.getElementById('orderSuccessPopup').style.display = 'none';
+        });
     </script>
+
+
+
+
+
+
 
 
     {{--  <script>

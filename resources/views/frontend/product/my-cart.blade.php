@@ -118,11 +118,67 @@
                         </table>
                     </div>
 
+                    <!-- Mobile List View -->
+                    <div class="sm:hidden space-y-4">
+                        @foreach ($cartItems as $key => $item)
+                            @php
+                                $image = $item->product->images->where('color_id', $item->color_id)->first();
+                                $imagePath = $image
+                                    ? asset('storage/' . $image->image_path)
+                                    : asset('frontend/assets/images/default-image.png');
+                            @endphp
+
+                            <div class="bg-white p-4 shadow rounded-lg flex flex-col gap-2">
+                                <!-- Product Info -->
+                                <div class="flex items-center">
+                                    <img src="{{ $imagePath }}" class="w-16 h-16 mr-3 rounded-lg" alt="Product">
+                                    <div>
+                                        <h2 class="text-lg font-semibold">{{ $item->product->name }}</h2>
+                                        <p class="text-sm text-gray-500">Color: {{ $item->color->color_code ?? 'N/A' }} |
+                                            Size: {{ $item->size->size_name ?? 'N/A' }}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Quantity Control -->
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-medium">Quantity:</span>
+                                    <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
+                                            <button type="submit" name="quantity"
+                                                value="{{ max(1, $item->quantity - 1) }}"
+                                                class="text-black text-md px-3">−</button>
+                                            <span class="text-gray-800 font-medium">{{ $item->quantity }}</span>
+                                            <button type="submit" name="quantity" value="{{ $item->quantity + 1 }}"
+                                                class="text-black text-md px-3">+</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Price and Action -->
+                                <div class="flex justify-between items-center">
+                                    <p class="text-gray-800 font-medium">Total: <span
+                                            class="font-semibold">${{ number_format($item->price * $item->quantity, 2) }}</span>
+                                    </p>
+                                    <form action="{{ route('cart.remove', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500">
+                                            <img src="{{ asset('frontend/assets/images/bin.svg') }}" alt="Delete">
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
                     <!-- Payment Summary -->
                     <div class="mt-6 bg-[#F4F4F4] p-8 rounded-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <h3 class="text-lg font-bold">Payment summary</h3>
-                            <p class="text-gray-500 text-sm">Total cost consists of temporary costs, not including shipping.
+                            <p class="text-gray-500 text-sm">Total cost consists of temporary costs, not including
+                                shipping.
                             </p>
                         </div>
                         <div class="text-right sm:text-left">

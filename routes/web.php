@@ -33,6 +33,7 @@ use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartItemController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\frontend\OrderController;
 use App\Http\Controllers\Frontend\SubscriptionController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\ProfileController;
@@ -192,7 +193,9 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
 
     Route::get('/user-dashboard', [FrontendController::class, 'publicPrivateHome'])->name('frontend.home.private');
     Route::get('/all-products', [FrontendProductController::class, 'allProduct'])->name('frontend.all.product');
-    Route::post('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
+    Route::any('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
+
+    Route::post('/place-order', [OrderController::class, 'storeOrder'])->name('order.store');
 
 
     Route::get('/my-cart', [CartItemController::class, 'myCart'])->name('frontend.my-cart');

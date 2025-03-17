@@ -113,36 +113,93 @@
                     </table>
                 </div>
 
-                <div class="flex rounded-xl mt-5">
-                    <div class="addressDiv w-full">
-                        <div class="address bg-[#F4F4F4] flex p-4 gap-5 rounded-lg">
-                            <div class="info w-full">
-                                <div class="nameAndDef flex gap-3 items-center w-full">
-                                    <div
-                                        class="nameAndChange flex items-center justify-between text-[20px] font-medium w-full">
-                                        <div class="name">
-                                            @if ($selectedAddress)
-                                                {{ $selectedAddress->first_name . ' ' . $selectedAddress->last_name }}
-                                            @else
-                                                No Address Selected
-                                            @endif
-                                        </div>
-                                        <a href="{{ route('addresses.index') }}">
-                                            <div class="changeButton text-[14px] font-bold text-[#2468ce]">
-                                                Change
-                                            </div>
-                                        </a>
-                                    </div>
+                <!-- Mobile List View -->
+                <div class="sm:hidden space-y-4">
+                    @foreach ($cartItems as $key => $item)
+                        @php
+                            $image = $item->product->images->where('color_id', $item->color_id)->first();
+                            $imagePath = $image
+                                ? asset('storage/' . $image->image_path)
+                                : asset('frontend/assets/images/default-image.png');
+                        @endphp
+
+                        <div class="bg-white p-4 shadow rounded-lg flex flex-col gap-2">
+                            <!-- Product Info -->
+                            <div class="flex items-center">
+                                <img src="{{ $imagePath }}" class="w-16 h-16 mr-3 rounded-lg" alt="Product">
+                                <div>
+                                    <h2 class="text-lg font-semibold">{{ $item->product->name }}</h2>
+                                    <p class="text-sm text-gray-500">Color: {{ $item->color->color_code ?? 'N/A' }} | Size:
+                                        {{ $item->size->size_name ?? 'N/A' }}</p>
                                 </div>
-                                <div class="description mt-2">
-                                    {{ $selectedAddress->street ?? '' }}, {{ $selectedAddress->city ?? '' }},
-                                    {{ $selectedAddress->state ?? '' }} <br>
-                                    Phone number: {{ $selectedAddress->phone_number ?? '' }}
+                            </div>
+
+                            <!-- Quantity Control -->
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Quantity:</span>
+                                <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
+                                        <button type="submit" name="quantity" value="{{ max(1, $item->quantity - 1) }}"
+                                            class="text-black text-md px-3">−</button>
+                                        <span class="text-gray-800 font-medium">{{ $item->quantity }}</span>
+                                        <button type="submit" name="quantity" value="{{ $item->quantity + 1 }}"
+                                            class="text-black text-md px-3">+</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Price and Action -->
+                            <div class="flex justify-between items-center">
+                                <p class="text-gray-800 font-medium">Total: <span
+                                        class="font-semibold">${{ number_format($item->price * $item->quantity, 2) }}</span>
+                                </p>
+                                <form action="{{ route('cart.remove', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500">
+                                        <img src="{{ asset('frontend/assets/images/bin.svg') }}" alt="Delete">
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                @if (!$cartItems->isEmpty())
+                    <div class="flex rounded-xl mt-5">
+                        <div class="addressDiv w-full">
+                            <div class="address bg-[#F4F4F4] flex p-4 gap-5 rounded-lg">
+                                <div class="info w-full">
+                                    <div class="nameAndDef flex gap-3 items-center w-full">
+                                        <div
+                                            class="nameAndChange flex items-center justify-between text-[20px] font-medium w-full">
+                                            <div class="name">
+                                                @if ($selectedAddress)
+                                                    {{ $selectedAddress->first_name . ' ' . $selectedAddress->last_name }}
+                                                @else
+                                                    No Address Selected
+                                                @endif
+                                            </div>
+                                            <a href="{{ route('addresses.index') }}">
+                                                <div class="changeButton text-[14px] font-bold text-[#2468ce]">
+                                                    Change
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="description mt-2">
+                                        {{ $selectedAddress->street ?? '' }}, {{ $selectedAddress->city ?? '' }},
+                                        {{ $selectedAddress->state ?? '' }} <br>
+                                        Phone number: {{ $selectedAddress->phone_number ?? '' }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
 
 
                 <!-- Payment Summary -->
@@ -168,8 +225,17 @@
                             <span
                                 class="final-amount text-[#3CC4D5]">${{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
                         </p>
-                        <button id="placeOrderBtn" class="mt-10 bg-[#54114C] text-white px-6 py-2 rounded-lg w-full">Place
-                            Order</button>
+                        <form id="" action="{{ route('order.store') }}" method="POST">
+                            @csrf <!-- CSRF token for Laravel security -->
+
+                            <!-- Hidden field to store selected address ID -->
+                            <input type="hidden" name="address_id" value="{{ session('selected_address_id') }}">
+
+                            <button type="submit" class="mt-10 bg-[#54114C] text-white px-6 py-2 rounded-lg w-full">
+                                Place Order
+                            </button>
+                        </form>
+
                     </div>
                 </div>
             </div>
