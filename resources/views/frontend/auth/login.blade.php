@@ -35,7 +35,7 @@
 
 
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter Your Email"
+                            <input type="email" id="email" name="email" placeholder="Enter Your Email" required
                                 class="border border-gray-300 rounded-2xl p-[16px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('email') is-invalid @enderror">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -45,6 +45,7 @@
                             <label for="password">Password</label>
                             <div class="relative">
                                 <input type="password" id="password" name="password" placeholder="Enter Your Password"
+                                    required
                                     class="border border-gray-300 rounded-2xl p-[16px] w-full focus:outline-none focus:ring-2 focus:ring-purple-500 @error('password') is-invalid @enderror">
                                 <button type="button" id="togglePassword"
                                     class="absolute right-4 top-1/2 transform -translate-y-1/2">
@@ -55,7 +56,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <input type="submit" value="Subscribe"
+                        <input type="submit" value="Login"
                             class="bg-[#54114C] text-white p-[16px] rounded-2xl cursor-pointer hover:bg-purple-700 transition text-[16px] font-bold ">
                     </form>
                 </div>

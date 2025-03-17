@@ -20,7 +20,7 @@
         <!-- search bar end -->
         <!-- cart start -->
         <div class="flex items-center mr-3 cursor-pointer">
-            @if(session()->has('company_user_id'))
+            @if (session()->has('company_user_id'))
                 <a href="{{ route('frontend.my-cart') }}">
                     <img src="{{ asset('frontend/assets/images/cart.svg') }}" alt="Cart">
                 </a>
@@ -30,31 +30,35 @@
                 </a>
             @endif
         </div>
-        
-        
-        
+
+
+
         <!-- cart end  -->
 
 
         <div class="adminButton flex justify-between items-center gap-2 mr-2 relative">
-            @if(session()->has('company_user_id'))
+            @if (session()->has('company_user_id'))
                 @php
                     $user = \App\Models\CompanyRegistration::find(session('company_user_id'));
                 @endphp
-                @if($user)
+                @if ($user)
                     <div class="relative">
                         <!-- Button to Toggle Dropdown -->
                         <button id="dropdownButton" class="flex items-center gap-1 px-3 py-2">
                             {{ $user->first_name }}
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
                             </svg>
                         </button>
-        
+
                         <!-- Dropdown Menu (Initially Hidden) -->
-                        <div id="dropdownMenu" class="absolute right-0 hidden w-40 mt-2 bg-white border rounded-md shadow-lg">
-                            <a href="{{ route('frontend.logout') }}" 
-                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <div id="dropdownMenu"
+                            class="absolute right-0 hidden w-40 mt-2 bg-white border rounded-md shadow-lg">
+                            <a href="{{ route('frontend.logout') }}"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                 Logout
                             </a>
                         </div>
@@ -69,8 +73,8 @@
                 </a>
             @endif
         </div>
-        
-        
+
+
 
         <div class="langMenu">
             <div class="relative text-left  ">
@@ -122,17 +126,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const dropdownButton = document.getElementById("dropdownButton");
         const dropdownMenu = document.getElementById("dropdownMenu");
 
-        dropdownButton.addEventListener("click", function (event) {
+        dropdownButton.addEventListener("click", function(event) {
             event.stopPropagation(); // Prevent click from closing immediately
             dropdownMenu.classList.toggle("hidden");
         });
 
         // Close dropdown if clicking outside
-        document.addEventListener("click", function (event) {
+        document.addEventListener("click", function(event) {
             if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.classList.add("hidden");
             }

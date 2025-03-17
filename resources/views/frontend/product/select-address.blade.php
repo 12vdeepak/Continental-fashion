@@ -72,7 +72,7 @@
                         @csrf
                         <input type="hidden" id="selectedAddressId" name="address_id"
                             value="{{ $addresses->first()->id ?? '' }}">
-                        <div class="addAddressButton mt-4 flex justify-end items-center">
+                        <div class="mt-4 flex justify-end items-center">
                             <button type="submit"
                                 class="text-[#54114C] rounded-lg font-medium bg-[#54114C] px-6 py-4 text-[#FFFFFF]">
                                 Deliver to this address
@@ -113,7 +113,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="firstName">First Name <span class="text-red-500">*</span></label>
                             <input type="text" name="first_name" id="firstName" value="{{ old('first_name') }}"
-                                placeholder="Enter First Name"
+                                placeholder="Enter First Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('first_name') border-red-500 @enderror">
                             @error('first_name')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -123,7 +123,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="lastName">Last Name <span class="text-red-500">*</span></label>
                             <input type="text" name="last_name" id="lastName" value="{{ old('last_name') }}"
-                                placeholder="Enter Last Name"
+                                placeholder="Enter Last Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('last_name') border-red-500 @enderror">
                             @error('last_name')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -135,7 +135,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="companyName">Company Name <span class="text-red-500">*</span></label>
                             <input type="text" name="company_name" id="companyName" value="{{ old('company_name') }}"
-                                placeholder="Enter Company Name"
+                                placeholder="Enter Company Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('company_name') border-red-500 @enderror">
                             @error('company_name')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -144,7 +144,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="street">Street <span class="text-red-500">*</span></label>
                             <input type="text" name="street" id="street" value="{{ old('street') }}"
-                                placeholder="Enter Street Name"
+                                placeholder="Enter Street Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('street') border-red-500 @enderror">
                             @error('street')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -156,7 +156,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="zipCode">Zip Code <span class="text-red-500">*</span></label>
                             <input type="text" name="zip_code" id="zipCode" value="{{ old('zip_code') }}"
-                                placeholder="Enter Zip Code"
+                                placeholder="Enter Zip Code" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('zip_code') border-red-500 @enderror">
                             @error('zip_code')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -165,7 +165,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="city">City <span class="text-red-500">*</span></label>
                             <input type="text" name="city" id="city" value="{{ old('city') }}"
-                                placeholder="Enter City Name"
+                                placeholder="Enter City Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('city') border-red-500 @enderror">
                             @error('city')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -177,7 +177,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="country">Country <span class="text-red-500">*</span></label>
                             <input type="text" name="country" id="country" value="{{ old('country') }}"
-                                placeholder="Enter Country Name"
+                                placeholder="Enter Country Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('country') border-red-500 @enderror">
                             @error('country')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -187,7 +187,7 @@
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="phoneNumber">Phone Number <span class="text-red-500">*</span></label>
                             <input type="text" name="phone_number" id="phoneNumber"
-                                value="{{ old('phone_number') }}" placeholder="Enter Phone Number"
+                                value="{{ old('phone_number') }}" placeholder="Enter Phone Number" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('phone_number') border-red-500 @enderror">
                             @error('phone_number')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>

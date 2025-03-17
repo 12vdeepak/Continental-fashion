@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -58,10 +59,10 @@ class ProductController extends Controller
     public function confirmOrder(Request $request)
     {
         $categories = Category::with('subcategories')->get();
-        $userId = session('company_user_id'); // Get user ID from session
+        $companyUserId = session('company_user_id'); // Retrieve user ID from session
 
         // Fetch all addresses for the user
-        $addresses = Address::where('user_id', $userId)->get();
+        $addresses = Address::where('user_id', $companyUserId)->get();
 
         // Check if an address was selected (either from request or session)
         $selectedAddressId = $request->address_id ?? session('selected_address_id');
@@ -72,8 +73,37 @@ class ProductController extends Controller
         // Store selected address in session
         session(['selected_address_id' => $selectedAddress->id ?? null]);
 
-        return view('frontend.product.confirm-order', compact('categories', 'addresses', 'selectedAddress'));
+        // Fetch cart items for the user
+        $cartItems = CartItem::with(['product', 'color', 'size', 'user'])
+            ->where('user_id', $companyUserId)
+            ->get();
+
+        // Fetch recent products (latest 6)
+        $recentProducts = Product::latest()->take(6)->get();
+
+        // Fetch related products based on the category of the first item in the cart (if available)
+        $relatedProducts = collect(); // Default empty collection
+        if ($cartItems->isNotEmpty()) {
+            $firstProductCategoryId = $cartItems->first()->product->category_id ?? null;
+            if ($firstProductCategoryId) {
+                $relatedProducts = Product::where('category_id', $firstProductCategoryId)
+                    ->whereNotIn('id', $cartItems->pluck('product_id')) // Exclude products already in the cart
+                    ->latest()
+                    ->take(6)
+                    ->get();
+            }
+        }
+
+        return view('frontend.product.confirm-order', compact(
+            'categories',
+            'addresses',
+            'selectedAddress',
+            'cartItems',
+            'recentProducts',
+            'relatedProducts'
+        ));
     }
+
 
 
 
