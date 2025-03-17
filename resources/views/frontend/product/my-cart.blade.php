@@ -99,8 +99,8 @@
                                             </div>
                                         </td>
 
-                                        <td class="p-3">${{ $item->price }}</td>
-                                        <td class="p-3 total-price">${{ number_format($item->price * $item->quantity, 2) }}
+                                        <td class="p-3">€{{ $item->price }}</td>
+                                        <td class="p-3 total-price">€{{ number_format($item->price * $item->quantity, 2) }}
                                         </td>
                                         <td class="p-3">
                                             <form action="{{ route('cart.remove', $item->id) }}" method="POST">

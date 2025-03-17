@@ -95,8 +95,8 @@
                                         </div>
                                     </td>
 
-                                    <td class="p-3">${{ $item->price }}</td>
-                                    <td class="p-3 total-price">${{ number_format($item->price * $item->quantity, 2) }}
+                                    <td class="p-3">€{{ $item->price }}</td>
+                                    <td class="p-3 total-price">€{{ number_format($item->price * $item->quantity, 2) }}
                                     </td>
                                     <td class="p-3">
                                         <form action="{{ route('cart.remove', $item->id) }}" method="POST">
@@ -153,7 +153,7 @@
                             <!-- Price and Action -->
                             <div class="flex justify-between items-center">
                                 <p class="text-gray-800 font-medium">Total: <span
-                                        class="font-semibold">${{ number_format($item->price * $item->quantity, 2) }}</span>
+                                        class="font-semibold">€{{ number_format($item->price * $item->quantity, 2) }}</span>
                                 </p>
                                 <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                     @csrf
