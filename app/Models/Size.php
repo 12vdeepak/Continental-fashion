@@ -18,4 +18,9 @@ class Size extends Model
     {
         return $this->belongsToMany(ProductImage::class, 'product_image_size');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'size_id');
+    }
 }

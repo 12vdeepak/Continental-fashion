@@ -36,6 +36,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\SubscriptionController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -213,4 +214,14 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
     // Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
 
     Route::resource('addresses', AddressController::class);
+
+    Route::get('/manage-profile', [FrontendProfileController::class, 'manageProfile'])->name('frontend.manageprofile');
+    Route::get('/edit-profile', [FrontendProfileController::class, 'editProfile'])->name('frontend.editprofile');
+    Route::post('/update-profile', [FrontendProfileController::class, 'updateProfile'])->name('frontend.updateProfile');
+    Route::get('/my-orders', [FrontendProfileController::class, 'myOrder'])->name('frontend.myorder');
+    Route::get('/manage-address', [FrontendProfileController::class, 'manageAddress'])->name('frontend.manageaddress');
+   
+
+    Route::get('/manage-settings', [FrontendProfileController::class, 'manageSetting'])->name('frontend.managesetting');
+    Route::get('/manage-language', [FrontendProfileController::class, 'manageLanguage'])->name('frontend.manageslanguage');
 });

@@ -35,14 +35,19 @@
 
         <!-- cart end  -->
 
-
         <div class="adminButton flex justify-between items-center gap-2 mr-2 relative">
             @if (session()->has('company_user_id'))
                 @php
                     $user = \App\Models\CompanyRegistration::find(session('company_user_id'));
                 @endphp
                 @if ($user)
-                    <div class="relative">
+                    <div class="relative flex items-center gap-2">
+                        <!-- User Icon -->
+                        <a href="{{ route('frontend.manageprofile') }}">
+                            <img src="{{ asset('frontend/assets/images/User Icon.svg') }}" alt="User Icon"
+                                class="w-6 h-6">
+                        </a>
+
                         <!-- Button to Toggle Dropdown -->
                         <button id="dropdownButton" class="flex items-center gap-1 px-3 py-2">
                             {{ $user->first_name }}
@@ -73,6 +78,7 @@
                 </a>
             @endif
         </div>
+
 
 
 

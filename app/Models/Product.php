@@ -56,6 +56,11 @@ class Product extends Model
         return $this->belongsTo(Weight::class, 'weight_id');
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'product_id');
+    }
+
 
     public function article(): BelongsTo
     {

@@ -3,14 +3,14 @@
 
         <!-- Logo & Contact -->
         <div class="flex flex-col gap-6">
-            <h2 class="text-3xl font-bold leading-tight">Continental <br> Fashion</h2>
+            <h2 class="text-3xl font-bold leading-tight">Continental <br> Fashion Merchandising</h2>
             <div class="flex items-center gap-3 text-lg">
                 <img src="{{ asset('frontend/assets/images/phoneIcon.svg') }}" alt="Phone">
-                <span>+49 5271 9719-0</span>
+                <span>+49 6108 826960</span>
             </div>
             <div class="flex items-center gap-3 text-lg">
                 <img src="{{ asset('frontend/assets/images/mailIcon.svg') }}" alt="Email">
-                <span>info@maprom.de</span>
+                <span>sales@continental-fashion.de</span>
             </div>
         </div>
 

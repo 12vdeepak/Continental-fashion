@@ -26,5 +26,13 @@ class CompanyRegistration extends Model
         'business_registration_file',
         'note',
         'terms_accepted',
+        
     ];
+
+
+    public function addresses()
+{
+    return $this->hasMany(Address::class); // Assuming the Address model exists
+}
+
 }

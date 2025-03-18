@@ -362,7 +362,7 @@
                                     <input type="number" name="category_1_price"
                                         class="form-control @error('category_1_price') is-invalid @enderror"
                                         value="{{ old('category_1_price', $product->category_1_price) }}"
-                                        placeholder="Enter Category 1 Price">
+                                        placeholder="Enter Category 1 Price" step="0.01" min="0">
                                     @error('category_1_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -373,7 +373,7 @@
                                     <input type="number" name="category_2_price"
                                         class="form-control @error('category_2_price') is-invalid @enderror"
                                         value="{{ old('category_2_price', $product->category_2_price) }}"
-                                        placeholder="Enter Category 2 Price">
+                                        placeholder="Enter Category 2 Price" step="0.01" min="0">
                                     @error('category_2_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -384,7 +384,7 @@
                                     <input type="number" name="category_3_price"
                                         class="form-control @error('category_3_price') is-invalid @enderror"
                                         value="{{ old('category_3_price', $product->category_3_price) }}"
-                                        placeholder="Enter Category 3 Price">
+                                        placeholder="Enter Category 3 Price" step="0.01" min="0">
                                     @error('category_3_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -395,7 +395,7 @@
                                     <input type="number" name="category_4_price"
                                         class="form-control @error('category_4_price') is-invalid @enderror"
                                         value="{{ old('category_4_price', $product->category_4_price) }}"
-                                        placeholder="Enter Category 4 Price">
+                                        placeholder="Enter Category 4 Price" step="0.01" min="0">
                                     @error('category_4_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

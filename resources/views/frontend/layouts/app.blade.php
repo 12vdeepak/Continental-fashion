@@ -1202,6 +1202,31 @@
         });
     </script>
     <script>
+        document.getElementById('profileImageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let viewMoreBtn = document.getElementById("viewMoreBtn");
+            let hiddenOrders = document.querySelectorAll(".order-item.hidden");
+    
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener("click", function () {
+                    hiddenOrders.forEach(order => order.classList.remove("hidden"));
+                    viewMoreBtn.style.display = "none"; // Hide button after showing all orders
+                });
+            }
+        });
+    </script>
+    <script>
         document.addEventListener("DOMContentLoaded", () => {
             const addAddressButton = document.querySelector(".addAddressButton button");
             const popup = document.getElementById("addressPopup");
