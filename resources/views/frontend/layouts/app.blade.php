@@ -26,7 +26,60 @@
 
 
 
+    <style>
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .carousel-slide {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            height: 400px;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide img {
+            max-height: 100%;
+            max-width: 100%;
+            margin-right: 2%; /* Add spacing between images */
+        }
+        .carousel-nav button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+        }
+        .carousel-nav .prev {
+            left: 10px;
+        }
+        .carousel-nav .next {
+            right: 10px;
+        }
 
+        /* Responsive Styles */
+        @media (max-width: 640px) {
+            .carousel-slide img {
+                width: 100%; /* Show 1 item on mobile */
+                margin-right: 0; /* Remove spacing between images */
+            }
+        }
+        @media (min-width: 641px) {
+            .carousel-slide img {
+                width: 48%; /* Show 2 items on desktop */
+            }
+        }
+    </style>
     <style>
         /* Prevent scrolling when dropdown is open */
         .no-scroll {
@@ -365,7 +418,7 @@
             }
         }
     </script>
-    <script>
+    {{--  <script>
         document.addEventListener("DOMContentLoaded", () => {
             const slides = [{
                     title: "Own Him <span class='px-2 py-1 text-red-500 bg-white rounded-md'>Effortless</span> Style",
@@ -445,7 +498,76 @@
                 e.stopPropagation(); // Allow scroll
             });
         });
+    </script>  --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const slides = @json($banners); // Convert Laravel data to JSON
+            const baseUrl = "{{ asset('storage/banner_images') }}/"; // Base URL
+    
+            let currentSlide = 0;
+            let autoSlideInterval;
+    
+            const bgImage = document.getElementById("bgImage");
+            const title = document.getElementById("title");
+            const description = document.getElementById("description");
+            const prevBtn = document.getElementById("prevSlide");
+            const nextBtn = document.getElementById("nextSlide");
+    
+            function updateSlide() {
+                let imagePath = slides[currentSlide].image;
+                
+                // Ensure the image path does not already include "banner_images/"
+                if (imagePath.includes("banner_images/")) {
+                    imagePath = imagePath.replace("banner_images/", ""); // Remove extra folder name
+                }
+    
+                console.log("Updating slide:", currentSlide, "Corrected Image URL:", baseUrl + imagePath); // Debugging
+    
+                bgImage.style.backgroundImage = `url('${baseUrl}${imagePath}')`;
+                bgImage.style.backgroundSize = "cover"; 
+                bgImage.style.backgroundPosition = "center"; 
+                bgImage.style.backgroundRepeat = "no-repeat"; 
+    
+                title.innerHTML = slides[currentSlide].title;
+                description.textContent = slides[currentSlide].description;
+            }
+    
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlide();
+            }
+    
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlide();
+            }
+    
+            function startAutoSlide() {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, 7000);
+            }
+    
+            prevBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                prevSlide();
+                startAutoSlide();
+            });
+    
+            nextBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                nextSlide();
+                startAutoSlide();
+            });
+    
+            updateSlide();
+            startAutoSlide();
+        });
     </script>
+    
+    
+    
+    
 
 
     <script>
@@ -1162,6 +1284,57 @@
             updateTotals();
         });
     </script>  --}}
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+    
+        function openCarousel() {
+            const carouselModal = document.getElementById('carouselModal');
+            carouselModal.classList.remove('hidden');
+            showSlide(currentSlide);
+        }
+    
+        function closeCarousel() {
+            const carouselModal = document.getElementById('carouselModal');
+            carouselModal.classList.add('hidden');
+        }
+    
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide img');
+            const slideWidth = slides[0].offsetWidth + 16; // Width of one slide + margin
+            const carouselSlide = document.querySelector('.carousel-slide');
+    
+            // Determine the number of items to slide based on screen size
+            const itemsToSlide = window.innerWidth < 640 ? 1 : 2;
+    
+            // Ensure the index stays within bounds
+            if (index >= slides.length / itemsToSlide) currentSlide = 0;
+            if (index < 0) currentSlide = (slides.length / itemsToSlide) - 1;
+    
+            // Calculate the translation value
+            const translateXValue = -currentSlide * slideWidth * itemsToSlide;
+            carouselSlide.style.transform = `translateX(${translateXValue}px)`;
+        }
+    
+        function changeSlide(n) {
+            // Determine the number of items to slide based on screen size
+            const itemsToSlide = window.innerWidth < 640 ? 1 : 2;
+    
+            // Update the current slide index
+            currentSlide += n;
+    
+            // Ensure the index stays within bounds
+            const totalSlides = document.querySelectorAll('.carousel-slide img').length;
+            if (currentSlide >= totalSlides / itemsToSlide) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = (totalSlides / itemsToSlide) - 1;
+    
+            showSlide(currentSlide);
+        }
+    
+        // Initialize the first slide
+        showSlide(currentSlide);
+    </script>
+    
     <script>
         const counter = document.getElementById("counter");
         const increaseBtn = document.getElementById("increase");

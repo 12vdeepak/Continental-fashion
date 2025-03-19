@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -16,14 +17,24 @@ class FrontendController extends Controller
     {
         $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
-        return view('frontend.product.public-home', compact('products', 'categories'));
+        $banners = Banner::all();
+
+        return view('frontend.product.public-home', compact('products', 'categories','banners'));
     }
 
     public function publicPrivateHome()
     {
         $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
-        return view('frontend.product.public-home', compact('products', 'categories'));
+        $banners = Banner::all();
+        return view('frontend.product.public-home', compact('products', 'categories','banners'));
+    }
+
+    public function aboutUs()
+    {
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.aboutus', compact('categories'));
+
     }
 
 

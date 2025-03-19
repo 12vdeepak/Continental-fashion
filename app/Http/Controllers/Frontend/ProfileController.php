@@ -14,29 +14,35 @@ class ProfileController extends Controller
     {
         $categories = Category::with('subcategories')->get();
         $user = CompanyRegistration::find(session('company_user_id'));
-        return view('frontend.my-profile.my-profile', compact('categories','user'));
+        return view('frontend.my-profile.my-profile', compact('categories', 'user'));
     }
 
     public function myOrder()
     {
         $categories = Category::with('subcategories')->get();
-    
+
         // Get the logged-in user
         $user = CompanyRegistration::find(session('company_user_id'));
-    
+
         // Fetch orders with related product images filtered by color
         $orders = Order::where('user_id', $user->id)
-                      ->with(['product.images' => function ($query) {
-                          $query->orderBy('id', 'asc'); // Optional: Order images if needed
-                      }, 'size', 'color', 'address'])
-                      ->orderBy('created_at', 'desc')
-                      ->get();
-    
+            ->with([
+                'product.images' => function ($query) {
+                    $query->orderBy('id', 'asc');
+                },
+                'product.wear', // Ensure wear (gender) is included
+                'size',
+                'color',
+                'address'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('frontend.my-profile.my-order', compact('categories', 'orders'));
     }
-    
-    
-    
+
+
+
 
     public function manageAddress()
     {
@@ -53,21 +59,21 @@ class ProfileController extends Controller
     public function editProfile()
     {
         $categories = Category::with('subcategories')->get();
-    
+
         // Fetch the authenticated user's data from session
         $user = CompanyRegistration::find(session('company_user_id'));
-    
+
         return view('frontend.my-profile.edit-profile', compact('categories', 'user'));
     }
 
     public function updateProfile(Request $request)
     {
         $user = CompanyRegistration::find(session('company_user_id'));
-    
+
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-    
+
         // Validate request
         $request->validate([
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -77,13 +83,13 @@ class ProfileController extends Controller
             'company_name' => 'nullable|string|max:255',
             'street' => 'nullable|string|max:255',
         ]);
-    
+
         // Handle image upload
         if ($request->hasFile('profile_image')) {
             $imagePath = $request->file('profile_image')->store('profile_images', 'public');
             $user->profile_image = $imagePath;
         }
-    
+
         // Update user details
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -91,9 +97,7 @@ class ProfileController extends Controller
         $user->company_name = $request->company_name;
         $user->street = $request->street;
         $user->save();
-    
+
         return redirect()->back()->with('message', 'Profile updated successfully.');
     }
-    
-    
 }

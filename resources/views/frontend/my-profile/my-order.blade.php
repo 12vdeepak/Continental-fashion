@@ -48,36 +48,55 @@
                             @php
                                 $totalOrders = count($orders);
                             @endphp
-                        
+
                             @foreach ($orders as $index => $order)
-                                <div class="bg-[#F4F4F4] shadow-md rounded-xl p-6 order-item {{ $index >= 3 ? 'hidden' : '' }}">
+                                <div
+                                    class="bg-[#F4F4F4] shadow-md rounded-xl p-6 order-item {{ $index >= 3 ? 'hidden' : '' }}">
                                     <div class="flex flex-col lg:flex-row justify-between lg:items-center">
                                         <div>
                                             <p class="text-gray-500">Order Id: <span>#{{ $order->id }}</span></p>
-                                            <p class="text-gray-500">Tracking Id: <span>{{ $order->tracking_id ?? 'N/A' }}</span></p>
+                                            <p class="text-gray-500">Tracking Id:
+                                                <span>{{ $order->tracking_id ?? 'N/A' }}</span>
+                                            </p>
                                         </div>
-                                        <p class="text-gray-500 mt-5 lg:mt-0">Date: {{ $order->created_at->format('M d, Y') }}</p>
+                                        <p class="text-gray-500 mt-5 lg:mt-0">Date:
+                                            {{ $order->created_at->format('M d, Y') }}</p>
                                     </div>
                                     <p class="font-semibold mt-4">Your items</p>
                                     <div class="flex flex-col lg:flex-row gap-4 mt-4 w-full justify-between">
-                                        <div class="productsShort flex flex-col lg:flex-row lg:w-[80%] justify-between gap-5">
+                                        <div
+                                            class="productsShort flex flex-col lg:flex-row lg:w-[80%] justify-between gap-5">
                                             <div class="flex items-center bg-[#ffffff] p-5 rounded-xl lg:w-[50%]">
                                                 @php
                                                     // Get the product image that matches the selected color
-                                                    $productImage = $order->product->images->where('color_id', $order->color->id)->first()->image_path ?? 'default.jpg';
+                                                    $productImage =
+                                                        $order->product->images
+                                                            ->where('color_id', $order->color->id)
+                                                            ->first()->image_path ?? 'default.jpg';
                                                 @endphp
                                                 <img src="{{ asset('storage/' . $productImage) }}" alt="Product Image"
                                                     class="w-16 h-16 object-cover rounded-lg">
                                                 <div class="ml-4">
-                                                    <p class="font-semibold">{{ $order->product->product_name ?? 'Unknown Product' }}</p>
+                                                    <p class="font-semibold">
+                                                        {{ $order->product->product_name ?? 'Unknown Product' }}</p>
                                                     <div class="text-gray-600 text-sm flex items-center gap-2 mt-1">
-                                                        <img src="{{ asset('frontend/assets/images/genderCart.svg') }}" alt=""> | 
+                                                        <span
+                                                            class="font-semibold">{{ $order->product->wear->wear_name ?? 'Unisex' }}</span>
+                                                        <img src="{{ asset('frontend/assets/images/genderCart.svg') }}"
+                                                            alt=""> |
+
                                                         @php
                                                             $colorCode = $order->color->color_code ?? '#000';
-                                                            $border = ($colorCode == '#ffffff' || strtolower($colorCode) == 'white') ? 'border border-gray-400' : '';
+                                                            $border =
+                                                                $colorCode == '#ffffff' ||
+                                                                strtolower($colorCode) == 'white'
+                                                                    ? 'border border-gray-400'
+                                                                    : '';
                                                         @endphp
-                                                        <span class="w-3 h-3 inline-block rounded-full {{ $border }}" style="background-color: {{ $colorCode }};"></span> |
-                                                        {{ $order->size->size_name ?? 'N/A' }} | ${{ $order->price ?? '0.00' }}
+                                                        <span class="w-3 h-3 inline-block rounded-full {{ $border }}"
+                                                            style="background-color: {{ $colorCode }};"></span> |
+                                                        {{ $order->size->size_name ?? 'N/A' }} |
+                                                        ${{ $order->price ?? '0.00' }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,10 +106,11 @@
                                 </div>
                             @endforeach
                         </div>
-                        
+
                         @if ($totalOrders > 3)
                             <div class="text-center mt-4">
-                                <button id="viewMoreBtn" class=" bg-[#54114C] text-white px-4 py-2 rounded-md">View More</button>
+                                <button id="viewMoreBtn" class=" bg-[#54114C] text-white px-4 py-2 rounded-md">View
+                                    More</button>
                             </div>
                         @endif
                     </div>

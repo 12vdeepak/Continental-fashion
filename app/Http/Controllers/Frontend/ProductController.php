@@ -24,10 +24,11 @@ class ProductController extends Controller
     }
 
 
-    // public function productPage()
-    // {
-    //     return view('frontend.product.product-page');
-    // }
+    public function specialProduct()
+    {
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.specialproduct',compact('categories'));
+    }
 
     public function productPage($id)
     {

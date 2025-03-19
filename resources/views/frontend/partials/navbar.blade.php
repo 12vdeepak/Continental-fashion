@@ -42,10 +42,11 @@
             </li>
 
         </a>
+        <li><a href="{{ route('frontend.aboutus') }}">About Us</a></li>
         <li><a href="#">Quotation</a></li>
         <li class="flex gap-2 justify-center items-center"><img src="{{ asset('frontend/assets/images/Vector.svg') }}"
                 alt="">Sale</li>
-        <li><a href="#">Special Production</a></li>
+        <li><a href="{{ route('frontend.specialproduct') }}">Special Production</a></li>
     </ul>
 
     <!-- Download Button -->

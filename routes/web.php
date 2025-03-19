@@ -197,6 +197,7 @@ Route::get('/product-page/{id}', [FrontendProductController::class, 'productPage
 Route::middleware(['company', 'company.auth.status'])->group(function () {
 
     Route::get('/user-dashboard', [FrontendController::class, 'publicPrivateHome'])->name('frontend.home.private');
+    Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('frontend.aboutus');
     Route::get('/all-products', [FrontendProductController::class, 'allProduct'])->name('frontend.all.product');
     Route::any('/confirm-order', [FrontendProductController::class, 'confirmOrder'])->name('frontend.confirm-order');
 
@@ -211,6 +212,7 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
 
 
     Route::get('/product-logged', [FrontendProductController::class, 'productLogged'])->name('frontend.product-logged');
+    Route::get('/special-product', [FrontendProductController::class, 'specialProduct'])->name('frontend.specialproduct');
     // Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
 
     Route::resource('addresses', AddressController::class);

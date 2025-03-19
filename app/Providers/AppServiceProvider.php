@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Color;
 use App\Models\Size;
+use App\Models\Banner;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,11 +25,13 @@ class AppServiceProvider extends ServiceProvider
     {
         $colors = Color::all();
         $sizes = Size::all();
+        $banners = Banner::all();
 
         // Correct way to share multiple variables with all views
         View::share([
             'colors' => $colors,
-            'sizes' => $sizes
+            'sizes' => $sizes,
+            'banners' => $banners
         ]);
     }
 }
