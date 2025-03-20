@@ -6,13 +6,13 @@
             <!-- pageNavShow -->
             <div id="pageNavShow" class="flex items-center bg-[#F4F4F4] gap-4 py-4 px-4 lg:px-[120px]">
                 <div class="backIcon">
-                    <img src="{{ asset('frontend/assets/images/backIcon.svg')}}" alt="">
+                    <img src="{{ asset('frontend/assets/images/backIcon.svg') }}" alt="">
                 </div>
                 <div class="homeIcon flex gap-2 items-center font-[500] text-[#6E6E6E] text-[16px]">
-                    <img src="{{ asset('frontend/assets/images/HomeIcon.svg')}}" alt=""> Home
+                    <img src="{{ asset('frontend/assets/images/HomeIcon.svg') }}" alt=""> Home
                 </div>
                 <div class="line">
-                    <img src="{{ asset('frontend/assets/images/Line.svg')}}" alt="">
+                    <img src="{{ asset('frontend/assets/images/Line.svg') }}" alt="">
                 </div>
                 <div class="currentPage text-[#6E6E6E] font-[500] text-[16px] flex items-center gap-2">
                     My Profile
@@ -50,7 +50,8 @@
                                 <div class="setting flex justify-between items-center px-4 py-8 bg-[#F4F4F4] rounded-xl">
                                     <div class="settingIconAndheading flex items-center">
                                         <div class="icon">
-                                            <img src="{{ asset('frontend/assets/images/languageIcon.svg')}}" alt="">
+                                            <img src="{{ asset('frontend/assets/images/languageIcon.svg') }}"
+                                                alt="">
                                         </div>
                                         <div class="name">
                                             Language
@@ -58,35 +59,112 @@
                                     </div>
                                     <div class="forwardDiv flex items-center gap-2">
                                         <span class="text-xs text-[#6E6E6E]">English</span>
-                                        <img src="{{ asset('frontend/assets/images/forwardIcon.svg')}}" alt="">
+                                        <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
                                     </div>
                                 </div>
                             </a>
-                            <div class="setting flex justify-between items-center px-4 py-8 bg-[#F4F4F4] rounded-xl">
+                            <div class="setting flex justify-between items-center px-4 py-8 bg-[#F4F4F4] rounded-xl cursor-pointer"
+                                id="openPasswordPopup">
                                 <div class="settingIconAndheading flex items-center">
                                     <div class="icon">
-                                        <img src="{{ asset('frontend/assets/images/password.svg')}}" alt="">
+                                        <img src="{{ asset('frontend/assets/images/password.svg') }}" alt="">
                                     </div>
                                     <div class="name">
                                         Password
                                     </div>
                                 </div>
                                 <div class="forwardDiv flex items-center gap-2">
-                                    <img src="{{ asset('frontend/assets/images/forwardIcon.svg')}}" alt="">
+                                    <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
                                 </div>
                             </div>
+                            <div id="passwordPopup"
+                                class="fixed inset-0 bg-opacity-30 backdrop-blur-sm hidden flex justify-center items-start overflow-y-auto scrollbar-hide z-100">
+                                <div class="bg-white px-4 lg:px-10 py-8 mt-10 rounded-lg shadow-lg w-full max-w-md">
+                                    <div class="text-[24px] font-semibold mb-2 flex justify-between items-center">
+                                        Change Password
+                                        <img src="{{ asset('frontend/assets/images/cancel.svg') }}" alt="Close"
+                                            id="closePasswordPopup" class="w-[20px] h-[20px] cursor-pointer">
+                                    </div>
+
+                                    <form action="{{ route('frontend.update-password') }}" method="POST"
+                                        class="mt-4 flex flex-col gap-5">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <!-- Old Password -->
+                                        <div class="flex flex-col gap-1 relative">
+                                            <label for="old_password">Old Password <span
+                                                    class="text-red-500">*</span></label>
+                                            <input type="password" name="old_password" id="old_password" required
+                                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-2 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-500 @error('old_password') border-red-500 @enderror">
+                                            <span class="absolute right-3 top-9 cursor-pointer"
+                                                onclick="togglePassword('old_password', 'eyeOld')">
+                                                <img src="{{ asset('frontend/assets/images/eye.svg') }}" id="eyeOld"
+                                                    class="w-5 h-5">
+                                            </span>
+                                            @error('old_password')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <!-- New Password -->
+                                        <div class="flex flex-col gap-1 relative">
+                                            <label for="new_password">New Password <span
+                                                    class="text-red-500">*</span></label>
+                                            <input type="password" name="new_password" id="new_password" required
+                                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-2 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-500 @error('new_password') border-red-500 @enderror">
+                                            <span class="absolute right-3 top-9 cursor-pointer"
+                                                onclick="togglePassword('new_password', 'eyeNew')">
+                                                <img src="{{ asset('frontend/assets/images/eye.svg') }}" id="eyeNew"
+                                                    class="w-5 h-5">
+                                            </span>
+                                            @error('new_password')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Confirm Password -->
+                                        <div class="flex flex-col gap-1 relative">
+                                            <label for="confirm_password">Confirm Password <span
+                                                    class="text-red-500">*</span></label>
+                                            <input type="password" name="new_password_confirmation" id="confirm_password"
+                                                required
+                                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-2 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-500 @error('new_password_confirmation') border-red-500 @enderror">
+                                            <span class="absolute right-3 top-9 cursor-pointer"
+                                                onclick="togglePassword('confirm_password', 'eyeConfirm')">
+                                                <img src="{{ asset('frontend/assets/images/eye.svg') }}" id="eyeConfirm"
+                                                    class="w-5 h-5">
+                                            </span>
+                                            @error('new_password_confirmation')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Submit & Cancel -->
+                                        <div class="flex justify-between mt-4">
+                                            <button type="button" id="closePasswordPopupBtn"
+                                                class="bg-gray-400 px-4 py-2 rounded-lg text-white">Cancel</button>
+                                            <button type="submit"
+                                                class="bg-purple-600 px-4 py-2 rounded-lg text-white">Update
+                                                Password</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
                             <div
                                 class="setting cancelOrderBtn flex justify-between items-center px-4 py-8 bg-[#F4F4F4] rounded-xl">
                                 <div class="settingIconAndheading cancelOrderBtn flex items-center">
                                     <div class="icon cancelOrderBtn">
-                                        <img src="{{ asset('frontend/assets/images/redBin.svg')}}" alt="">
+                                        <img src="{{ asset('frontend/assets/images/redBin.svg') }}" alt="">
                                     </div>
                                     <div class="name cancelOrderBtn">
                                         Delete Account
                                     </div>
                                 </div>
                                 <div class="forwardDiv flex items-center gap-2 cancelOrderBtn">
-                                    <img src="{{ asset('frontend/assets/images/forwardIcon.svg')}}" alt="">
+                                    <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +174,8 @@
         </section>
 
         <!-- Logout Confirmation Popup Modal -->
-        <div id="logoutModal" class="fixed inset-0 backdrop-blur-sm bg-opacity-50 hidden flex items-center justify-center">
+        <div id="logoutModal"
+            class="fixed inset-0 backdrop-blur-sm bg-opacity-50 hidden flex items-center justify-center">
             <div class="bg-white p-6 rounded-lg shadow-xl w-[400px] border border-solid border-gray-900">
                 <h2 class="text-lg font-semibold text-center">Logout?</h2>
                 <p class="text-gray-600 text-center mt-2">Are you sure you want to log out?</p>
@@ -124,7 +203,8 @@
                 <p class="text-gray-600 text-center mt-2">Are you sure you want to delete your account?</p>
                 <div class="mt-4 flex justify-center gap-4">
                     <button id="cancelNo" class="px-6 py-2 border rounded-md font-semibold">Cancel</button>
-                    <button id="cancelYes" class="px-6 py-2 bg-red-600 text-white font-semibold rounded-md">Confirm</button>
+                    <button id="cancelYes"
+                        class="px-6 py-2 bg-red-600 text-white font-semibold rounded-md">Confirm</button>
                 </div>
             </div>
         </div>

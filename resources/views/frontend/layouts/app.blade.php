@@ -34,6 +34,7 @@
             margin: auto;
             overflow: hidden;
         }
+
         .carousel-slide {
             display: flex;
             justify-content: flex-start;
@@ -42,11 +43,14 @@
             height: 400px;
             transition: transform 0.5s ease-in-out;
         }
+
         .carousel-slide img {
             max-height: 100%;
             max-width: 100%;
-            margin-right: 2%; /* Add spacing between images */
+            margin-right: 2%;
+            /* Add spacing between images */
         }
+
         .carousel-nav button {
             position: absolute;
             top: 50%;
@@ -60,9 +64,11 @@
             width: 40px;
             height: 40px;
         }
+
         .carousel-nav .prev {
             left: 10px;
         }
+
         .carousel-nav .next {
             right: 10px;
         }
@@ -70,13 +76,17 @@
         /* Responsive Styles */
         @media (max-width: 640px) {
             .carousel-slide img {
-                width: 100%; /* Show 1 item on mobile */
-                margin-right: 0; /* Remove spacing between images */
+                width: 100%;
+                /* Show 1 item on mobile */
+                margin-right: 0;
+                /* Remove spacing between images */
             }
         }
+
         @media (min-width: 641px) {
             .carousel-slide img {
-                width: 48%; /* Show 2 items on desktop */
+                width: 48%;
+                /* Show 2 items on desktop */
             }
         }
     </style>
@@ -499,75 +509,106 @@
             });
         });
     </script>  --}}
+    <script>
+        document.getElementById('openPasswordPopup').addEventListener('click', function() {
+            document.getElementById('passwordPopup').classList.remove('hidden');
+        });
+
+        document.getElementById('closePasswordPopup').addEventListener('click', function() {
+            document.getElementById('passwordPopup').classList.add('hidden');
+        });
+
+        document.getElementById('closePasswordPopupBtn').addEventListener('click', function() {
+            document.getElementById('passwordPopup').classList.add('hidden');
+        });
+    </script>
+
+    <script>
+        function togglePassword(inputId, eyeId) {
+            let input = document.getElementById(inputId);
+            let eyeIcon = document.getElementById(eyeId);
+
+            if (input.type === "password") {
+                input.type = "text";
+                eyeIcon.src = "{{ asset('frontend/assets/images/eye-slash.svg') }}"; // Change to "eye-off" icon
+            } else {
+                input.type = "password";
+                eyeIcon.src = "{{ asset('frontend/assets/images/eye.svg') }}"; // Change to "eye" icon
+            }
+        }
+    </script>
+
+
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const slides = @json($banners); // Convert Laravel data to JSON
             const baseUrl = "{{ asset('storage/banner_images') }}/"; // Base URL
-    
+
             let currentSlide = 0;
             let autoSlideInterval;
-    
+
             const bgImage = document.getElementById("bgImage");
             const title = document.getElementById("title");
             const description = document.getElementById("description");
             const prevBtn = document.getElementById("prevSlide");
             const nextBtn = document.getElementById("nextSlide");
-    
+
             function updateSlide() {
                 let imagePath = slides[currentSlide].image;
-                
+
                 // Ensure the image path does not already include "banner_images/"
                 if (imagePath.includes("banner_images/")) {
                     imagePath = imagePath.replace("banner_images/", ""); // Remove extra folder name
                 }
-    
-                console.log("Updating slide:", currentSlide, "Corrected Image URL:", baseUrl + imagePath); // Debugging
-    
+
+                console.log("Updating slide:", currentSlide, "Corrected Image URL:", baseUrl +
+                    imagePath); // Debugging
+
                 bgImage.style.backgroundImage = `url('${baseUrl}${imagePath}')`;
-                bgImage.style.backgroundSize = "cover"; 
-                bgImage.style.backgroundPosition = "center"; 
-                bgImage.style.backgroundRepeat = "no-repeat"; 
-    
+                bgImage.style.backgroundSize = "cover";
+                bgImage.style.backgroundPosition = "center";
+                bgImage.style.backgroundRepeat = "no-repeat";
+
                 title.innerHTML = slides[currentSlide].title;
                 description.textContent = slides[currentSlide].description;
             }
-    
+
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % slides.length;
                 updateSlide();
             }
-    
+
             function prevSlide() {
                 currentSlide = (currentSlide - 1 + slides.length) % slides.length;
                 updateSlide();
             }
-    
+
             function startAutoSlide() {
                 clearInterval(autoSlideInterval);
                 autoSlideInterval = setInterval(nextSlide, 7000);
             }
-    
+
             prevBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 prevSlide();
                 startAutoSlide();
             });
-    
+
             nextBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 nextSlide();
                 startAutoSlide();
             });
-    
+
             updateSlide();
             startAutoSlide();
         });
     </script>
-    
-    
-    
-    
+
+
+
+
 
 
     <script>
@@ -1287,54 +1328,54 @@
     <script>
         // Carousel functionality
         let currentSlide = 0;
-    
+
         function openCarousel() {
             const carouselModal = document.getElementById('carouselModal');
             carouselModal.classList.remove('hidden');
             showSlide(currentSlide);
         }
-    
+
         function closeCarousel() {
             const carouselModal = document.getElementById('carouselModal');
             carouselModal.classList.add('hidden');
         }
-    
+
         function showSlide(index) {
             const slides = document.querySelectorAll('.carousel-slide img');
             const slideWidth = slides[0].offsetWidth + 16; // Width of one slide + margin
             const carouselSlide = document.querySelector('.carousel-slide');
-    
+
             // Determine the number of items to slide based on screen size
             const itemsToSlide = window.innerWidth < 640 ? 1 : 2;
-    
+
             // Ensure the index stays within bounds
             if (index >= slides.length / itemsToSlide) currentSlide = 0;
             if (index < 0) currentSlide = (slides.length / itemsToSlide) - 1;
-    
+
             // Calculate the translation value
             const translateXValue = -currentSlide * slideWidth * itemsToSlide;
             carouselSlide.style.transform = `translateX(${translateXValue}px)`;
         }
-    
+
         function changeSlide(n) {
             // Determine the number of items to slide based on screen size
             const itemsToSlide = window.innerWidth < 640 ? 1 : 2;
-    
+
             // Update the current slide index
             currentSlide += n;
-    
+
             // Ensure the index stays within bounds
             const totalSlides = document.querySelectorAll('.carousel-slide img').length;
             if (currentSlide >= totalSlides / itemsToSlide) currentSlide = 0;
             if (currentSlide < 0) currentSlide = (totalSlides / itemsToSlide) - 1;
-    
+
             showSlide(currentSlide);
         }
-    
+
         // Initialize the first slide
         showSlide(currentSlide);
     </script>
-    
+
     <script>
         const counter = document.getElementById("counter");
         const increaseBtn = document.getElementById("increase");
@@ -1387,12 +1428,12 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             let viewMoreBtn = document.getElementById("viewMoreBtn");
             let hiddenOrders = document.querySelectorAll(".order-item.hidden");
-    
+
             if (viewMoreBtn) {
-                viewMoreBtn.addEventListener("click", function () {
+                viewMoreBtn.addEventListener("click", function() {
                     hiddenOrders.forEach(order => order.classList.remove("hidden"));
                     viewMoreBtn.style.display = "none"; // Hide button after showing all orders
                 });
