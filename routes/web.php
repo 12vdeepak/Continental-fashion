@@ -222,7 +222,10 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
     Route::post('/update-profile', [FrontendProfileController::class, 'updateProfile'])->name('frontend.updateProfile');
     Route::get('/my-orders', [FrontendProfileController::class, 'myOrder'])->name('frontend.myorder');
     Route::get('/manage-address', [FrontendProfileController::class, 'manageAddress'])->name('frontend.manageaddress');
-   
+    Route::post('/manage-address', [FrontendProfileController::class, 'store'])->name('manage.addresses.store');
+
+    Route::delete('/address/{id}', [FrontendProfileController::class, 'destroy'])->name('address.delete');
+
 
     Route::get('/manage-settings', [FrontendProfileController::class, 'manageSetting'])->name('frontend.managesetting');
     Route::get('/manage-language', [FrontendProfileController::class, 'manageLanguage'])->name('frontend.manageslanguage');

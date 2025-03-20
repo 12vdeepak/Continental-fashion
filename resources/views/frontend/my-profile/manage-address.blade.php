@@ -6,17 +6,17 @@
             <!-- pageNavShow -->
             <div id="pageNavShow" class="flex items-center bg-[#F4F4F4] gap-4 py-4 px-4 lg:px-[120px]">
                 <div class="backIcon">
-                    <img src="/assets/images/backIcon.svg" alt="">
+                    <img src="{{ asset('frontend/assets/images/backIcon.svg') }}" alt="">
                 </div>
                 <div class="homeIcon flex gap-2 items-center font-[500] text-[#6E6E6E] text-[16px]">
-                    <img src="/assets/images/HomeIcon.svg" alt=""> Home
+                    <img src="{{ asset('frontend/assets/images/HomeIcon.svg') }}" alt=""> Home
                 </div>
                 <div class="line">
-                    <img src="/assets/images/Line.svg" alt="">
+                    <img src="{{ asset('frontend/assets/images/Line.svg') }}" alt="">
                 </div>
                 <div class="currentPage text-[#6E6E6E] font-[500] text-[16px] flex items-center gap-2">
                     My Profile
-                    <img src="/assets/images/forwardIcon.svg" alt="">
+                    <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
                     <span class="text-[#E2001A]">Manage Address</span>
                 </div>
             </div>
@@ -45,43 +45,70 @@
                     <div class="contentContainer w-full md:w-3/4 h-full flex flex-col gap-3 justify-center">
                         <div class="text-[24px] lg:text-[32px]">Manage Addresses</div>
                         <div class="description">
-                            Please select delivery address to confirm your order
+                            Please select a delivery address to confirm your order
                         </div>
 
                         <div class="addresses mt-5 flex flex-col gap-5">
-                            <!-- Address Cards -->
-                            <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg">
-                                <div class="selection flex justify-center items-center">
-                                    <img src="{{ asset('frontend/assets/images/checked.svg') }}" alt=""
-                                        class="w-[25px] h-[25px]">
+                            @if ($addresses->isEmpty())
+                                <div class="info w-full text-center text-gray-500">
+                                    No address available
                                 </div>
-                                <div class="info w-full">
-                                    <div class="nameDefDel flex justify-between w-full">
-                                        <div class="nameAndDef flex gap-3 items-center">
-                                            <div class="name text-[20px] font-medium">Kishore MS</div>
-                                            <div class="defaultButton text-[#3CC4D5] bg-[#3CC4D51A] p-1 rounded-lg">
-                                                Default
+                            @else
+                                @foreach ($addresses as $index => $address)
+                                    <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg">
+                                        <div class="selection flex justify-center items-center">
+                                            @if ($index == 0 || $address->is_default)
+                                                {{-- Show checked icon for the first/default address --}}
+                                                <img src="{{ asset('frontend/assets/images/checked.svg') }}" alt=""
+                                                    class="w-[25px] h-[25px]">
+                                            @else
+                                                {{-- Show empty circle for non-default addresses --}}
+                                                <div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>
+                                            @endif
+                                        </div>
+                                        <div class="info w-full">
+                                            <div class="nameDefDel flex justify-between w-full">
+                                                <div class="nameAndDef flex gap-3 items-center">
+                                                    <div class="name text-[20px] font-medium">{{ $address->first_name }}
+                                                    </div>
+                                                    @if ($index == 0 || $address->is_default)
+                                                        <div
+                                                            class="defaultButton text-[#3CC4D5] bg-[#3CC4D51A] p-1 rounded-lg">
+                                                            Default
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="delete">
+                                                    <form action="{{ route('address.delete', $address->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit">
+                                                            <img class="cancelOrderBtn"
+                                                                src="{{ asset('frontend/assets/images/bin.svg') }}"
+                                                                alt="">
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="description mt-2">
+                                                {{ $address->street }}, {{ $address->city }}, {{ $address->country }} <br>
+                                                Phone number: {{ $address->phone_number }}
                                             </div>
                                         </div>
-                                        <div class="delete">
-                                            <img class="cancelOrderBtn" src="/assets/images/bin.svg" alt="">
-                                        </div>
                                     </div>
-                                    <div class="description mt-2">
-                                        Wallstrasse 93, Kettig, Rheinland-Pfalz <br>
-                                        Phone number: 02637 86 23 95
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Repeat for other addresses -->
+                                @endforeach
+                            @endif
                         </div>
 
+                        {{-- Add New Address Button (Only one instance) --}}
                         <div class="addAddressButton">
                             <button class="text-[#54114C] w-full bg-gray-100 p-4 rounded-lg font-bold">
                                 Add New Address
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -97,61 +124,98 @@
                 </div>
                 <p class="description">Please fill the required delivery information to deliver the products</p>
 
-                <form action="" class="mt-4 lg:mt-6 flex flex-col gap-5">
+                <form action="{{ route('manage.addresses.store') }}" method="POST"
+                    class="mt-4 lg:mt-6 flex flex-col gap-5">
+                    @csrf
+
                     <div id="firstAndLastName" class="flex flex-col md:flex-row w-full gap-5">
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="firstName">First Name <span class="text-red-500">*</span></label>
-                            <input type="text" id="firstName" placeholder="Enter First Name" required
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="first_name" id="firstName" value="{{ old('first_name') }}"
+                                placeholder="Enter First Name" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('first_name') border-red-500 @enderror">
+                            @error('first_name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
+
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="lastName">Last Name <span class="text-red-500">*</span></label>
-                            <input type="text" id="lastName" placeholder="Enter Last Name"
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="last_name" id="lastName" value="{{ old('last_name') }}"
+                                placeholder="Enter Last Name" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('last_name') border-red-500 @enderror">
+                            @error('last_name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <div id="companyAndStreet" class="flex flex-col md:flex-row w-full gap-5">
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="companyName">Company Name <span class="text-red-500">*</span></label>
-                            <input type="text" id="companyName" placeholder="Enter Company Name" required
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="company_name" id="companyName" value="{{ old('company_name') }}"
+                                placeholder="Enter Company Name" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('company_name') border-red-500 @enderror">
+                            @error('company_name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="street">Street <span class="text-red-500">*</span></label>
-                            <input type="text" id="street" placeholder="Enter Street Name"
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="street" id="street" value="{{ old('street') }}"
+                                placeholder="Enter Street Name" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('street') border-red-500 @enderror">
+                            @error('street')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <div id="zipCodeAndCity" class="flex flex-col md:flex-row w-full gap-5">
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="zipCode">Zip Code <span class="text-red-500">*</span></label>
-                            <input type="text" id="zipCode" placeholder="Enter Zip Code" required
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="zip_code" id="zipCode" value="{{ old('zip_code') }}"
+                                placeholder="Enter Zip Code" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('zip_code') border-red-500 @enderror">
+                            @error('zip_code')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="city">City <span class="text-red-500">*</span></label>
-                            <input type="text" id="city" placeholder="Enter City Name"
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="city" id="city" value="{{ old('city') }}"
+                                placeholder="Enter City Name" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('city') border-red-500 @enderror">
+                            @error('city')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <div id="countryAndPhoneNumber" class="flex flex-col md:flex-row w-full gap-5">
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="country">Country <span class="text-red-500">*</span></label>
-                            <input type="text" id="country" placeholder="Enter Country Name" required
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="country" id="country" value="{{ old('country') }}"
+                                placeholder="Enter Country Name" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('country') border-red-500 @enderror">
+                            @error('country')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
+
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="phoneNumber">Phone Number <span class="text-red-500">*</span></label>
-                            <input type="number" id="phoneNumber" placeholder="Enter Phone Number"
-                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <input type="text" name="phone_number" id="phoneNumber"
+                                value="{{ old('phone_number') }}" placeholder="Enter Phone Number" required
+                                class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('phone_number') border-red-500 @enderror">
+                            @error('phone_number')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <input type="submit" value="Add Address"
-                        class="bg-[#54114C] text-white p-[16px] rounded-lg cursor-pointer hover:bg-purple-700 transition text-[16px] font-bold mt-5">
+                        class="bg-[#6D28D9] text-white rounded-lg p-[10px] cursor-pointer hover:bg-purple-700 transition text-[16px] font-bold mt-5">
                 </form>
             </div>
         </div>

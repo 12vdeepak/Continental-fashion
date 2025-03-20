@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserApprovalMail;
 use App\Models\CompanyRegistration;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -43,6 +45,11 @@ class UserController extends Controller
         // Toggle the status (0 = inactive, 1 = active)
         $user->is_approve = $user->is_approve == 0 ? 1 : 0;
         $user->save();
+
+        // Send an email if the user is approved
+        if ($user->is_approve == 1) {
+            Mail::to($user->email)->send(new UserApprovalMail($user));
+        }
 
         return redirect()->route('users.index')->with('message', 'User status updated successfully!');
     }
