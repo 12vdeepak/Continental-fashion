@@ -12,6 +12,8 @@ use App\Http\Requests\Frontend\CompanyRegistrationRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\CompanyRegistration;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountCreatedMail;
 
 class AuthController extends Controller
 {
@@ -77,11 +79,10 @@ class AuthController extends Controller
         ]);
     }
 
+
+
     public function register(CompanyRegistrationRequest $request)
     {
-        // Debugging: Check if data is received correctly
-        // dd($request->all());
-
         try {
             DB::beginTransaction();
 
@@ -122,43 +123,34 @@ class AuthController extends Controller
                 'terms_accepted'              => true,
             ]);
 
-            // Check if insertion was successful
             if (!$registration) {
                 throw new \Exception("Failed to create company registration.");
             }
 
-            // Optional: Send confirmation email
-            // Mail::to($registration->email)->send(new RegistrationConfirmation($registration));
-
             DB::commit();
 
-            // Debugging: Verify if record was inserted
-            $latestRecord = CompanyRegistration::latest()->first();
-            if (!$latestRecord) {
-                throw new \Exception("Record was not inserted.");
-            }
+            // Send confirmation email
+            Mail::to($registration->email)->send(new AccountCreatedMail($registration));
 
-            // Return success message
             return redirect()->route('frontend.register')->with([
-                'message' => 'Registration successful!',
+                'message' => 'Registration successful! Please check your email for confirmation.',
                 'alert-type' => 'success'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // Log the error
             Log::error('Registration failed: ' . $e->getMessage(), [
                 'user_input' => $request->except(['new_password', 'confirm_password']),
                 'error'      => $e->getMessage(),
                 'trace'      => $e->getTraceAsString()
             ]);
 
-            // Debugging: Show the error message
             return redirect()->back()
                 ->with('error', 'Registration failed: ' . $e->getMessage())
                 ->withInput($request->except(['new_password', 'confirm_password']));
         }
     }
+
 
 
 

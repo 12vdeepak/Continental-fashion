@@ -33,6 +33,8 @@ class UserApprovalMail extends Mailable
             ->view('emails.user_approved')
             ->with([
                 'userName' => $this->user->first_name,
+                'customerId' => $this->user->customer_id,
+                'priceCategory' => $this->user->price_category_type,
             ]);
     }
 }
