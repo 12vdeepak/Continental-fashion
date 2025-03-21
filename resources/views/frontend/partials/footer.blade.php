@@ -3,7 +3,7 @@
 
         <!-- Logo & Contact -->
         <div class="flex flex-col gap-6">
-            <h2 class="text-3xl font-bold leading-tight">Continental <br> Fashion Merchandising</h2>
+            <h2 class="text-3xl font-bold leading-tight">Continental Fashion <br> Merchandising UG</h2>
             <div class="flex items-center gap-3 text-lg">
                 <img src="{{ asset('frontend/assets/images/phoneIcon.svg') }}" alt="Phone">
                 <span>+49 6108 826960</span>
@@ -22,7 +22,7 @@
                 <li><a href="#" class="hover:text-purple-400 transition">Download Pricelist</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Cancellation &
                         Returns</a></li>
-                <li><a href="#" class="hover:text-purple-400 transition">About Us</a></li>
+                <li><a href="{{ route('frontend.aboutus') }}" class="hover:text-purple-400 transition">About Us</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Terms &
                         Conditions</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Privacy Policy</a></li>
@@ -39,9 +39,9 @@
                 @csrf
                 <input type="email" placeholder="Enter Your Email" name="email"
                     class="border border-gray-300 rounded-xl p-4 bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 @error('email') is-invalid @enderror">
-                    @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
                 <button type="submit"
                     class="bg-purple-700 hover:bg-purple-600 transition text-white font-bold p-4 rounded-xl">
                     Subscribe

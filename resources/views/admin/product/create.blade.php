@@ -208,7 +208,7 @@
                                 </div>
 
                                 <!-- Fabric Quality -->
-                                <div class="form-group">
+                                {{--  <div class="form-group">
                                     <label for="fabric_quality">Fabric Quality</label>
                                     <select name="fabric_id"
                                         class="form-control @error('fabric_id') is-invalid @enderror">
@@ -219,6 +219,16 @@
                                         @endforeach
                                     </select>
                                     @error('fabric_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>  --}}
+
+                                <div class="form-group">
+                                    <label for="qty_per_carton">Quantity Per Carton</label>
+                                    <input type="number" name="qty_per_carton"
+                                        class="form-control @error('qty_per_carton') is-invalid @enderror"
+                                        value="{{ old('qty_per_carton') }}" placeholder="Enter Pack Poly">
+                                    @error('qty_per_carton')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -267,7 +277,8 @@
                                     <label for="category_1_price">Category 1 Price</label>
                                     <input type="number" name="category_1_price"
                                         class="form-control @error('category_1_price') is-invalid @enderror"
-                                        value="{{ old('category_1_price') }}"  step="0.01" min="0" placeholder="Enter Category 1 Price">
+                                        value="{{ old('category_1_price') }}" step="0.01" min="0"
+                                        placeholder="Enter Category 1 Price">
                                     @error('category_1_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -277,7 +288,8 @@
                                     <label for="category_2_price">Category 2 Price</label>
                                     <input type="number" name="category_2_price"
                                         class="form-control @error('category_2_price') is-invalid @enderror"
-                                        value="{{ old('category_2_price') }}" step="0.01" min="0" placeholder="Enter Category 2 Price">
+                                        value="{{ old('category_2_price') }}" step="0.01" min="0"
+                                        placeholder="Enter Category 2 Price">
                                     @error('category_2_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -287,7 +299,8 @@
                                     <label for="category_3_price">Category 3 Price</label>
                                     <input type="number" name="category_3_price"
                                         class="form-control @error('category_3_price') is-invalid @enderror"
-                                        value="{{ old('category_3_price') }}" step="0.01" min="0" placeholder="Enter Category 3 Price">
+                                        value="{{ old('category_3_price') }}" step="0.01" min="0"
+                                        placeholder="Enter Category 3 Price">
                                     @error('category_3_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -297,7 +310,8 @@
                                     <label for="category_4_price">Category 4 Price</label>
                                     <input type="number" name="category_4_price"
                                         class="form-control @error('category_4_price') is-invalid @enderror"
-                                        value="{{ old('category_4_price') }}" step="0.01" min="0" placeholder="Enter Category 4 Price">
+                                        value="{{ old('category_4_price') }}" step="0.01" min="0"
+                                        placeholder="Enter Category 4 Price">
                                     @error('category_4_price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

@@ -295,7 +295,7 @@
 
 
                                 <!-- Fabric Quality -->
-                                <div class="form-group">
+                                {{--  <div class="form-group">
                                     <label for="fabric_id">Fabric Quality</label>
                                     <select name="fabric_id"
                                         class="form-control @error('fabric_id') is-invalid @enderror">
@@ -307,6 +307,18 @@
                                         @endforeach
                                     </select>
                                     @error('fabric_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>  --}}
+
+
+                                <div class="form-group">
+                                    <label for="qty_per_carton">Quantity Per Carton</label>
+                                    <input type="number" name="qty_per_carton"
+                                        class="form-control @error('qty_per_carton') is-invalid @enderror"
+                                        value="{{ old('qty_per_carton', $product->qty_per_carton) }}"
+                                        placeholder="Enter Quantity">
+                                    @error('qty_per_carton')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

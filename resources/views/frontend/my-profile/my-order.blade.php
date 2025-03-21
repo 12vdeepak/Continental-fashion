@@ -101,7 +101,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="#" class="text-blue-600 self-center">View Details →</a>
+                                        {{--  <a href="#" class="text-blue-600 self-center">View Details →</a>  --}}
                                     </div>
                                 </div>
                             @endforeach

@@ -76,8 +76,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Fabric Quality:</th>
-                    <td>{{ $product->fabric->fabric_name ?? 'N/A' }}</td>
+                    <th>Quantity Per Carton:</th>
+                    <td>{{ $product->qty_per_carton ?? 'N/A' }}</td>
                 </tr>
                 <tr>
                     <th>Product Details:</th>

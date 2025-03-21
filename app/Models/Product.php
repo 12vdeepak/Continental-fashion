@@ -16,6 +16,7 @@ class Product extends Model
         'sub_category_id',
         'product_name',
         'product_details',
+        'qty_per_carton',
         'material_id',
         'weight_id',
         'article_id',
