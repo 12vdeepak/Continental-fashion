@@ -19,7 +19,7 @@ class FrontendController extends Controller
         $categories = Category::with('subcategories')->get();
         $banners = Banner::all();
 
-        return view('frontend.product.public-home', compact('products', 'categories','banners'));
+        return view('frontend.product.public-home', compact('products', 'categories', 'banners'));
     }
 
     public function publicPrivateHome()
@@ -27,22 +27,18 @@ class FrontendController extends Controller
         $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
         $banners = Banner::all();
-        return view('frontend.product.public-home', compact('products', 'categories','banners'));
+        return view('frontend.product.public-home', compact('products', 'categories', 'banners'));
     }
 
     public function aboutUs()
     {
         $categories = Category::with('subcategories')->get();
         return view('frontend.aboutus', compact('categories'));
-
     }
 
 
 
-    // public function allProduct()
-    // {
-    //     return view('frontend.product.allproduct');
-    // }
+
 
     /**
      * Show the form for creating a new resource.
