@@ -241,8 +241,16 @@
             </div>
             <!-- Order Success Popup (Initially Hidden) -->
             <!-- Order Success Popup (Initially Hidden) -->
+            @if (session()->has('orderDetails') && !empty(session('orderDetails')))
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        document.getElementById("orderSuccessPopup").classList.remove("hidden");
+                    });
+                </script>
+            @endif
+
             <div id="orderSuccessPopup"
-                class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 hidden ">
+                class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 {{ session()->has('orderDetails') && !empty(session('orderDetails')) ? '' : 'hidden' }}">
                 <div id="popupContent" class="bg-white rounded-xl shadow-lg w-[500px] p-6 relative">
                     <!-- Close Button -->
                     <button id="closePopupBtn"
@@ -250,56 +258,56 @@
 
                     <!-- Success Icon -->
                     <div class="flex justify-center">
-                        <div class="bg-[#2AD15640] text-white rounded-full p-3 ">
+                        <div class="bg-[#2AD15640] text-white rounded-full p-3">
                             <img src="{{ asset('frontend/assets/images/success-svgrepo-com (1).svg') }}" alt=""
                                 class="w-[80px] h-[80px]">
                         </div>
                     </div>
 
                     <!-- Order Success Message -->
-                    <h2 class="text-center text-2xl font-bold mt-4">Your order has been placed successfully</h2>
-                    <p class="text-gray-600 text-center my-2">
-                        Your order <span class="font-semibold">#120050</span> has been placed successfully.
-                        You will receive an order confirmation email soon.
-                    </p>
+                    @if (session('orderDetails') && is_array(session('orderDetails')) && count(session('orderDetails')) > 0)
+                        <h2 class="text-center text-2xl font-bold mt-4">Your order has been placed successfully</h2>
+                        <p class="text-gray-600 text-center my-2">
+                            Your order <span
+                                class="font-semibold">#{{ session('orderDetails')[0]['order_id'] ?? 'N/A' }}</span> has
+                            been placed successfully.
+                            You will receive an order confirmation email soon.
+                        </p>
 
-                    <!-- Product Details -->
-                    <div class="mt-6 space-y-4">
-                        <div class="flex items-center bg-gray-100 p-4 rounded-lg">
-                            <img src="{{ asset('frontend/assets/images/blueHoodie.png') }}" alt="Hoodie"
-                                class="w-16 h-16 object-cover rounded-lg">
-                            <div class="ml-4">
-                                <p class="text-lg font-semibold">Classic Hooded Sweat</p>
-                                <div class="text-gray-600 text-sm flex gap-2 mt-1">
-                                    <span>Gender: ♂️</span> |
-                                    <span>Color: <span
-                                            class="w-3 h-3 inline-block rounded-full bg-[#54114C]"></span></span> |
-                                    <span>Size: XXL</span> |
-                                    <span>Qty: 120</span>
+                        <!-- Product Details -->
+                        <div class="mt-6 space-y-4">
+                            @foreach (session('orderDetails') as $item)
+                                <div class="flex items-center bg-gray-100 p-4 rounded-lg">
+                                    <img src="{{ $item['product_image'] }}" alt="{{ $item['product_name'] }}"
+                                        class="w-16 h-16 object-cover rounded-lg">
+                                    <div class="ml-4">
+                                        <p class="text-lg font-semibold">{{ $item['product_name'] ?? 'N/A' }}</p>
+                                        <div class="text-gray-600 text-sm flex gap-2 mt-1">
+                                            <span>Color: <span class="w-3 h-3 inline-block rounded-full"
+                                                    style="background: {{ $item['color'] ?? '#000' }}"></span></span> |
+                                            <span>Size: {{ $item['size'] ?? 'N/A' }}</span> |
+                                            <span>Qty: {{ $item['quantity'] ?? 0 }}</span>
+                                        </div>
+                                        <div class="mt-2 text-sm flex gap-4">
+                                            <span class="text-gray-600">Unit Price: <span
+                                                    class="font-semibold">€{{ $item['unit_price'] ?? 0 }}</span></span>
+                                            <span class="text-gray-600">Total Price: <span
+                                                    class="font-semibold text-blue-600">€{{ $item['total_price'] ?? 0 }}</span></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mt-2 text-sm flex gap-4">
-                                    <span class="text-gray-600">Unit Price: <span class="font-semibold">€12</span></span>
-                                    <span class="text-gray-600">Total Price: <span
-                                            class="font-semibold text-blue-600">€126</span></span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                    </div>
+                    @else
+                        <p class="text-center text-red-600">No order details found.</p>
+                    @endif
 
-                    <div class="flex justify-between items-center bg-[#54114C0F] p-4 rounded-lg my-5">
-                        <span class="text-gray-600 text-sm">20+ items</span>
-                        <a href="#" class="text-red-600 font-semibold text-sm">Full details in My Order →</a>
-                    </div>
-
-                    <!-- Buttons -->
                     <div class="mt-6 text-center">
                         <button id="closePopup"
                             class="bg-[#54114C] text-white px-6 py-3 rounded-lg text-lg w-full">Continue Shopping</button>
                     </div>
                 </div>
             </div>
-
-
 
 
 

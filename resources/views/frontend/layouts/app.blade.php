@@ -321,6 +321,16 @@
         });
     </script>
 
+    <script>
+        document.getElementById("closePopupBtn").addEventListener("click", function() {
+            document.getElementById("orderSuccessPopup").classList.add("hidden");
+        });
+
+        document.getElementById("closePopup").addEventListener("click", function() {
+            document.getElementById("orderSuccessPopup").classList.add("hidden");
+        });
+    </script>
+
 
 
     <script>

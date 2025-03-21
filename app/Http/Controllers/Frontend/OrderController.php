@@ -3,13 +3,93 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderPlacedMail;
 use App\Models\Address;
 use App\Models\CartItem;
+use App\Models\CompanyRegistration;
 use App\Models\Order;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+    // public function storeOrder(Request $request)
+    // {
+    //     try {
+    //         $companyUserId = session('company_user_id');
+
+    //         if (!$companyUserId) {
+    //             return redirect()->back()->with('error', 'User session expired. Please log in again.');
+    //         }
+
+    //         $selectedAddressId = $request->address_id ?? session('selected_address_id');
+    //         $selectedAddress = Address::find($selectedAddressId);
+
+    //         if (!$selectedAddress) {
+    //             return redirect()->back()->with('error', 'Please select a valid address.');
+    //         }
+
+    //         $cartItems = CartItem::with(['product', 'color', 'size'])
+    //             ->where('user_id', $companyUserId)
+    //             ->get();
+
+    //         if ($cartItems->isEmpty()) {
+    //             return redirect()->back()->with('error', 'Your cart is empty.');
+    //         }
+
+    //         $totalAmount = $cartItems->sum(fn($item) => $item->price * $item->quantity);
+    //         $vat = $totalAmount * 0.19;
+    //         $finalAmount = $totalAmount + $vat;
+
+    //         $orderDetails = [];
+
+    //         foreach ($cartItems as $item) {
+    //             $order = Order::create([
+    //                 'user_id' => $companyUserId,
+    //                 'address_id' => $selectedAddress->id,
+    //                 'product_id' => $item->product_id,
+    //                 'color_id' => $item->color_id,
+    //                 'size_id' => $item->size_id,
+    //                 'quantity' => $item->quantity,
+    //                 'price' => $item->price,
+    //                 'amount' => $item->price * $item->quantity,
+    //                 'status' => 'pending',
+    //             ]);
+
+    //             // Fetch product image based on product_id and color_id
+    //             $productImage = ProductImage::where('product_id', $item->product_id)
+    //                 ->where('color_id', $item->color_id)
+    //                 ->first();
+
+    //             $orderDetails[] = [
+    //                 'order_id' => $order->id,
+    //                 'product_name' => $item->product->product_name ?? 'N/A',
+    //                 'color' => $item->color->color_code ?? 'N/A',
+    //                 'size' => $item->size->size_name ?? 'N/A',
+    //                 'quantity' => $item->quantity,
+    //                 'unit_price' => $item->price,
+    //                 'total_price' => $item->price * $item->quantity,
+    //                 'product_image' => $productImage ? asset('storage/' . $productImage->image_path) : asset('frontend/assets/images/default.png')
+    //             ];
+    //         }
+
+    //         CartItem::where('user_id', $companyUserId)->delete();
+
+    //         // ✅ Use flash() so session data is only available for the next request
+    //         session()->flash('orderDetails', $orderDetails);
+    //         session()->flash('message', 'Order placed successfully!');
+
+    //         return redirect()->route('frontend.confirm-order')->with([
+    //             'orderDetails' => $orderDetails,
+    //             'message' => 'Order placed successfully!',
+    //         ]); // Redirect to confirmation page
+
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+    //     }
+    // }
+
     public function storeOrder(Request $request)
     {
         try {
@@ -26,6 +106,9 @@ class OrderController extends Controller
                 return redirect()->back()->with('error', 'Please select a valid address.');
             }
 
+            // Fetch user email from company_registrations table
+            $userEmail = CompanyRegistration::where('id', $companyUserId)->value('email');
+
             $cartItems = CartItem::with(['product', 'color', 'size'])
                 ->where('user_id', $companyUserId)
                 ->get();
@@ -33,10 +116,6 @@ class OrderController extends Controller
             if ($cartItems->isEmpty()) {
                 return redirect()->back()->with('error', 'Your cart is empty.');
             }
-
-            $totalAmount = $cartItems->sum(fn($item) => $item->price * $item->quantity);
-            $vat = $totalAmount * 0.19;
-            $finalAmount = $totalAmount + $vat;
 
             $orderDetails = [];
 
@@ -53,24 +132,35 @@ class OrderController extends Controller
                     'status' => 'pending',
                 ]);
 
+                // Fetch product image
+                $productImage = ProductImage::where('product_id', $item->product_id)
+                    ->where('color_id', $item->color_id)
+                    ->first();
+
                 $orderDetails[] = [
                     'order_id' => $order->id,
-                    'product_name' => $item->product->name ?? 'N/A',
+                    'product_name' => $item->product->product_name ?? 'N/A',
                     'color' => $item->color->color_code ?? 'N/A',
                     'size' => $item->size->size_name ?? 'N/A',
                     'quantity' => $item->quantity,
                     'unit_price' => $item->price,
                     'total_price' => $item->price * $item->quantity,
+                    'product_image' => $productImage ? asset('storage/' . $productImage->image_path) : asset('frontend/assets/images/default.png')
                 ];
             }
 
             CartItem::where('user_id', $companyUserId)->delete();
 
-            // ✅ Use flash() so session data is only available for the next request
+            // ✅ Send order confirmation email
+            Mail::to($userEmail)->send(new OrderPlacedMail($orderDetails));
+
             session()->flash('orderDetails', $orderDetails);
             session()->flash('message', 'Order placed successfully!');
 
-            return redirect()->route('frontend.confirm-order'); // Redirect to confirmation page
+            return redirect()->route('frontend.confirm-order')->with([
+                'orderDetails' => $orderDetails,
+                'message' => 'Order placed successfully!',
+            ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong. Please try again.');
         }
