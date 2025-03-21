@@ -321,6 +321,75 @@
         });
     </script>
 
+
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let formData = new FormData(this);
+
+            fetch("{{ route('order.store') }}", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update order number
+                        document.getElementById('orderNumber').textContent = `#${data.order_id}`;
+
+                        // Clear previous order items
+                        let orderItemsContainer = document.getElementById('orderItemsContainer');
+                        orderItemsContainer.innerHTML = '';
+
+                        // Insert new order items
+                        data.order_items.forEach(item => {
+                            let itemHTML = `
+                            <div class="flex items-center bg-gray-100 p-4 rounded-lg">
+                                <img src="{{ asset('frontend/assets/images/blueHoodie.png') }}" alt="Hoodie" class="w-16 h-16 object-cover rounded-lg">
+                                <div class="ml-4">
+                                    <p class="text-lg font-semibold">${item.product_name}</p>
+                                    <div class="text-gray-600 text-sm flex gap-2 mt-1">
+                                        <span>Size: ${item.size}</span> |
+                                        <span>Qty: ${item.quantity}</span>
+                                    </div>
+                                    <div class="mt-2 text-sm flex gap-4">
+                                        <span class="text-gray-600">Unit Price: <span class="font-semibold">€${item.unit_price}</span></span>
+                                        <span class="text-gray-600">Total Price: <span class="font-semibold text-blue-600">€${item.total_price}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                            orderItemsContainer.innerHTML += itemHTML;
+                        });
+
+                        // Show popup
+                        document.getElementById('orderSuccessPopup').classList.remove('hidden');
+                    } else {
+                        alert(data.error || "Something went wrong!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Something went wrong. Please try again.");
+                });
+        });
+
+        // Close popup button
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('orderSuccessPopup').classList.add('hidden');
+        });
+
+        document.getElementById('closePopupBtn').addEventListener('click', function() {
+            document.getElementById('orderSuccessPopup').classList.add('hidden');
+        });
+    </script>
+
+
     <script>
         document.getElementById('togglePassword').addEventListener('click', function() {
             let passwordInput = document.getElementById('password');
@@ -545,9 +614,13 @@
             const slides = @json($banners); // Convert Laravel data to JSON
             const baseUrl = "{{ asset('storage/banner_images') }}/"; // Base URL
 
+            // Filter only active banners
+            const filteredSlides = slides.filter(banner => banner.status == 1);
+
             let currentSlide = 0;
             let autoSlideInterval;
 
+            // Get DOM elements
             const bgImage = document.getElementById("bgImage");
             const title = document.getElementById("title");
             const description = document.getElementById("description");
@@ -555,32 +628,33 @@
             const nextBtn = document.getElementById("nextSlide");
 
             function updateSlide() {
-                let imagePath = slides[currentSlide].image;
+                if (filteredSlides.length === 0) return; // Exit if no active banners exist
 
-                // Ensure the image path does not already include "banner_images/"
+                let imagePath = filteredSlides[currentSlide].image;
+
+                // Ensure the image path does not include "banner_images/" twice
                 if (imagePath.includes("banner_images/")) {
-                    imagePath = imagePath.replace("banner_images/", ""); // Remove extra folder name
+                    imagePath = imagePath.replace("banner_images/", "");
                 }
 
-                console.log("Updating slide:", currentSlide, "Corrected Image URL:", baseUrl +
-                    imagePath); // Debugging
+                console.log("Updating slide:", currentSlide, "Corrected Image URL:", baseUrl + imagePath);
 
                 bgImage.style.backgroundImage = `url('${baseUrl}${imagePath}')`;
                 bgImage.style.backgroundSize = "cover";
                 bgImage.style.backgroundPosition = "center";
                 bgImage.style.backgroundRepeat = "no-repeat";
 
-                title.innerHTML = slides[currentSlide].title;
-                description.textContent = slides[currentSlide].description;
+                title.innerHTML = filteredSlides[currentSlide].title || "";
+                description.textContent = filteredSlides[currentSlide].description || "";
             }
 
             function nextSlide() {
-                currentSlide = (currentSlide + 1) % slides.length;
+                currentSlide = (currentSlide + 1) % filteredSlides.length;
                 updateSlide();
             }
 
             function prevSlide() {
-                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                currentSlide = (currentSlide - 1 + filteredSlides.length) % filteredSlides.length;
                 updateSlide();
             }
 
@@ -589,6 +663,7 @@
                 autoSlideInterval = setInterval(nextSlide, 7000);
             }
 
+            // Event listeners for navigation
             prevBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 prevSlide();
@@ -601,10 +676,16 @@
                 startAutoSlide();
             });
 
-            updateSlide();
-            startAutoSlide();
+            // Initialize slider only if active banners exist
+            if (filteredSlides.length > 0) {
+                updateSlide();
+                startAutoSlide();
+            } else {
+                console.warn("No active banners found.");
+            }
         });
     </script>
+
 
 
 

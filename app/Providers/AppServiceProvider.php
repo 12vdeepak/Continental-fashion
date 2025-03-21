@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $colors = Color::all();
         $sizes = Size::all();
-        $banners = Banner::all();
+        $banners = Banner::where('status', '=', 1)->get();
+
 
         // Correct way to share multiple variables with all views
         View::share([
