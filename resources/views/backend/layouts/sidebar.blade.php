@@ -257,23 +257,23 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                {{--  <li class="nav-item">
                     <a href="#" class="nav-link {{ Request::is('admin/measurementchart') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-ruler-combined"></i>
                         <p>
                             Measurement Chart
                         </p>
                     </a>
-                </li>
+                </li>  --}}
 
-                <li class="nav-item">
+                {{--  <li class="nav-item">
                     <a href="#" class="nav-link {{ Request::is('admin/shippingcost') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-shipping-fast"></i>
                         <p>
                             Shipping Cost
                         </p>
                     </a>
-                </li>
+                </li>  --}}
 
 
 
