@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\UserApprovalMail;
 use App\Models\CompanyRegistration;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class UserController extends Controller
 {
@@ -56,7 +59,7 @@ class UserController extends Controller
 
     public function assignCustomerID(CompanyRegistration $user)
     {
-        return view('users.assign_customer_id', compact('user'));
+        return view('admin.user.assign_customer_id', compact('user'));
     }
 
     public function storeCustomerID(Request $request, CompanyRegistration $user)
@@ -72,25 +75,88 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('message', 'Customer ID and Price Category assigned successfully.');
     }
-    public function showOrders($id)
+
+
+    public function showOrders(Request $request, $id)
     {
-        // Fetch orders with related data
-        $orders = Order::where('user_id', $id)
-            ->with(['product', 'size', 'color', 'address'])
-            ->get();
+        // Fetch the specific user by ID
+        $user = CompanyRegistration::find($id);
+
+        // Check if user exists
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Start building the query
+        $query = Order::where('user_id', $id)
+            ->with(['product', 'size', 'color', 'address']);
+
+        // Apply date filtering if both start and end dates are provided
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $startDate = Carbon::parse($request->start_date)->startOfDay();
+            $endDate = Carbon::parse($request->end_date)->endOfDay();
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        // Get filtered orders
+        $orders = $query->latest()->get();
 
         // Check if orders exist
         if ($orders->isEmpty()) {
             return redirect()->back()->with('message', 'No orders found for this user.');
         }
 
-        return view('users.orders', compact('orders'));
+        return view('admin.user.orders', compact('orders', 'user'));
     }
+
+
+    public function downloadFilteredInvoice(Request $request, $userId)
+    {
+        // Validate the request parameters
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        // Convert to Carbon instances
+        $startDate = Carbon::parse($request->query('start_date'))->startOfDay();
+        $endDate = Carbon::parse($request->query('end_date'))->endOfDay();
+
+        // Fetch orders with products and their respective articles
+        $orders = Order::where('user_id', $userId)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->with(['product.article']) // Eager load products with article
+            ->get();
+
+        // dd($orders);
+
+        if ($orders->isEmpty()) {
+            return back()->with('error', 'No orders found in the selected date range.');
+        }
+
+        // Fetch user details with multiple addresses
+        $user = CompanyRegistration::with('address')->find($userId);
+        if (!$user) {
+            return back()->with('error', 'User not found.');
+        }
+
+        $companyRegistration = $user->company_registration ?? 'N/A';
+        $userAddress = optional($user->address->first())->full_address ?? 'N/A'; // Get the first address
+
+        // Generate PDF
+        $pdf = Pdf::loadView('admin.user.invoice2', compact('orders', 'userAddress', 'companyRegistration'));
+
+        return $pdf->download('invoice_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf');
+    }
+
+
+
+
 
     public function editTracking($id)
     {
         $order = Order::findOrFail($id);
-        return view('users.tracking_edit', compact('order'));
+        return view('admin.user.tracking_edit', compact('order'));
     }
 
     public function updateTracking(Request $request, $id)

@@ -16,32 +16,34 @@
         </button>
 
         <li><a href="{{ route('frontend.home') }}">Home</a></li>
-        <a href="{{ route('frontend.all.product') }}">
-            <li class="relative group">
-                <span class="cursor-pointer">Collection</span>
+        <li class="relative group">
+            <span class="cursor-pointer">Collection</span>
 
-                <!-- Dropdown Menu -->
-                <div
-                    class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[300px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
+            <!-- Dropdown Menu -->
+            <div
+                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[300px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
 
-                    <div class="container mx-auto grid grid-cols-3 gap-4 bg-white p-5">
-                        @foreach ($categories as $category)
-                            <div class="space-y-1">
-                                <h3 class="font-bold text-black">{{ $category->category_name }}</h3>
-                                <ul class="text-gray-600 space-y-1">
-                                    @foreach ($category->subcategories as $subcategory)
-                                        <li>{{ $subcategory->subcategory_name }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endforeach
-                    </div>
-
+                <div class="container mx-auto grid grid-cols-3 gap-4 bg-white p-5">
+                    @foreach ($categories as $category)
+                        <div class="space-y-1">
+                            <h3 class="font-bold text-black">{{ $category->category_name }}</h3>
+                            <ul class="text-gray-600 space-y-1">
+                                @foreach ($category->subcategories as $subcategory)
+                                    <li>
+                                        <a href="{{ route('frontend.subcategory.products', $subcategory->id) }}"
+                                            class="hover:text-black">
+                                            {{ $subcategory->subcategory_name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endforeach
                 </div>
 
-            </li>
+            </div>
+        </li>
 
-        </a>
         <li><a href="{{ route('frontend.aboutus') }}">About Us</a></li>
         {{--  <li><a href="#">Quotation</a></li>  --}}
         {{--  <li class="flex gap-2 justify-center items-center"><img src="{{ asset('frontend/assets/images/Vector.svg') }}"

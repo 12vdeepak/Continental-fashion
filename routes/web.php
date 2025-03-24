@@ -78,6 +78,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/orders/tracking/update/{id}', [UserController::class, 'updateTracking'])->name('orders.tracking.update');
 
 
+    Route::get('/users/{user}/download-invoice', [UserController::class, 'downloadFilteredInvoice'])
+        ->name('users.download.invoice');
+
+
+
     // SubscriptionController
 
     Route::get('/subscriptions', [DashboardController::class, 'subscription'])->name('subscriptions.index'); // List all subscriptions
@@ -220,6 +225,9 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
     Route::get('/product-logged', [FrontendProductController::class, 'productLogged'])->name('frontend.product-logged');
     Route::get('/special-product', [FrontendProductController::class, 'specialProduct'])->name('frontend.specialproduct');
     // Route::get('/select-address', [FrontendProductController::class, 'selectAddress'])->name('frontend.select-address');
+
+    Route::get('/subcategory/{id}', [FrontendProductController::class, 'subcategoryProducts'])->name('frontend.subcategory.products');
+
 
     Route::resource('addresses', AddressController::class);
 

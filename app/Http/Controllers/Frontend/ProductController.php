@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -27,7 +28,7 @@ class ProductController extends Controller
     public function specialProduct()
     {
         $categories = Category::with('subcategories')->get();
-        return view('frontend.specialproduct',compact('categories'));
+        return view('frontend.specialproduct', compact('categories'));
     }
 
     public function productPage($id)
@@ -114,6 +115,21 @@ class ProductController extends Controller
         $categories = Category::with('subcategories')->get();
         return view('frontend.product.product-page-logged-in', compact('categories'));
     }
+
+    public function subcategoryProducts($id)
+    {
+        $categories = Category::with('subcategories')->get();
+        $subcategory = SubCategory::findOrFail($id);
+
+        // Use paginate() instead of accessing products as a collection
+        $products = $subcategory->products()->with('images')->paginate(9);
+
+        return view('frontend.product.index', compact('subcategory', 'categories', 'products'));
+    }
+
+
+
+
 
     // public function selectAddress()
     // {
