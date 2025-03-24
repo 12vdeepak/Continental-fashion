@@ -124,11 +124,11 @@ class ProfileController extends Controller
             return redirect()->back()->with('error', 'User not found.');
         }
 
-        // Validate request
         $request->validate([
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:company_registrations,email,' . $user->id,
             'phone_number' => 'required|string|max:20',
             'company_name' => 'nullable|string|max:255',
             'street' => 'nullable|string|max:255',
@@ -140,16 +140,32 @@ class ProfileController extends Controller
             $user->profile_image = $imagePath;
         }
 
+        // Check if email is changed
+        $emailChanged = $user->email !== $request->email;
+
         // Update user details
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
+        $user->email = $request->email;
         $user->phone_number = $request->phone_number;
         $user->company_name = $request->company_name;
         $user->street = $request->street;
         $user->save();
 
+        // If email is changed, log out manually and redirect to login
+        if ($emailChanged) {
+            session()->forget('company_user_id'); // Remove user session
+            session()->flush(); // Optional: Completely clear the session
+
+            return redirect()->route('frontend.login')->with([
+                'message' => 'Email updated successfully. Please log in again.',
+                'alert-type' => 'success'
+            ]);
+        }
+
         return redirect()->back()->with('message', 'Profile updated successfully.');
     }
+
     public function updatePassword(Request $request)
     {
         $request->validate([

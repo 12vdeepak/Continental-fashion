@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\FabricController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\MaterialController;
+use App\Http\Controllers\Admin\NewsOfferController;
 use App\Http\Controllers\Admin\PrefixController;
 use App\Http\Controllers\Admin\PriceController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
@@ -160,6 +161,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // TermsAndConditionController
     Route::resource('termscondition', TermsConditionController::class);
+
+    // TermsAndConditionController
+    Route::resource('news-offers', NewsOfferController::class);
+    Route::patch('/newsoffer/{newsOffer}/toggle-status', [NewsOfferController::class, 'toggleStatus'])
+        ->name('news-offers.toggle-status');
 
 
     // Change Password

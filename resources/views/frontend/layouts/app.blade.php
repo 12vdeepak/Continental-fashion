@@ -25,6 +25,23 @@
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
 
 
+    <style>
+        .animate-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll 12s linear infinite;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
 
     <style>
         .carousel-container {
@@ -796,6 +813,16 @@
 
 
 
+    {{-- JavaScript for Modal --}}
+    <script>
+        function showDescription(id) {
+            document.getElementById(`modal-${id}`).classList.remove('hidden');
+        }
+
+        function closeDescription(id) {
+            document.getElementById(`modal-${id}`).classList.add('hidden');
+        }
+    </script>
 
     <script>
         // all product filter dropdown

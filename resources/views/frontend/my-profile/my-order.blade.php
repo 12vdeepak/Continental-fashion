@@ -58,6 +58,9 @@
                                             <p class="text-gray-500">Tracking Id:
                                                 <span>{{ $order->tracking_id ?? 'N/A' }}</span>
                                             </p>
+                                            <p class="text-gray-500">Tracking Link:
+                                                <span>{{ $order->link ?? 'N/A' }}</span>
+                                            </p>
                                         </div>
                                         <p class="text-gray-500 mt-5 lg:mt-0">Date:
                                             {{ $order->created_at->format('M d, Y') }}</p>

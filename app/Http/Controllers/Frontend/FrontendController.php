@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Banner;
+use App\Models\NewsOffer;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -18,16 +19,19 @@ class FrontendController extends Controller
         $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
         $banners = Banner::all();
+        $newsOffers = NewsOffer::where('status', 1)->get(); // Fetch only active news/offers
 
-        return view('frontend.product.public-home', compact('products', 'categories', 'banners'));
+        return view('frontend.product.public-home', compact('products', 'categories', 'banners', 'newsOffers'));
     }
+
 
     public function publicPrivateHome()
     {
         $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
         $banners = Banner::all();
-        return view('frontend.product.public-home', compact('products', 'categories', 'banners'));
+        $newsOffers = NewsOffer::where('status', 1)->get();
+        return view('frontend.product.public-home', compact('products', 'categories', 'banners', 'newsOffers'));
     }
 
     public function aboutUs()

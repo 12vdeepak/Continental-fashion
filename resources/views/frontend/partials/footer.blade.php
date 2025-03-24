@@ -12,6 +12,24 @@
                 <img src="{{ asset('frontend/assets/images/mailIcon.svg') }}" alt="Email">
                 <span>sales@continental-fashion.de</span>
             </div>
+            <!-- Opening Hours -->
+            <div class="text-lg mt-4">
+                <h3 class="font-bold">Opening Hours:</h3>
+                <p>Mon - Thursday: 9:00 - 17:00 Uhr</p>
+                <p>Fri: 9:00 - 15:00 Uhr</p>
+            </div>
+        </div>
+
+        <!-- Legal Pages -->
+        <div>
+            <h3 class="text-xl font-bold mb-4">Legal Pages</h3>
+            <ul class="space-y-2">
+                <li><a href="#" class="hover:text-purple-400 transition">Imprint</a></li>
+                <li><a href="#" class="hover:text-purple-400 transition">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-purple-400 transition">Terms & Conditions</a></li>
+                <li><a href="#" class="hover:text-purple-400 transition">Delivery Conditions</a></li>
+                <li><a href="#" class="hover:text-purple-400 transition">Cancellation & Returns</a></li>
+            </ul>
         </div>
 
         <!-- Quick Links -->
@@ -20,14 +38,7 @@
             <ul class="space-y-2">
                 <li><a href="#" class="hover:text-purple-400 transition">FAQ</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Download Pricelist</a></li>
-                <li><a href="#" class="hover:text-purple-400 transition">Cancellation &
-                        Returns</a></li>
-                <li><a href="{{ route('frontend.aboutus') }}" class="hover:text-purple-400 transition">About Us</a></li>
-                <li><a href="#" class="hover:text-purple-400 transition">Terms &
-                        Conditions</a></li>
-                <li><a href="#" class="hover:text-purple-400 transition">Privacy Policy</a></li>
-                <li><a href="#" class="hover:text-purple-400 transition">Measurement
-                        Charts</a></li>
+                <li><a href="#" class="hover:text-purple-400 transition">Measurement Charts</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Shipping Cost</a></li>
             </ul>
         </div>

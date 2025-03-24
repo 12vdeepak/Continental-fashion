@@ -44,6 +44,49 @@
         </section>
 
 
+
+        <br><br>
+        <section id="brandLogos" class="w-full py-10 bg-gray-100">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-6">Our Trusted Brands</h2>
+                <div class="overflow-hidden relative">
+                    <div class="flex gap-10 animate-scroll whitespace-nowrap"
+                        onmouseover="this.style.animationPlayState='paused'"
+                        onmouseout="this.style.animationPlayState='running'">
+
+                        <!-- Ensure only valid images are included -->
+                        <img src="{{ asset('frontend/assets/images/basic_wear.jpg') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/blank_cheque.png') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/blue_pacific.jpg') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/russell.png') }}" class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="h-20 max-w-none object-contain">
+
+                        <!-- Repeat images for smooth scrolling -->
+                        <img src="{{ asset('frontend/assets/images/basic_wear.jpg') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/blank_cheque.png') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/blue_pacific.jpg') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/russell.png') }}"
+                            class="h-20 max-w-none object-contain">
+                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="h-20 max-w-none object-contain">
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+
+
+
+
         <!-- === Benifits of purchasing from us ==== -->
 
         <section id="benifits_of_purchasing" class="flex flex-col gap-10 px-4 lg:px-[120px] my-[80px]">
@@ -148,7 +191,8 @@
                                                     alt="{{ $product->product_name }}">
                                             @else
                                                 <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
-                                                    class="rounded-2xl w-full h-full object-cover" alt="No Image Available">
+                                                    class="rounded-2xl w-full h-full object-cover"
+                                                    alt="No Image Available">
                                             @endif
                                         </div>
 
@@ -189,102 +233,29 @@
                         we’ve got you covered </div>
 
                 </div>
-                <div class="viewAllButton">
-                    <button class="px-[24px] py-[14px] font-medium bg-[#54114C] text-[#FFFFFF] rounded-2xl ">
-                        View All
-                    </button>
-                </div>
-            </div>
-            <div id="product_showcase" class="my-[50px] flex flex-col  gap-10  ">
-                <div class="news_row_one flex flex-col lg:flex-row  justify-between gap-10 w-full  ">
-                    <div class="newsCard flex flex-col w-full ">
-                        <div class="productImg   ">
-                            <img src="{{ asset('frontend/assets/images/newsOffer.jpeg') }}" class="rounded-2xl"
-                                alt="">
-                        </div>
-
-                        <div class="productName text-[24px] font-medium mb-1 mt-3">Selected top sellers cheaper!!!</div>
-                        <div class="proDescription text-[16px] text-[#6E6E6E] w-3/4 mb-4 ">From April 1st, 2024 you will
-                            receive the following bags at reduced prices</div>
-
-                        <div class="seeProductsButton flex items-center gap-4 text-[#54114C] font-bold ">Read Article <img
-                                src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt=""> </div>
-                    </div>
-                    <div class="newsCard flex flex-col w-full ">
-                        <div class="productImg   ">
-                            <img src="{{ asset('frontend/assets/images/newsOffer.jpeg') }}" class="rounded-2xl"
-                                alt="">
-                        </div>
-
-                        <div class="productName text-[24px] font-medium mb-1 mt-3">Selected top sellers cheaper!!!</div>
-                        <div class="proDescription text-[16px] text-[#6E6E6E] w-3/4 mb-4 ">From April 1st, 2024 you will
-                            receive the following bags at reduced prices</div>
-
-                        <div class="seeProductsButton flex items-center gap-4 text-[#54114C] font-bold ">Read Article <img
-                                src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt=""> </div>
-                    </div>
-                    <div class="newsCard flex flex-col w-full ">
-                        <div class="productImg   ">
-                            <img src="{{ asset('frontend/assets/images/newsOffer.jpeg') }}" class="rounded-2xl"
-                                alt="">
-                        </div>
-
-                        <div class="productName text-[24px] font-medium mb-1 mt-3">Selected top sellers cheaper!!!</div>
-                        <div class="proDescription text-[16px] text-[#6E6E6E] w-3/4 mb-4 ">From April 1st, 2024 you will
-                            receive the following bags at reduced prices</div>
-
-                        <div class="seeProductsButton flex items-center gap-4 text-[#54114C] font-bold ">Read Article <img
-                                src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt=""> </div>
-                    </div>
-
-                </div>
-                <div
-                    class="news_row_one hidden md:flex md:flex-row md:gap-10 lg:flex lg:flex-row justify-between lg:gap-10 w-full  ">
-                    <div class="newsCard flex flex-col w-full ">
-                        <div class="productImg   ">
-                            <img src="{{ asset('frontend/assets/images/newsOffer.jpeg') }}" class="rounded-2xl"
-                                alt="">
-                        </div>
-
-                        <div class="productName text-[24px] font-medium mb-1 mt-3">Selected top sellers cheaper!!!</div>
-                        <div class="proDescription text-[16px] text-[#6E6E6E] w-3/4 mb-4 ">From April 1st, 2024 you will
-                            receive the following bags at reduced prices</div>
-
-                        <div class="seeProductsButton flex items-center gap-4 text-[#54114C] font-bold ">Read Article <img
-                                src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt=""> </div>
-                    </div>
-                    <div class="newsCard flex flex-col w-full ">
-                        <div class="productImg   ">
-                            <img src="{{ asset('frontend/assets/images/newsOffer.jpeg') }}" class="rounded-2xl"
-                                alt="">
-                        </div>
-
-                        <div class="productName text-[24px] font-medium mb-1 mt-3">Selected top sellers cheaper!!!</div>
-                        <div class="proDescription text-[16px] text-[#6E6E6E] w-3/4 mb-4 ">From April 1st, 2024 you will
-                            receive the following bags at reduced prices</div>
-
-                        <div class="seeProductsButton flex items-center gap-4 text-[#54114C] font-bold ">Read Article <img
-                                src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt=""> </div>
-                    </div>
-                    <div class="newsCard flex flex-col w-full ">
-                        <div class="productImg   ">
-                            <img src="{{ asset('frontend/assets/images/newsOffer.jpeg') }}" class="rounded-2xl"
-                                alt="">
-                        </div>
-
-                        <div class="productName text-[24px] font-medium mb-1 mt-3">Selected top sellers cheaper!!!</div>
-                        <div class="proDescription text-[16px] text-[#6E6E6E] w-3/4 mb-4 ">From April 1st, 2024 you will
-                            receive the following bags at reduced prices</div>
-
-                        <div class="seeProductsButton flex items-center gap-4 text-[#54114C] font-bold ">Read Article <img
-                                src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}" alt=""> </div>
-                    </div>
-
-                </div>
-
-
 
             </div>
+            <div id="product_showcase" class="my-[50px] flex flex-col gap-10">
+                @foreach ($newsOffers->chunk(3) as $chunk)
+                    <div class="news_row_one grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                        @foreach ($chunk as $newsOffer)
+                            <div class="newsCard flex flex-col w-full">
+                                <div class="productImg w-full h-[250px] overflow-hidden rounded-2xl bg-gray-200">
+                                    <img src="{{ asset('storage/' . $newsOffer->image) }}"
+                                        class="w-full h-full object-cover object-top" alt="{{ $newsOffer->title }}">
+                                </div>
+                                <div class="productName text-[20px] sm:text-[22px] lg:text-[24px] font-medium mb-1 mt-3">
+                                    {!! Str::words(strip_tags($newsOffer->title), 10, '...') !!}
+                                </div>
+                                <div class="proDescription text-[14px] sm:text-[16px] text-[#6E6E6E] w-full mb-4">
+                                    {!! Str::words(strip_tags($newsOffer->description), 20, '...') !!}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+
 
 
         </section>

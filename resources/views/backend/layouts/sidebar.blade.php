@@ -242,6 +242,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('news-offers.index') }}"
+                        class="nav-link {{ Request::is('admin/news-offers*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-newspaper"></i> <!-- Icon for News & Offers -->
+                        <p>News & Offers</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('subscriptions.index') }}"
                         class="nav-link {{ Request::is('admin/subscriptions*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-envelope"></i> <!-- Updated icon for Subscriptions -->
