@@ -99,8 +99,9 @@
             <!-- Billing Address -->
             <td style="width: 50%; text-align: right; vertical-align: top;">
                 <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 16px;">Billing Address</h3>
-                <p style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">{{ $userAddress }}</p>
+                <p style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">{{ $billingAddress }}</p>
             </td>
+
         </tr>
     </table>
 

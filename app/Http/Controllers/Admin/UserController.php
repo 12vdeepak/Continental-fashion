@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\UserApprovalMail;
+use App\Models\Address;
 use App\Models\CompanyRegistration;
 use App\Models\Order;
 use Carbon\Carbon;
@@ -128,8 +129,6 @@ class UserController extends Controller
             ->with(['product.article', 'size', 'color']) // Eager load products with article
             ->get();
 
-        // dd($orders);
-
         if ($orders->isEmpty()) {
             return back()->with('error', 'No orders found in the selected date range.');
         }
@@ -141,13 +140,24 @@ class UserController extends Controller
         }
 
         $companyRegistration = $user->company_registration ?? 'N/A';
-        $userAddress = optional($user->address->first())->full_address ?? 'N/A'; // Get the first address
+
+        // Get Shipping Address (First Address)
+        $userAddress = optional($user->address->first())->full_address ?? 'N/A';
+
+        // Get Billing Address from the First Order's billing_address_id
+        $billingAddress = 'N/A';
+        if ($orders->first() && $orders->first()->billing_address_id) {
+            $billing = Address::find($orders->first()->billing_address_id);
+            $billingAddress = optional($billing)->full_address ?? 'N/A';
+        }
 
         // Generate PDF
-        $pdf = Pdf::loadView('admin.user.invoice2', compact('orders', 'userAddress', 'companyRegistration'));
+        $pdf = Pdf::loadView('admin.user.invoice2', compact('orders', 'userAddress', 'billingAddress', 'companyRegistration'));
 
         return $pdf->download('invoice_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf');
     }
+
+
 
 
 
