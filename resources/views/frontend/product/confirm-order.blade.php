@@ -229,7 +229,13 @@
                             @csrf <!-- CSRF token for Laravel security -->
 
                             <!-- Hidden field to store selected address ID -->
-                            <input type="hidden" name="address_id" value="{{ session('selected_address_id') }}">
+                            <!-- Hidden field to store selected delivery address ID -->
+                            <input type="hidden" name="address_id" id="selected_address_id"
+                                value="{{ session('selected_address_id') }}">
+
+                            <!-- Hidden field to store selected billing address ID -->
+                            <input type="hidden" name="billing_address_id" id="selected_billing_address_id"
+                                value="{{ session('selected_billing_address_id') }}">
 
                             <button type="submit" class="mt-10 bg-[#54114C] text-white px-6 py-2 rounded-lg w-full">
                                 Place Order

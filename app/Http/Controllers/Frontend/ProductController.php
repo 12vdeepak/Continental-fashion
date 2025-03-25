@@ -66,14 +66,22 @@ class ProductController extends Controller
         // Fetch all addresses for the user
         $addresses = Address::where('user_id', $companyUserId)->get();
 
-        // Check if an address was selected (either from request or session)
-        $selectedAddressId = $request->address_id ?? session('selected_address_id');
+        // Fetch selected addresses from request or session
+        $selectedAddressId = $request->delivery_address_id ?? session('selected_address_id');
+        $selectedBillingAddressId = $request->billing_address_id ?? session('selected_billing_address_id');
 
-        // Find the selected address, otherwise default to first
+        // Find the selected addresses, defaulting to the first if not found
         $selectedAddress = $addresses->where('id', $selectedAddressId)->first() ?? $addresses->first();
+        $selectedBillingAddress = $addresses->where('id', $selectedBillingAddressId)->first() ?? $addresses->first();
 
-        // Store selected address in session
-        session(['selected_address_id' => $selectedAddress->id ?? null]);
+
+        // dd($selectedAddress);
+
+        // Store selected addresses in session
+        session([
+            'selected_address_id' => $selectedAddress->id ?? null,
+            'selected_billing_address_id' => $selectedBillingAddress->id ?? null,
+        ]);
 
         // Fetch cart items for the user
         $cartItems = CartItem::with(['product', 'color', 'size', 'user'])
@@ -100,11 +108,13 @@ class ProductController extends Controller
             'categories',
             'addresses',
             'selectedAddress',
+            'selectedBillingAddress',
             'cartItems',
             'recentProducts',
             'relatedProducts'
         ));
     }
+
 
 
 

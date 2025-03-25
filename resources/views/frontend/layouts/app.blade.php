@@ -783,32 +783,95 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const addressDivs = document.querySelectorAll('.address');
-            let selectedAddress = document.querySelector('.address:first-child');
+            const deliveryInput = document.getElementById('selectedDeliveryAddressId');
+            const billingInput = document.getElementById('selectedBillingAddressId');
+            const sameAsDeliveryCheckbox = document.getElementById('sameAsDelivery');
+            const billingSection = document.getElementById('billingAddressSection');
 
+            // Function to set selection icon
+            function setSelectionIcon(element, isSelected) {
+                if (isSelected) {
+                    element.querySelector('.selection').innerHTML =
+                        `<img src="${window.location.origin}/frontend/assets/images/checked.svg" class="w-[25px] h-[25px]">`;
+                } else {
+                    element.querySelector('.selection').innerHTML =
+                        '<div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>';
+                }
+            }
+
+            // Auto-select first address on page load
+            function autoSelectFirstAddress(type) {
+                const firstAddress = document.querySelector(`.address[data-type="${type}"]`);
+                if (firstAddress) {
+                    setSelectionIcon(firstAddress, true);
+                    return firstAddress.dataset.addressId;
+                }
+                return null;
+            }
+
+            // Set default selections on page load
+            if (!deliveryInput.value) {
+                deliveryInput.value = autoSelectFirstAddress("delivery") || "";
+            }
+            if (!billingInput.value) {
+                billingInput.value = autoSelectFirstAddress("billing") || "";
+            }
+
+            // Handle Address Selection Clicks
             addressDivs.forEach(div => {
                 div.addEventListener('click', function() {
-                    // Remove selection from all addresses
-                    addressDivs.forEach(d => {
-                        const selectionDiv = d.querySelector('.selection');
-                        selectionDiv.innerHTML =
-                            '<div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>';
+                    const type = this.dataset.type;
+                    const addressId = this.dataset.addressId;
+
+                    console.log(`Selected ${type} Address ID: ${addressId}`);
+
+                    // Remove selection from all addresses of the same type
+                    document.querySelectorAll(`.address[data-type="${type}"]`).forEach(d => {
+                        setSelectionIcon(d, false);
                     });
 
-                    // Add selection to clicked address
-                    const selectionDiv = this.querySelector('.selection');
-                    selectionDiv.innerHTML =
-                        '<img src="{{ asset('frontend/assets/images/checked.svg') }}" alt="" class="w-[25px] h-[25px]">';
+                    // Mark the clicked address as selected
+                    setSelectionIcon(this, true);
 
-                    // Update selectedAddress
-                    selectedAddress = this;
-
-                    // You might want to store the selected address ID in a hidden input
-                    const addressId = this.dataset.addressId;
-                    document.getElementById('selectedAddressId').value = addressId;
+                    // Update hidden input fields
+                    if (type === "delivery") {
+                        deliveryInput.value = addressId;
+                        if (sameAsDeliveryCheckbox.checked) {
+                            billingInput.value = addressId;
+                            selectBillingAddressById(addressId);
+                        }
+                    } else {
+                        billingInput.value = addressId;
+                    }
                 });
+            });
+
+            // Handle "Same as Delivery" Checkbox
+            sameAsDeliveryCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    billingSection.style.display = 'none';
+                    billingInput.value = deliveryInput.value;
+                    selectBillingAddressById(deliveryInput.value);
+                } else {
+                    billingSection.style.display = 'block';
+                }
+            });
+
+            // Function to Select Billing Address When "Same as Delivery" is Checked
+            function selectBillingAddressById(addressId) {
+                document.querySelectorAll('.address[data-type="billing"]').forEach(d => {
+                    setSelectionIcon(d, d.dataset.addressId === addressId);
+                });
+            }
+
+            // Debugging Logs
+            document.getElementById('orderForm').addEventListener('submit', function() {
+                console.log("Final Submitted Delivery Address ID:", deliveryInput.value);
+                console.log("Final Submitted Billing Address ID:", billingInput.value);
             });
         });
     </script>
+
 
 
 

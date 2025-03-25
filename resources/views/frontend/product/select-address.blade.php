@@ -29,21 +29,18 @@
 
         <section id="selectAddress" class="px-4 lg:px-[120px] py-[80px]">
             <div class="heading">Select a delivery address</div>
-            <div class="description">
-                Please select delivery address to confirm your order
-            </div>
-            <div class="shortHeading mt-7 font-medium text-[24px]">
-                Delivery addresses ({{ $addresses->count() }})
-            </div>
+            <div class="description">Please select a delivery address to confirm your order</div>
 
+            <!-- Delivery Address Selection -->
+            <div class="shortHeading mt-7 font-medium text-[24px]">Delivery addresses ({{ $addresses->count() }})</div>
             <div class="addresses mt-5 flex flex-col gap-5">
                 @if ($addresses->isNotEmpty())
                     @foreach ($addresses as $key => $address)
-                        <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg" data-address-id="{{ $address->id }}">
+                        <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg" data-address-id="{{ $address->id }}"
+                            data-type="delivery">
                             <div class="selection flex justify-center items-center">
                                 @if ($key == 0)
-                                    <img src="{{ asset('frontend/assets/images/checked.svg') }}" alt=""
-                                        class="w-[25px] h-[25px]">
+                                    <img src="{{ asset('frontend/assets/images/checked.svg') }}" class="w-[25px] h-[25px]">
                                 @else
                                     <div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>
                                 @endif
@@ -54,47 +51,80 @@
                                         {{ $address->first_name }} {{ $address->last_name }}
                                     </div>
                                     @if ($key == 0)
-                                        <div class="defaultButton text-[#3CC4D5] bg-[#3CC4D51A] p-1 rounded-lg">
-                                            Default
+                                        <div class="defaultButton text-[#3CC4D5] bg-[#3CC4D51A] p-1 rounded-lg">Default
                                         </div>
                                     @endif
                                 </div>
                                 <div class="description mt-2">
                                     {{ $address->street }}, {{ $address->city }}, {{ $address->state }} <br>
-                                    Phone number: {{ $address->phone_number }}
+                                    Phone: {{ $address->phone_number }}
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
-                    <!-- Hidden Input for Selected Address -->
-                    <form action="{{ route('frontend.confirm-order') }}" method="POST">
-                        @csrf
-                        <input type="hidden" id="selectedAddressId" name="address_id"
-                            value="{{ $addresses->first()->id ?? '' }}">
-                        <div class="mt-4 flex justify-end items-center">
-                            <button type="submit"
-                                class="text-[#54114C] rounded-lg font-medium bg-[#54114C] px-6 py-4 text-[#FFFFFF]">
-                                Deliver to this address
-                            </button>
-                        </div>
-                    </form>
                 @else
-                    <!-- Show "No Address Available" Message -->
-                    <div class="text-center text-gray-500 text-lg font-semibold py-6">
-                        No Address Available
-                    </div>
+                    <div class="text-center text-gray-500 text-lg font-semibold py-6">No Address Available</div>
                 @endif
+            </div>
 
-                <!-- Add New Address Button -->
-                <div class="addAddressButton">
-                    <button class="text-[#54114C] w-full bg-gray-100 p-4 rounded-lg font-bold">
-                        Add New Address
-                    </button>
+            <!-- Same as Delivery Checkbox -->
+            <div class="mt-6 flex items-center">
+                <input type="checkbox" id="sameAsDelivery" class="mr-2">
+                <label for="sameAsDelivery" class="font-medium">Billing address is the same as delivery</label>
+            </div>
+
+            <!-- Billing Address Selection -->
+            <div id="billingAddressSection">
+                <div class="shortHeading mt-7 font-medium text-[24px]">Billing addresses ({{ $addresses->count() }})</div>
+                <div class="addresses mt-5 flex flex-col gap-5">
+                    @foreach ($addresses as $key => $address)
+                        <div class="address bg-gray-100 flex p-4 gap-5 rounded-lg" data-address-id="{{ $address->id }}"
+                            data-type="billing">
+                            <div class="selection flex justify-center items-center">
+                                @if ($key == 0)
+                                    <img src="{{ asset('frontend/assets/images/checked.svg') }}" class="w-[25px] h-[25px]">
+                                @else
+                                    <div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>
+                                @endif
+                            </div>
+                            <div class="info">
+                                <div class="nameAndDef flex gap-3 items-center">
+                                    <div class="name text-[20px] font-medium">
+                                        {{ $address->first_name }} {{ $address->last_name }}
+                                    </div>
+                                </div>
+                                <div class="description mt-2">
+                                    {{ $address->street }}, {{ $address->city }}, {{ $address->state }} <br>
+                                    Phone: {{ $address->phone_number }}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
+            <!-- Hidden Input for Selected Addresses -->
+            <form action="{{ route('frontend.confirm-order') }}" method="POST">
+                @csrf
+                <input type="hidden" id="selectedDeliveryAddressId" name="delivery_address_id"
+                    value="{{ $addresses->first()->id ?? '' }}">
+                <input type="hidden" id="selectedBillingAddressId" name="billing_address_id"
+                    value="{{ $addresses->first()->id ?? '' }}">
+
+                <div class="mt-4 flex justify-end items-center">
+                    <button type="submit"
+                        class="text-[#54114C] rounded-lg font-medium bg-[#54114C] px-6 py-4 text-[#FFFFFF]">
+                        Confirm Order
+                    </button>
+                </div>
+            </form>
+
+            <!-- Add New Address Button -->
+            <div class="addAddressButton mt-6">
+                <button class="text-[#54114C] w-full bg-gray-100 p-4 rounded-lg font-bold">Add New Address</button>
+            </div>
         </section>
+
         <!-- Add this inside <body>, preferably after the 'Add New Address' button -->
         <div id="addressPopup"
             class="fixed inset-0 bg-opacity-30 backdrop-blur-sm hidden flex justify-center items-start overflow-y-auto scrollbar-hide ">
@@ -134,8 +164,8 @@
                     <div id="companyAndStreet" class="flex flex-col md:flex-row w-full gap-5">
                         <div class="flex flex-col md:w-1/2 gap-1">
                             <label for="companyName">Company Name <span class="text-red-500">*</span></label>
-                            <input type="text" name="company_name" id="companyName" value="{{ old('company_name') }}"
-                                placeholder="Enter Company Name" required
+                            <input type="text" name="company_name" id="companyName"
+                                value="{{ old('company_name') }}" placeholder="Enter Company Name" required
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-lg p-[10px] focus:outline-none focus:ring-2 focus:ring-purple-500 @error('company_name') border-red-500 @enderror">
                             @error('company_name')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
