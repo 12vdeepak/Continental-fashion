@@ -17,6 +17,7 @@ class Order extends Model
         'quantity',
         'price',
         'amount',
+        'billing_address_id'
 
     ];
 
