@@ -156,26 +156,46 @@
         </tbody>
     </table>
 
+    @php
+        $order = $orders->first(); // Get the first order
+        $vat = $totalAmount * 0.19;
+        $deliveryCharge = optional($order)->delivery_charge ?? 0; // Ensure it's not null
+        $finalAmount = $totalAmount + $vat + $deliveryCharge;
+    @endphp
+
     <div style="font-family: sans-serif; margin-top: 1.5rem;">
         <p style="font-weight: bold; margin: 5px 0;">Total net:
             <span style="float: right;">{{ number_format($totalAmount, 2) }}</span>
         </p>
-        @php $vat = $totalAmount * 0.19; @endphp
+
         <p
             style="font-weight: bold; margin: 8px 0; padding: 8px 0; border-top: 1px dashed #9CA3AF; border-bottom: 1px dashed #9CA3AF;">
             19% VAT:
             <span style="float: right;">{{ number_format($vat, 2) }}</span>
         </p>
+
+        <p style="font-weight: bold; margin: 8px 0;">
+            Delivery Charge:
+            <span style="float: right;">{{ number_format($deliveryCharge, 2) }}</span>
+        </p>
+
         <p style="font-weight: bold; font-size: 1.125rem; padding-bottom: 8px; border-bottom: 1px dashed #9CA3AF;">
             Final amount:
-            <span style="float: right;">{{ number_format($totalAmount + $vat, 2) }}</span>
+            <span style="float: right;">{{ number_format($finalAmount, 2) }}</span>
         </p>
     </div>
 
 
+
+
     <div style="margin-top: 1.5rem; font-family: sans-serif;">
         <p><strong>Delivery From:</strong> 13/02/2025</p>
-        <p><strong>Term of payment:</strong> 5 Take net</p>
+        @php
+            $order = $orders->first(); // Get the first order of the user
+        @endphp
+
+        <p><strong>Term of payment:</strong> {{ optional($order)->payment_terms ?? 'N/A' }}</p>
+
     </div>
 
 

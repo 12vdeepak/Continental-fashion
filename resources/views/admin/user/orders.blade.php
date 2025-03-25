@@ -56,6 +56,40 @@
                             </div>
                         </form>
 
+                        <form method="POST" action="{{ route('users.add.delivery.payment', $user->id) }}">
+                            @csrf
+
+                            @php
+                                $latestOrder = $user->orders()->latest()->first(); // Get the latest order
+                            @endphp
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <label for="delivery_charge">Delivery Charge:</label>
+                                    <input type="number" step="0.01" name="delivery_charge"
+                                        class="form-control @error('delivery_charge') is-invalid @enderror"
+                                        value="{{ old('delivery_charge', optional($latestOrder)->delivery_charge) }}"
+                                        required>
+                                    @error('delivery_charge')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="payment_terms">Payment Terms:</label>
+                                    <input type="text" name="payment_terms"
+                                        class="form-control @error('payment_terms') is-invalid @enderror"
+                                        placeholder="Enter Payment Terms"
+                                        value="{{ old('payment_terms', optional($latestOrder)->payment_terms) }}" required>
+                                    @error('payment_terms')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-success">Add Details</button>
+                                </div>
+                            </div>
+                        </form>
+
                         <form method="GET" action="{{ route('users.download.invoice', $user->id) }}">
                             <input type="hidden" name="start_date" value="{{ request('start_date') }}">
                             <input type="hidden" name="end_date" value="{{ request('end_date') }}">
@@ -116,8 +150,8 @@
                                                 </button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="addressModal{{ $order->id }}" tabindex="-1"
-                                                    aria-labelledby="addressModalLabel{{ $order->id }}"
+                                                <div class="modal fade" id="addressModal{{ $order->id }}"
+                                                    tabindex="-1" aria-labelledby="addressModalLabel{{ $order->id }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">

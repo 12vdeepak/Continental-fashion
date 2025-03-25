@@ -186,4 +186,29 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('message', 'Tracking information updated successfully.');
     }
+
+    public function addDeliveryAndPayment(Request $request, $userId)
+    {
+        $request->validate([
+            'delivery_charge' => 'required|numeric|min:0',
+            'payment_terms' => 'required|string',
+        ]);
+
+        // Find all orders for the user
+        $orders = Order::where('user_id', $userId)->get();
+
+        if ($orders->isEmpty()) {
+            return back()->with('error', 'No orders found for this user.');
+        }
+
+        // Update all orders for this user
+        foreach ($orders as $order) {
+            $order->update([
+                'delivery_charge' => $request->delivery_charge,
+                'payment_terms' => $request->payment_terms,
+            ]);
+        }
+
+        return back()->with('message', 'Delivery Charge & Payment Terms updated successfully for all orders.');
+    }
 }

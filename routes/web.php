@@ -76,6 +76,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/users/{id}/order', [UserController::class, 'showOrders'])->name('users.order');
     Route::get('/orders/tracking/edit/{id}', [UserController::class, 'editTracking'])->name('orders.tracking.edit');
     Route::post('/orders/tracking/update/{id}', [UserController::class, 'updateTracking'])->name('orders.tracking.update');
+    Route::post('/users/{user}/add-delivery-payment', [UserController::class, 'addDeliveryAndPayment'])->name('users.add.delivery.payment');
+
 
 
     Route::get('/users/{user}/download-invoice', [UserController::class, 'downloadFilteredInvoice'])

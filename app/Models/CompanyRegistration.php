@@ -39,4 +39,8 @@ class CompanyRegistration extends Model
     {
         return $this->hasMany(Address::class, 'user_id'); // Specify the foreign key
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id'); // Adjust if needed
+    }
 }
