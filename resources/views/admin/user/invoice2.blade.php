@@ -70,11 +70,11 @@
         <h2 style="font-size: 18px;">Our Brands</h2>
         <div
             style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 3rem; margin-top: 1.5rem;">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/untitled design (1).png'))) }}"
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/design.png'))) }}"
                 alt="Basic Wear" style="max-width: 150px; height: auto;">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/untitled design.png'))) }}"
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/design1.png'))) }}"
                 alt="Blue Pacific" style="max-width: 150px; height: auto;">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/untitled design (2).png'))) }}"
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/design2.png'))) }}"
                 alt="Fleet Active Wear" style="max-width: 150px; height: auto;">
         </div>
     </div>
