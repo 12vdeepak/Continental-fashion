@@ -5,166 +5,213 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Add specific styles to ensure PDF rendering */
-        @page {
-            margin: 10mm;
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
         }
-        
-        /* Ensure images display in PDF */
-        img {
-            display: inline-block;
-            max-width: 100%;
+
+        .text-center {
+            text-align: center;
+        }
+
+        .border {
+            border: 1px solid #ccc;
+        }
+
+        .pb-4 {
+            padding-bottom: 16px;
+        }
+
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+
+        .border-b {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .img-container img {
+            display: block;
+            max-width: 100px;
             height: auto;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .font-bold {
+            font-weight: bold;
         }
     </style>
 </head>
 
-<body class="p-8">
+<body>
     <div class="text-center border-b pb-4 mb-4">
-        <h1 class="text-2xl font-bold text-[#54114C]">Continental Fashion Merchandising UG (Limited Liability)</h1>
-        <p class="text-gray-600">Manufacturer, Importer, Exporter & Wholesaler</p>
+        <h1 style="font-size: 24px; color: #54114C;">Continental Fashion Merchandising UG (Limited Liability)</h1>
+        <p>Manufacturer, Importer, Exporter & Wholesaler</p>
     </div>
 
-    <!-- Brands Section -->
-    <div class="text-center mb-4">
-        <h2 class="text-lg font-semibold text-gray-700">Our Brands</h2>
-        <div class="flex justify-evenly w-full gap-6 mt-2">
-            <!-- Using blade conditional to handle both storage and public paths -->
-            @if(file_exists(public_path('assets/images/bluepacific.svg')))
-                <img src="{{ asset('assets/images/bluepacific.svg') }}" alt="Blue Pacific" class="h-12">
-            @elseif(file_exists(storage_path('app/public/assets/images/bluepacific.svg')))
-                <img src="{{ Storage::url('assets/images/bluepacific.svg') }}" alt="Blue Pacific" class="h-12">
-            @else
-                <!-- Fallback text if image doesn't exist -->
-                <div class="h-12 flex items-center justify-center">Blue Pacific</div>
-            @endif
-            
-            @if(file_exists(public_path('assets/images/bluewear.svg')))
-                <img src="{{ asset('assets/images/bluewear.svg') }}" alt="Basic Wear" class="h-12">
-            @elseif(file_exists(storage_path('app/public/assets/images/bluewear.svg')))
-                <img src="{{ Storage::url('assets/images/bluewear.svg') }}" alt="Basic Wear" class="h-12">
-            @else
-                <div class="h-12 flex items-center justify-center">Basic Wear</div>
-            @endif
-            
-            @if(file_exists(public_path('assets/images/fleetActiveWear.svg')))
-                <img src="{{ asset('assets/images/fleetActiveWear.svg') }}" alt="Fleet Active Wear" class="h-12">
-            @elseif(file_exists(storage_path('app/public/assets/images/fleetActiveWear.svg')))
-                <img src="{{ Storage::url('assets/images/fleetActiveWear.svg') }}" alt="Fleet Active Wear" class="h-12">
-            @else
-                <div class="h-12 flex items-center justify-center">Fleet Active Wear</div>
-            @endif
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <h2 style="font-size: 18px;">Our Brands</h2>
+        <div
+            style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 3rem; margin-top: 1.5rem;">
+            <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/untitled design (1).png'))) }}"
+                alt="Basic Wear" style="max-width: 150px; height: auto;">
+            <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/untitled design.png'))) }}"
+                alt="Blue Pacific" style="max-width: 150px; height: auto;">
+            <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/untitled design (2).png'))) }}"
+                alt="Fleet Active Wear" style="max-width: 150px; height: auto;">
         </div>
     </div>
 
-    <!-- Company Address -->
-    <div class="text-gray-700 border-y py-4 mb-4">
-        <p>Continental fashion merchandising UG(limited liability)</p>
+
+
+
+    <div
+        style="color: #374151; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; padding-top: 16px; padding-bottom: 16px; margin-bottom: 16px;">
+        <p>Continental Fashion Merchandising UG (Limited Liability)</p>
         <p>Herderstr. 4 ▪ 63165 Mühlheim am Main</p>
     </div>
 
-    <!-- Invoice Content -->
-    <div class="addressSection flex justify-between items-center">
-        <div class="text-left">
-            <div class="div text-[24px] font-medium mb-4">Delivery Address</div>
-            <p class="font-semibold">{{ $userAddress }}</p>
-        </div>
-        <div class="textPart-right">
-            <div class="div text-[24px] font-medium mb-4">Billing Address</div>
-            <p class="font-semibold">{{ $userAddress }}</p>
-        </div>
-    </div>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <!-- Delivery Address -->
+            <td style="width: 50%; text-align: left; vertical-align: top;">
+                <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 16px;">Delivery Address</h3>
+                <p style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">{{ $userAddress }}</p>
+            </td>
 
-    <!-- Invoice Header -->
-    <div class="bg-gray-100 p-4 flex justify-between items-center font-sans mt-10">
-        <h1 class="text-lg font-semibold">Invoice no: <span class="font-bold text-gray-800">{{ $invoiceNumber ?? '2540001' }}</span></h1>
-        <h1 class="text-lg font-semibold">Date: <span class="font-bold text-gray-800">{{ now()->format('d/m/Y') }}</span></h1>
-    </div>
+            <!-- Billing Address -->
+            <td style="width: 50%; text-align: right; vertical-align: top;">
+                <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 16px;">Billing Address</h3>
+                <p style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">{{ $userAddress }}</p>
+            </td>
+        </tr>
+    </table>
 
-    <!-- Customer Details -->
-    <div class="mt-4 grid grid-cols-2 text-gray-600 text-sm">
-        <p>Your customer number: <span class="text-gray-800 font-medium">{{ $customerNumber ?? '11588' }}</span></p>
-        <p class="text-right">Order dated <span class="text-gray-800 font-medium">{{ $orderDate ?? now()->format('d/m/Y') }}</span></p>
-        <p>Delivery note no: <span class="text-gray-800 font-medium">{{ $deliveryNoteNumber ?? '2520001' }}</span></p>
-        <p class="text-right">Order confirmation number: <span class="text-gray-800 font-medium">{{ $orderConfirmationNumber ?? '2520001' }}</span></p>
-    </div>
 
-    <!-- Invoice Table -->
-    <div class="mt-6 overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-400 text-sm">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border border-gray-400 px-3 py-2">S.No</th>
-                    <th class="border border-gray-400 px-3 py-2">Article/Description</th>
-                    <th class="border border-gray-400 px-3 py-2">Color</th>
-                    <th class="border border-gray-400 px-3 py-2">Size</th>
-                    <th class="border border-gray-400 px-3 py-2">Quantity</th>
-                    <th class="border border-gray-400 px-3 py-2">Price (per piece)</th>
-                    <th class="border border-gray-400 px-3 py-2">Total</th>
+
+    <table
+        style="width: 100%; background-color: #f3f4f6; font-family: sans-serif; margin-top: 2.5rem; border-collapse: collapse; padding: 1rem;">
+        <tr>
+            <td style="font-size: 1.125rem; font-weight: 600; padding: 1rem;">Invoice No:
+                <span style="font-weight: 700; color: #1f2937;">
+                    {{ $invoiceNumber ?? now()->format('Ymd') . rand(1000, 9999) }}
+                </span>
+            </td>
+            <td style="font-size: 1.125rem; font-weight: 600; padding: 1rem;">Date:
+                <span style="font-weight: 700; color: #1f2937;">
+                    {{ now()->format('d/m/Y') }}
+                </span>
+            </td>
+        </tr>
+    </table>
+
+
+    <table>
+        <thead>
+            <tr style="background-color: #e5e7eb; padding: 10px;">
+                <th>S.No</th>
+                <th>Article/Description</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Price (per piece)</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $totalAmount = 0; @endphp
+            @foreach ($orders as $index => $order)
+                @php
+                    $lineTotal = $order->quantity * $order->price;
+                    $totalAmount += $lineTotal;
+                @endphp
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $order->product->article->article_name ?? 'N/A' }}</td>
+                    <td>{{ $order->color->color_code ?? '-' }}</td>
+                    <td>{{ $order->size->size_name ?? '-' }}</td>
+                    <td>{{ $order->quantity }}</td>
+                    <td>{{ number_format($order->price, 2) }}</td>
+                    <td class="font-bold">{{ number_format($lineTotal, 2) }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                @php $totalAmount = 0; @endphp
-                @foreach ($orders as $index => $order)
-                    @php
-                        $lineTotal = $order->quantity * $order->price;
-                        $totalAmount += $lineTotal;
-                    @endphp
-                    <tr class="border border-gray-400">
-                        <td class="border px-3 py-2">{{ $index + 1 }}</td>
-                        <td class="border px-3 py-2">{{ $order->product->article->article_name ?? 'N/A' }}</td>
-                        <td class="border px-3 py-2">{{ $order->product->color ?? '-' }}</td>
-                        <td class="border px-3 py-2">{{ $order->product->size ?? '-' }}</td>
-                        <td class="border px-3 py-2">{{ $order->quantity }}</td>
-                        <td class="border px-3 py-2">{{ number_format($order->price, 2) }}</td>
-                        <td class="border px-3 py-2 font-bold">{{ number_format($lineTotal, 2) }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            @endforeach
+        </tbody>
+    </table>
 
-        <div class="mt-6">
-            <p class="font-bold">Total net: <span class="float-right">{{ number_format($totalAmount, 2) }}</span></p>
-            @php $vat = $totalAmount * 0.19; @endphp
-            <p class="font-bold border-y border-dashed border-gray-400 my-2 py-2">19% VAT: <span
-                    class="float-right">{{ number_format($vat, 2) }}</span></p>
-            <p class="font-bold text-lg border-b border-dashed border-gray-400 pb-2">Final amount: <span
-                    class="float-right">{{ number_format($totalAmount + $vat, 2) }}</span></p>
-        </div>
-
-        <div class="mt-6">
-            <p><strong>Delivery From:</strong> {{ now()->addDays(1)->format('d/m/Y') }}</p>
-            <p><strong>Term of payment:</strong> 5 days net</p>
-        </div>
-
-        <p class="mt-6 text-red-600 font-bold">
-            Please transfer the invoice amount to the following bank account:
-            <br>
-            Continental Fashion Merchandising UG Commerzbank Mühlheim am Main
-            <br>
-            IBAN Code: DE41 5054 0028 0453 9615 00
+    <div style="font-family: sans-serif; margin-top: 1.5rem;">
+        <p style="font-weight: bold; margin: 5px 0;">Total net:
+            <span style="float: right;">{{ number_format($totalAmount, 2) }}</span>
         </p>
-
-        <div class="mt-6 text-sm text-gray-700 text-center">
-            <p>Thank you for your patience. The goods are subject to prompt payment. Our general terms and
-                conditions apply exclusively. Please check the shipment. If there is any damage to the packaging, this
-                is the responsibility of the seller.</p>
-            <p>Please check the quantity and design immediately. Complaints about lost goods cannot be accepted.</p>
-        </div>
-
-        <div class="mt-6 border-t border-gray-400 pt-4 text-sm text-center">
-            <p><strong>Address:</strong> Herderstr. 4 ▪ D-63165 Mühlheim am Main</p>
-            <p><strong>Telephone:</strong> +49 (0)6108 826960 ▪ <strong>Fax:</strong> +49 (0)6108 826962 ▪
-                <strong>Email:</strong> sales@continental-fashion.com</p>
-            <p><strong>Managing Director:</strong> Bimal Roy ▪ <strong>Amtsgericht Offenbach HRB 47047</strong></p>
-            <p><strong>VAT Number:</strong> DE287078499</p>
-            <p><strong>Bank details:</strong> Commerzbank Mühlheim am Main</p>
-            <p><strong>Account number:</strong> 0453 9615 00 ▪ <strong>Bank sort code:</strong> 5054 0028</p>
-            <p><strong>IBAN:</strong> DE41 5054 0028 0453 9615 00 ▪ <strong>BIC:</strong> COBADEFFXXX</p>
-        </div>
+        @php $vat = $totalAmount * 0.19; @endphp
+        <p
+            style="font-weight: bold; margin: 8px 0; padding: 8px 0; border-top: 1px dashed #9CA3AF; border-bottom: 1px dashed #9CA3AF;">
+            19% VAT:
+            <span style="float: right;">{{ number_format($vat, 2) }}</span>
+        </p>
+        <p style="font-weight: bold; font-size: 1.125rem; padding-bottom: 8px; border-bottom: 1px dashed #9CA3AF;">
+            Final amount:
+            <span style="float: right;">{{ number_format($totalAmount + $vat, 2) }}</span>
+        </p>
     </div>
+
+
+    <div style="margin-top: 1.5rem; font-family: sans-serif;">
+        <p><strong>Delivery From:</strong> 13/02/2025</p>
+        <p><strong>Term of payment:</strong> 5 Take net</p>
+    </div>
+
+
+    <p class="font-bold" style="color: red;">
+        Please transfer the invoice amount to the following bank account:
+        <br>Continental Fashion Merchandising UG, Commerzbank Mühlheim am Main
+        <br>IBAN Code: DE41 5054 0028 0453 9615 00
+    </p>
+
+    <div style="margin-top: 1.5rem; font-size: 0.875rem; color: #374151; text-align: center; font-family: sans-serif;">
+        <p>
+            Just like to thank you for your patience. The goods are subject to prompt payment.
+            Our general terms and conditions apply exclusively. Please check the shipment.
+            If there is any damage to the packaging, this is the responsibility of the seller.
+        </p>
+        <p>
+            Person must be reported immediately and noted in writing, otherwise no claim for compensation can be derived
+            from the seller.
+            Please check the quantity and design immediately. Complaints about lost goods cannot be accepted.
+            Reimbursement period days. Place of jurisdiction.
+        </p>
+    </div>
+
+
+    <div
+        style="margin-top: 1.5rem; border-top: 1px solid #9CA3AF; padding-top: 1rem; font-size: 0.875rem; text-align: center; font-family: sans-serif;">
+        <p><strong>Address:</strong> Herderstr. 4 ▪ D-63165 Mühlheim am Main</p>
+        <p><strong>Telephone:</strong> +49 (0)6108 826960 ▪ <strong>Fax:</strong> +49 (0)6108 826962 ▪
+            <strong>Email:</strong> sales@continental-fashion.com
+        </p>
+        <p><strong>Managing Director:</strong> Bimal Roy ▪ <strong>Amtsgericht Offenbach HRB 47047</strong></p>
+        <p><strong>VAT Number:</strong> DE287078499</p>
+        <p><strong>Bank details:</strong> Commerzbank Mühlheim am Main</p>
+        <p><strong>Account number:</strong> 0453 9615 00 ▪ <strong>Bank sort code:</strong> 5054 0028</p>
+        <p><strong>IBAN:</strong> DE41 5054 0028 0453 9615 00 ▪ <strong>BIC:</strong> COBADEFFXXX</p>
+    </div>
+
 </body>
 
 </html>

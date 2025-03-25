@@ -125,7 +125,7 @@ class UserController extends Controller
         // Fetch orders with products and their respective articles
         $orders = Order::where('user_id', $userId)
             ->whereBetween('created_at', [$startDate, $endDate])
-            ->with(['product.article']) // Eager load products with article
+            ->with(['product.article', 'size', 'color']) // Eager load products with article
             ->get();
 
         // dd($orders);
