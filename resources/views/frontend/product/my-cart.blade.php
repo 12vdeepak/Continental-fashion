@@ -178,8 +178,7 @@
                         <div>
                             <h3 class="text-lg font-bold">Payment summary</h3>
                             <p class="text-gray-500 text-sm">Total cost consists of temporary costs, not including
-                                shipping.
-                            </p>
+                                shipping.</p>
                         </div>
                         <div class="text-right sm:text-left">
                             <p class="flex justify-between text-sm text-gray-700">
@@ -187,21 +186,15 @@
                                 <span
                                     class="net-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
                             </p>
-                            <p class="flex justify-between text-sm my-2 text-gray-700">
-                                <span>VAT (19%):</span>
-                                <span
-                                    class="vat-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 0.19, 2) }}</span>
-                            </p>
                             <p class="flex justify-between text-md font-semibold mt-3 border-y border-dashed">
                                 <span>Final amount:</span>
                                 <span
-                                    class="final-amount text-[#3CC4D5]">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
+                                    class="final-amount text-[#3CC4D5]">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
                             </p>
                             <a href="{{ route('addresses.index') }}"
                                 class="mt-10 bg-[#54114C] text-white px-6 py-2 rounded-lg w-full text-center block">
                                 Checkout
                             </a>
-
                         </div>
                     </div>
                 @endif

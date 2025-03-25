@@ -158,7 +158,13 @@
 
     @php
         $order = $orders->first(); // Get the first order
-        $vat = $totalAmount * 0.19;
+        $deliveryAddress = optional($order)->delivery_address;
+        $billingAddress = optional($order)->billing_address;
+
+        $country = optional($order->address)->country ?? ''; // Ensure we get the country
+        $isGermany = strtolower($country) === 'germany';
+
+        $vat = $isGermany ? $totalAmount * 0.19 : 0;
         $deliveryCharge = optional($order)->delivery_charge ?? 0; // Ensure it's not null
         $finalAmount = $totalAmount + $vat + $deliveryCharge;
     @endphp
@@ -168,11 +174,13 @@
             <span style="float: right;">{{ number_format($totalAmount, 2) }}</span>
         </p>
 
-        <p
-            style="font-weight: bold; margin: 8px 0; padding: 8px 0; border-top: 1px dashed #9CA3AF; border-bottom: 1px dashed #9CA3AF;">
-            19% VAT:
-            <span style="float: right;">{{ number_format($vat, 2) }}</span>
-        </p>
+        @if ($isGermany)
+            <p
+                style="font-weight: bold; margin: 8px 0; padding: 8px 0; border-top: 1px dashed #9CA3AF; border-bottom: 1px dashed #9CA3AF;">
+                19% VAT:
+                <span style="float: right;">{{ number_format($vat, 2) }}</span>
+            </p>
+        @endif
 
         <p style="font-weight: bold; margin: 8px 0;">
             Delivery Charge:
@@ -184,6 +192,7 @@
             <span style="float: right;">{{ number_format($finalAmount, 2) }}</span>
         </p>
     </div>
+
 
 
 

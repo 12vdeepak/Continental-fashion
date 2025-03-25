@@ -210,26 +210,42 @@
                         </p>
                     </div>
                     <div class="text-right sm:text-left">
+                        @php
+                            use App\Models\Address;
+
+                            $totalNet = $cartItems->sum(fn($item) => $item->price * $item->quantity);
+
+                            // Fetch full address object using the stored ID
+                            $address = Address::find(session('selected_address_id'));
+                            $country = optional($address)->country; // Get country from address
+
+                            $isGermany = strtolower($country) === 'germany';
+                            $vatAmount = $isGermany ? $totalNet * 0.19 : 0;
+                            $finalAmount = $totalNet + $vatAmount;
+                        @endphp
+
+
                         <p class="flex justify-between text-sm text-gray-700">
                             <span>Total net:</span>
-                            <span
-                                class="net-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
+                            <span class="net-amount">€{{ number_format($totalNet, 2) }}</span>
                         </p>
-                        <p class="flex justify-between text-sm my-2 text-gray-700">
-                            <span>VAT (19%):</span>
-                            <span
-                                class="vat-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 0.19, 2) }}</span>
-                        </p>
+
+                        @if ($isGermany)
+                            <p class="flex justify-between text-sm my-2 text-gray-700">
+                                <span>VAT (19%):</span>
+                                <span class="vat-amount">€{{ number_format($vatAmount, 2) }}</span>
+                            </p>
+                        @endif
+
                         <p class="flex justify-between text-md font-semibold mt-3 border-y border-dashed">
                             <span>Final amount:</span>
-                            <span
-                                class="final-amount text-[#3CC4D5]">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity) * 1.19, 2) }}</span>
+                            <span class="final-amount text-[#3CC4D5]">€{{ number_format($finalAmount, 2) }}</span>
                         </p>
+
                         <form id="" action="{{ route('order.store') }}" method="POST">
                             @csrf <!-- CSRF token for Laravel security -->
 
                             <!-- Hidden field to store selected address ID -->
-                            <!-- Hidden field to store selected delivery address ID -->
                             <input type="hidden" name="address_id" id="selected_address_id"
                                 value="{{ session('selected_address_id') }}">
 
@@ -241,9 +257,9 @@
                                 Place Order
                             </button>
                         </form>
-
                     </div>
                 </div>
+
             </div>
             <!-- Order Success Popup (Initially Hidden) -->
             <!-- Order Success Popup (Initially Hidden) -->
