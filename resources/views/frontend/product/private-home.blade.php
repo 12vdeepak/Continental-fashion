@@ -174,36 +174,38 @@
                 @else
                     @foreach ($products->chunk(3) as $productRow)
                         <!-- Each Row -->
-                        <div
-                            class="product_row_one flex flex-col gap-10 lg:flex-row md:flex-row items-center justify-between w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                             @foreach ($productRow as $product)
-                                <a href="{{ route('frontend.all.product-page', $product->id) }}"
-                                    class="w-full lg:w-1/3 md:w-1/3">
-                                    <div class="productCard flex flex-col w-full">
+                                <a href="{{ route('frontend.all.product-page', $product->id) }}" class="w-full">
+                                    <div
+                                        class="productCard flex flex-col w-full bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300">
                                         <div
-                                            class="productImg w-full h-[300px] overflow-hidden flex justify-center items-center">
+                                            class="w-full h-[300px] overflow-hidden flex justify-center items-center bg-gray-100 rounded-t-2xl">
                                             @if ($product->images->isNotEmpty())
                                                 <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                                    class="w-full h-full object-cover rounded-xl"
+                                                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded-t-2xl"
                                                     alt="{{ $product->product_name }}">
                                             @else
                                                 <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
-                                                    class="rounded-2xl w-full h-full object-cover"
+                                                    class="w-full h-full object-cover rounded-t-2xl"
                                                     alt="No Image Available">
                                             @endif
                                         </div>
 
-                                        <div class="productCardIcons mt-3">
-                                            <p class="text-[12px] text-[#6E6E6E]">{{ $product->add_stoke }} Items</p>
+                                        <div class="p-4">
+                                            <p class="text-sm text-gray-500">
+                                                @if ($product->brands->count() > 0)
+                                                    @foreach ($product->brands as $brand)
+                                                        {{ $brand->brand_name }}{{ !$loop->last ? ', ' : '' }}
+                                                    @endforeach
+                                                @else
+                                                    No Brand
+                                                @endif
+                                            </p>
+                                            <h3 class="text-[20px] lg:text-[24px] font-medium mb-3">
+                                                {{ $product->product_name }}</h3>
+
                                         </div>
-                                        <div class="productName text-[24px] font-medium mb-3">{{ $product->product_name }}
-                                        </div>
-                                        {{--  <div
-                                            class="seeProductsButton flex items-center gap-2 text-[#54114C] font-bold w-full">
-                                            See All Products
-                                            <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
-                                                alt="" class="mt-1">
-                                        </div>  --}}
                                     </div>
                                 </a>
                             @endforeach
@@ -215,53 +217,43 @@
 
 
 
+
         </section>
 
         <!-- ===== News And Offer ====== -->
         <section id="newsAndOffer" class="px-4 w-full lg:px-[120px] my-[80px]">
-
-            <div id="heading_Button" class="flex flex-col justify-between lg:flex-row lg:items-end  ">
-                <div class="heading_description flex flex-col  ">
-                    <div class="heading_news_offer text-[32px] lg:text-[58px] font-bold  ">
-                        News & Offer
-                    </div>
-                    <div class="description_popular_category my-3 text-[16px] text-[#6E6E6E] ">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between">
+                <div>
+                    <h2 class="text-[32px] lg:text-[58px] font-bold">News & Offer</h2>
+                    <p class="mt-2 text-[16px] text-gray-600 max-w-2xl">
                         Browse our exclusive collections designed to fit every occasion and style. From bold to classic,
-                        we’ve got you covered </div>
-
+                        we’ve got you covered.
+                    </p>
                 </div>
-                {{--  <div class="viewAllButton">
-                    <button class="px-[24px] py-[14px] font-medium bg-[#54114C] text-[#FFFFFF] rounded-2xl ">
-                        View All
-                    </button>
-                </div>  --}}
             </div>
-            <div id="product_showcase" class="my-[50px] flex flex-col gap-10">
+
+            <div class="mt-[50px] space-y-10">
                 @foreach ($newsOffers->chunk(3) as $chunk)
-                    <div class="news_row_one grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($chunk as $newsOffer)
-                            <div class="newsCard flex flex-col w-full">
-                                <div class="productImg w-full h-[250px] overflow-hidden rounded-2xl bg-gray-200">
-                                    <img src="{{ asset('storage/' . $newsOffer->image) }}"
-                                        class="w-full h-full object-cover object-top" alt="{{ $newsOffer->title }}">
+                            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-full h-[250px] overflow-hidden rounded-t-2xl bg-gray-200">
+                                    <img src="{{ asset('storage/' . $newsOffer->image) }}" alt="{{ $newsOffer->title }}"
+                                        class="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105">
                                 </div>
-                                <div class="productName text-[20px] sm:text-[22px] lg:text-[24px] font-medium mb-1 mt-3">
-                                    {!! Str::words(strip_tags($newsOffer->title), 10, '...') !!}
-                                </div>
-                                <div class="proDescription text-[14px] sm:text-[16px] text-[#6E6E6E] w-full mb-4">
-                                    {!! Str::words(strip_tags($newsOffer->description), 20, '...') !!}
+                                <div class="p-4">
+                                    <h3 class="text-[20px] sm:text-[22px] lg:text-[24px] font-medium">
+                                        {!! Str::words(strip_tags($newsOffer->title), 10, '...') !!}
+                                    </h3>
+                                    <p class="mt-2 text-[14px] sm:text-[16px] text-gray-600">
+                                        {!! Str::words(strip_tags($newsOffer->description), 20, '...') !!}
+                                    </p>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 @endforeach
             </div>
-
-
-
-
-
-
         </section>
 
 

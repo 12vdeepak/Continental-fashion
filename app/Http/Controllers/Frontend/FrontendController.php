@@ -16,10 +16,12 @@ class FrontendController extends Controller
      */
     public function publicHome()
     {
-        $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
+        $products = Product::with(['brands', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
         $banners = Banner::all();
         $newsOffers = NewsOffer::where('status', 1)->get(); // Fetch only active news/offers
+
+        // dd($products);
 
         return view('frontend.product.public-home', compact('products', 'categories', 'banners', 'newsOffers'));
     }

@@ -541,75 +541,70 @@
 
 
                     </div>  --}}
-                    <div class="productSection mt-5 flex flex-col gap-10">
+                    <div class="productSection mt-5 flex flex-col gap-6">
                         @foreach ($products->chunk(3) as $chunk)
-                            <div class="productRow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                            <div class="productRow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                 @foreach ($chunk as $product)
                                     <a href="{{ route('frontend.all.product-page', $product->id) }}" class="block">
                                         <div
-                                            class="relative product bg-white shadow-lg rounded-xl p-5 transition-transform transform hover:scale-105">
+                                            class="relative product bg-white shadow-md rounded-lg p-3 transition-transform transform hover:scale-105">
                                             <!-- Sale Offer -->
                                             <div
-                                                class="absolute top-5 left-2 text-white text-sm px-3 py-1 rounded-md
+                                                class="absolute top-2 left-2 text-white text-xs px-2 py-1 rounded-md
                                                 {{ $product->sale_percentage ? 'bg-sky-500' : 'bg-gray-400' }}">
-                                                {{ $product->sale_percentage ? $product->sale_percentage . '% offer' : 'No Discount' }}
+                                                {{ $product->sale_percentage ? $product->sale_percentage . '% off' : 'No Discount' }}
                                             </div>
 
                                             <!-- Product Image -->
-                                            <div class="productImage mb-6">
+                                            <div class="productImage mb-3">
                                                 <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
                                                     alt="{{ $product->product_name }}"
-                                                    class="w-full h-[260px] object-contain rounded-lg bg-gray-100">
+                                                    class="w-full h-[180px] object-contain rounded-md bg-gray-100">
                                             </div>
 
                                             <!-- Product Code & Gender Icons -->
                                             <div
-                                                class="productSubIcons mb-4 flex justify-between items-center text-gray-600">
-                                                <div class="text-sm">{{ $product->code }}</div>
+                                                class="productSubIcons mb-2 flex justify-between items-center text-gray-600 text-xs">
+                                                <div>{{ $product->code }}</div>
                                                 <div class="productIconSet flex gap-1 items-center">
                                                     @if ($product->wear->wear_name === 'Male')
                                                         <img src="{{ asset('frontend/assets/images/male.svg') }}"
-                                                            alt="Male" class="w-4 h-4">
+                                                            alt="Male" class="w-3 h-3">
                                                     @elseif ($product->wear->wear_name === 'Female')
                                                         <img src="{{ asset('frontend/assets/images/female.svg') }}"
-                                                            alt="Female" class="w-4 h-4">
+                                                            alt="Female" class="w-3 h-3">
                                                     @elseif ($product->wear->wear_name === 'Kid')
                                                         <img src="{{ asset('frontend/assets/images/kid.svg') }}"
-                                                            alt="Kid" class="w-4 h-4">
+                                                            alt="Kid" class="w-3 h-3">
                                                     @elseif ($product->wear->wear_name === 'Unisex')
                                                         <img src="{{ asset('frontend/assets/images/unisex.svg') }}"
-                                                            alt="Unisex" class="w-4 h-4">
+                                                            alt="Unisex" class="w-3 h-3">
                                                     @endif
                                                 </div>
-
-
-
-
-
                                             </div>
 
                                             <!-- Product Title -->
-                                            <div class="productTitle mb-2 text-lg font-semibold text-gray-700 text-center">
+                                            <div class="productTitle mb-1 text-sm font-semibold text-gray-700 text-center">
                                                 {{ $product->product_name }}
                                             </div>
 
                                             <!-- Brand Name -->
-                                            <div class="productTag mb-3 text-[#E2001A] text-sm font-bold text-center">
+                                            <div class="productTag mb-2 text-[#E2001A] text-xs font-bold text-center">
                                                 @foreach ($product->brands as $brand)
-                                                    <span class="mr-3">{{ $brand->brand_name }}</span>
+                                                    <span class="mr-2">{{ $brand->brand_name }}</span>
                                                 @endforeach
                                             </div>
 
                                             <!-- Product Colors -->
-                                            <div class="productColors mb-4 flex items-center justify-center space-x-3">
-                                                <div class="relative flex -space-x-2">
+                                            <div class="productColors mb-2 flex items-center justify-center space-x-2">
+                                                <div class="relative flex -space-x-1">
                                                     @foreach ($product->imageColors as $color)
-                                                        <div class="w-7 h-7 rounded-full border-2 border-white"
+                                                        <div class="w-4 h-4 rounded-full border border-white"
                                                             style="background-color: {{ $color->color_code }};">
                                                         </div>
                                                     @endforeach
                                                 </div>
-                                                <span class="text-gray-500 text-sm font-medium">
+                                                <span class="text-gray-500 text-xs font-medium">
                                                     {{ count($product->imageColors) }}+ Colors
                                                 </span>
                                             </div>
@@ -619,6 +614,9 @@
                             </div>
                         @endforeach
                     </div>
+
+
+
 
 
 
