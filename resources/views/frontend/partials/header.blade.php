@@ -89,7 +89,7 @@
 
 
 
-        <div class="langMenu">
+        {{--  <div class="langMenu">
             <div class="relative text-left  ">
                 <!-- Dropdown Toggle -->
                 <button id="langToggle" type="button"
@@ -131,7 +131,20 @@
                     </ul>
                 </div>
             </div>
+        </div>  --}}
+
+
+        <div class="flex items-center gap-5">
+            <!-- Google Translate Dropdown -->
+            <div id="google_translate_element"></div>
         </div>
+
+
+
+
+
+
+
     </div>
 </div>
 
@@ -167,3 +180,32 @@
         });
     }
 </script>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,es,de,hi',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            },
+            'google_translate_element'
+        );
+    }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+    /* Hide Google Translate's top toolbar */
+    .goog-te-banner-frame {
+        display: none !important;
+    }
+
+    body {
+        top: 0px !important;
+    }
+
+    /* Hide Google Translate's inline toolbar */
+    .goog-te-gadget span {
+        display: none !important;
+    }
+</style>

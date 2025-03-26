@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('toastr/toastr.min.css') }}">
 
 
+
     <style>
         .animate-scroll {
             display: flex;
