@@ -18,20 +18,22 @@
         <li><a href="{{ route('frontend.home') }}">Home</a></li>
         <li class="relative group">
             <span class="cursor-pointer">Collection</span>
-
             <!-- Dropdown Menu -->
             <div
-                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[300px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
+                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[600px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
+                <div class="container mx-auto grid grid-cols-4 gap-4 bg-white p-5">
+                    @php
+                        $firstSixCategories = $categories->take(6);
+                    @endphp
 
-                <div class="container mx-auto grid grid-cols-3 gap-4 bg-white p-5">
-                    @foreach ($categories as $category)
-                        <div class="space-y-1">
-                            <h3 class="font-bold text-black">{{ $category->category_name }}</h3>
+                    @foreach ($firstSixCategories as $category)
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-black text-lg">{{ $category->category_name }}</h3>
                             <ul class="text-gray-600 space-y-1">
-                                @foreach ($category->subcategories as $subcategory)
+                                @foreach ($category->subcategories->take(6) as $subcategory)
                                     <li>
                                         <a href="{{ route('frontend.subcategory.products', $subcategory->id) }}"
-                                            class="hover:text-black">
+                                            class="hover:text-black hover:underline">
                                             {{ $subcategory->subcategory_name }}
                                         </a>
                                     </li>
@@ -40,7 +42,6 @@
                         </div>
                     @endforeach
                 </div>
-
             </div>
         </li>
 
