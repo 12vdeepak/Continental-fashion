@@ -360,18 +360,17 @@
 
         <!-- final  -->
         <section id="customerAlsoBought" class="px-4 lg:px-[120px] py-[80px]">
-            <div class="flex items-center justify-between headingAndButtons">
-                <h2 class="headingCus text-2xl lg:text-[48px] font-semibold">Customers Also Bought</h2>
-                <div class="flex gap-4 buttons">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl lg:text-[48px] font-semibold">Customers Also Bought</h2>
+                <div class="flex gap-4">
                     <button id="prevBtn"
-                        class="bg-gray-100 h-[40px] w-[40px] lg:h-[45px] lg:w-[45px] rounded-full flex justify-center items-center">
-                        <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt=""
-                            class="w-1/2 h-1/2">
+                        class="bg-gray-200 hover:bg-gray-300 transition-all duration-300 h-10 w-10 lg:h-12 lg:w-12 rounded-full flex justify-center items-center">
+                        <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="" class="w-5 h-5">
                     </button>
                     <button id="nextBtn"
-                        class="bg-gray-100 h-[40px] w-[40px] lg:h-[45px] lg:w-[45px] rounded-full flex justify-center items-center">
+                        class="bg-gray-200 hover:bg-gray-300 transition-all duration-300 h-10 w-10 lg:h-12 lg:w-12 rounded-full flex justify-center items-center">
                         <img src="{{ asset('frontend/assets/images/forwardArrow.svg') }}" alt=""
-                            class="w-1/2 h-1/2">
+                            class="w-5 h-5">
                     </button>
                 </div>
             </div>
@@ -379,34 +378,35 @@
             <div class="relative mt-10">
                 @if ($relatedProducts->count() > 0)
                     <div id="carousel"
-                        class="flex gap-10 overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-hide">
+                        class="flex gap-6 lg:gap-10 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide py-2 px-2">
                         @foreach ($relatedProducts as $related)
-                            <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
+                            <div class="relative flex-shrink-0 snap-start w-[85vw] sm:w-[45vw] md:w-[30vw] lg:w-[25vw]">
                                 @if ($related->sale_percentage)
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm px-2 lg:px-3 py-1 rounded-md">
-                                        {{ $related->sale_percentage }}% offer
+                                    <div class="absolute top-4 left-4 bg-sky-500 text-white text-xs px-2 py-1 rounded-md">
+                                        {{ $related->sale_percentage }}% OFF
                                     </div>
                                 @endif
-                                <div
-                                    class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
+                                <div class="w-full h-[300px] overflow-hidden flex justify-center items-center rounded-xl">
                                     <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
-                                        alt="{{ $related->name }}" class="w-full h-full object-cover rounded-xl">
+                                        alt="{{ $related->name }}"
+                                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 hover:scale-105">
                                 </div>
 
-
-                                <div class="flex items-center justify-between mb-3 productSubIcons">
-                                    <div class="productLeft text-[#6E6E6E]">{{ $related->sku }}</div>
-                                    <div class="flex items-center gap-2 productIconSet">
+                                <div class="flex justify-between items-center mt-3 text-sm text-gray-600">
+                                    <span>{{ $related->sku }}</span>
+                                    <div class="flex items-center gap-2">
                                         @if ($related->gender)
-                                            <img src="{{ asset('frontend/assets/images/' . $related->gender) }}"
-                                                alt="{{ $related->gender }}">
+                                            <img src="{{ asset('frontend/assets/images/' . strtolower($related->gender) . '.svg') }}"
+                                                alt="{{ $related->gender }}" class="w-6 h-6">
                                         @endif
                                     </div>
                                 </div>
-                                <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $related->product_name }}
+
+                                <div class="mt-2 text-lg font-medium text-gray-800">
+                                    {{ $related->product_name }}
                                 </div>
-                                <div class="productTag mb-2 text-[#E2001A] text-[12px]">
+
+                                <div class="text-red-600 text-sm font-semibold mt-1">
                                     @if ($related->brands->count() > 0)
                                         @foreach ($related->brands as $brand)
                                             {{ $brand->brand_name }}{{ !$loop->last ? ', ' : '' }}
@@ -416,18 +416,16 @@
                                     @endif
                                 </div>
 
-                                <div class="mb-2 productColors">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="relative flex -space-x-3">
-                                            @foreach ($related->colors as $color)
-                                                <div class="w-6 h-6 border-2 border-white rounded-full lg:w-8 lg:h-8"
-                                                    style="background-color: {{ $color->color_code }}"></div>
-                                            @endforeach
-                                        </div>
-                                        <span class="text-sm font-medium text-gray-500 lg:text-md">
-                                            {{ count($related->colors) }}+
-                                        </span>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <div class="relative flex -space-x-2">
+                                        @foreach ($product->imageColors as $color)
+                                            <div class="w-6 h-6 border border-gray-300 rounded-full"
+                                                style="background-color: {{ $color->color_code }}"></div>
+                                        @endforeach
                                     </div>
+                                    <span class="text-gray-500 text-sm font-medium">
+                                        {{ count($product->imageColors) }}+ Colors
+                                    </span>
                                 </div>
                             </div>
                         @endforeach
@@ -439,21 +437,21 @@
         </section>
 
 
+
         <!-- your recent views -->
         <!-- final  -->
         <section id="customerAlsoBought" class="px-4 lg:px-[120px] py-4 lg:py-[80px]">
-            <div class="flex items-center justify-between headingAndButtons">
-                <h2 class="headingCus text-2xl lg:text-[48px] font-semibold">Your Recents</h2>
-                <div class="flex gap-4 buttons">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl lg:text-[48px] font-semibold">Your Recents</h2>
+                <div class="flex gap-4">
                     <button id="prevBtn2"
-                        class="bg-gray-100 h-[40px] w-[40px] lg:h-[45px] lg:w-[45px] text-white rounded-full flex justify-center items-center">
-                        <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt=""
-                            class="w-1/2 h-1/2">
+                        class="bg-gray-200 hover:bg-gray-300 transition-all duration-300 h-10 w-10 lg:h-12 lg:w-12 rounded-full flex justify-center items-center">
+                        <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="" class="w-5 h-5">
                     </button>
                     <button id="nextBtn2"
-                        class="bg-gray-100 h-[40px] w-[40px] lg:h-[45px] lg:w-[45px] text-white rounded-full flex justify-center items-center">
+                        class="bg-gray-200 hover:bg-gray-300 transition-all duration-300 h-10 w-10 lg:h-12 lg:w-12 rounded-full flex justify-center items-center">
                         <img src="{{ asset('frontend/assets/images/forwardArrow.svg') }}" alt=""
-                            class="w-1/2 h-1/2">
+                            class="w-5 h-5">
                     </button>
                 </div>
             </div>
@@ -462,36 +460,30 @@
             <div class="relative mt-10">
                 @if ($recentProducts->count() > 0)
                     <div id="carousel2"
-                        class="flex gap-10 overflow-x-scroll scroll-smooth snap-x snap-mandatory scrollbar-hide">
+                        class="flex gap-6 lg:gap-10 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide py-2 px-2">
 
                         @foreach ($recentProducts as $product)
-                            <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
+                            <div class="relative flex-shrink-0 snap-start w-[85vw] sm:w-[45vw] md:w-[30vw] lg:w-[25vw]">
                                 @if ($product->sale_percentage)
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        {{ $product->sale_percentage }}% offer
+                                    <div class="absolute top-4 left-4 bg-sky-500 text-white text-xs px-2 py-1 rounded-md">
+                                        {{ $product->sale_percentage }}% OFF
                                     </div>
                                 @endif
-                                <div
-                                    class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
+                                <div class="w-full h-[300px] overflow-hidden flex justify-center items-center rounded-xl">
                                     <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
-                                        alt="{{ $product->name }}" class="w-full h-full object-cover rounded-xl">
+                                        alt="{{ $product->name }}"
+                                        class="w-full h-full object-cover rounded-xl transition-transform duration-300 hover:scale-105">
                                 </div>
 
-                                <div class="flex items-center justify-between mb-3 productSubIcons">
-                                    <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
-                                    {{--  <div class="flex items-center justify-between gap-2 productIconSet">
-                                        @if ($product->category)
-                                            <span
-                                                class="text-gray-700 font-medium">{{ $product->category->category_name }}</span>
-                                        @endif
-                                    </div>  --}}
-                                </div>
-                                <div class="mb-1 font-medium productTitle text-md lg:text-xl">{{ $product->product_name }}
-
+                                <div class="flex justify-between items-center mt-3 text-sm text-gray-600">
+                                    <span>{{ $product->color_code }}</span>
                                 </div>
 
-                                <div class="productTag mb-2 text-[#E2001A] text-[12px]">
+                                <div class="mt-2 text-lg font-medium text-gray-800">
+                                    {{ $product->product_name }}
+                                </div>
+
+                                <div class="text-red-600 text-sm font-semibold mt-1">
                                     @if ($product->brands->count() > 0)
                                         @foreach ($product->brands as $brand)
                                             {{ $brand->brand_name }}{{ !$loop->last ? ', ' : '' }}
@@ -500,18 +492,17 @@
                                         No Brand
                                     @endif
                                 </div>
-                                <div class="mb-2 productColors">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="relative flex -space-x-3">
-                                            @foreach ($product->colors as $color)
-                                                <div class="w-6 h-6 border-2 border-white rounded-full lg:w-8 lg:h-8"
-                                                    style="background-color: {{ $color->color_code }};"></div>
-                                            @endforeach
-                                        </div>
-                                        <span class="text-sm font-medium text-gray-500 lg:text-md">
-                                            {{ count($product->colors) }}+
-                                        </span>
+
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <div class="relative flex -space-x-2">
+                                        @foreach ($product->imageColors as $color)
+                                            <div class="w-6 h-6 border border-gray-300 rounded-full"
+                                                style="background-color: {{ $color->color_code }}"></div>
+                                        @endforeach
                                     </div>
+                                    <span class="text-gray-500 text-sm font-medium">
+                                        {{ count($product->imageColors) }}+ Colors
+                                    </span>
                                 </div>
                             </div>
                         @endforeach
@@ -522,6 +513,7 @@
                 @endif
             </div>
         </section>
+
 
 
     </main>

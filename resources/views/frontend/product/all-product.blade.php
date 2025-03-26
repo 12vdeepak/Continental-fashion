@@ -543,63 +543,75 @@
                     </div>  --}}
                     <div class="productSection mt-5 flex flex-col gap-10">
                         @foreach ($products->chunk(3) as $chunk)
-                            <div class="productRow grid grid-cols-1 md:grid-cols-3 gap-4"> {{-- Grid layout for proper alignment --}}
+                            <div class="productRow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                                 @foreach ($chunk as $product)
-                                    <a href="{{ route('frontend.all.product-page', $product->id) }}">
-                                        <div class="relative product">
-                                            @if ($product->sale_percentage)
-                                                <div
-                                                    class="absolute top-5 left-2 bg-sky-500 text-white text-sm px-3 py-1 rounded-md">
-                                                    {{ $product->sale_percentage }}% offer
-                                                </div>
-                                            @else
-                                                <div
-                                                    class="absolute top-5 left-2 bg-gray-400 text-white text-sm px-3 py-1 rounded-md">
-                                                    No Discount
-                                                </div>
-                                            @endif
+                                    <a href="{{ route('frontend.all.product-page', $product->id) }}" class="block">
+                                        <div
+                                            class="relative product bg-white shadow-lg rounded-xl p-5 transition-transform transform hover:scale-105">
+                                            <!-- Sale Offer -->
+                                            <div
+                                                class="absolute top-5 left-2 text-white text-sm px-3 py-1 rounded-md
+                                                {{ $product->sale_percentage ? 'bg-sky-500' : 'bg-gray-400' }}">
+                                                {{ $product->sale_percentage ? $product->sale_percentage . '% offer' : 'No Discount' }}
+                                            </div>
 
-                                            <div class="productImage mb-4">
+                                            <!-- Product Image -->
+                                            <div class="productImage mb-6">
                                                 <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
-                                                    alt="{{ $product->name }}"
-                                                    class="w-full h-[300px] object-cover rounded-xl">
+                                                    alt="{{ $product->product_name }}"
+                                                    class="w-full h-[260px] object-contain rounded-lg bg-gray-100">
                                             </div>
 
-                                            <div class="productSubIcons mb-3 flex justify-between items-center">
-                                                <div class="productLeft text-[#6E6E6E]">{{ $product->code }}</div>
-                                                <div class="productIconSet flex gap-2">
-                                                    @if ($product->is_male)
+                                            <!-- Product Code & Gender Icons -->
+                                            <div
+                                                class="productSubIcons mb-4 flex justify-between items-center text-gray-600">
+                                                <div class="text-sm">{{ $product->code }}</div>
+                                                <div class="productIconSet flex gap-1 items-center">
+                                                    @if ($product->wear->wear_name === 'Male')
                                                         <img src="{{ asset('frontend/assets/images/male.svg') }}"
-                                                            alt="">
-                                                    @endif
-                                                    @if ($product->is_female)
+                                                            alt="Male" class="w-4 h-4">
+                                                    @elseif ($product->wear->wear_name === 'Female')
                                                         <img src="{{ asset('frontend/assets/images/female.svg') }}"
-                                                            alt="">
-                                                    @endif
-                                                    @if ($product->is_kid)
+                                                            alt="Female" class="w-4 h-4">
+                                                    @elseif ($product->wear->wear_name === 'Kid')
                                                         <img src="{{ asset('frontend/assets/images/kid.svg') }}"
-                                                            alt="">
+                                                            alt="Kid" class="w-4 h-4">
+                                                    @elseif ($product->wear->wear_name === 'Unisex')
+                                                        <img src="{{ asset('frontend/assets/images/unisex.svg') }}"
+                                                            alt="Unisex" class="w-4 h-4">
                                                     @endif
                                                 </div>
+
+
+
+
+
                                             </div>
-                                            <div class="productTitle mb-1 text-md font-medium lg:text-xl">
+
+                                            <!-- Product Title -->
+                                            <div class="productTitle mb-2 text-lg font-semibold text-gray-700 text-center">
                                                 {{ $product->product_name }}
                                             </div>
-                                            <div class="productTag mb-2 text-[#E2001A] text-[12px]">
-                                                {{ $product->brand_name }}
+
+                                            <!-- Brand Name -->
+                                            <div class="productTag mb-3 text-[#E2001A] text-sm font-bold text-center">
+                                                @foreach ($product->brands as $brand)
+                                                    <span class="mr-3">{{ $brand->brand_name }}</span>
+                                                @endforeach
                                             </div>
-                                            <div class="productColors mb-2">
-                                                <div class="flex items-center space-x-2">
-                                                    <div class="relative flex -space-x-3">
-                                                        @foreach ($product->colors as $color)
-                                                            <div class="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white"
-                                                                style="background-color: {{ $color->color_code }};"></div>
-                                                        @endforeach
-                                                    </div>
-                                                    <span class="text-gray-500 text-sm lg:text-md font-medium">
-                                                        {{ count($product->colors) }}+
-                                                    </span>
+
+                                            <!-- Product Colors -->
+                                            <div class="productColors mb-4 flex items-center justify-center space-x-3">
+                                                <div class="relative flex -space-x-2">
+                                                    @foreach ($product->imageColors as $color)
+                                                        <div class="w-7 h-7 rounded-full border-2 border-white"
+                                                            style="background-color: {{ $color->color_code }};">
+                                                        </div>
+                                                    @endforeach
                                                 </div>
+                                                <span class="text-gray-500 text-sm font-medium">
+                                                    {{ count($product->imageColors) }}+ Colors
+                                                </span>
                                             </div>
                                         </div>
                                     </a>
@@ -607,6 +619,7 @@
                             </div>
                         @endforeach
                     </div>
+
 
 
                     <div class="pages flex justify-center items-center mt-10">

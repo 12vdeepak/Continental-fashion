@@ -17,9 +17,11 @@ class ProductController extends Controller
      */
     public function allProduct()
     {
-        $products = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category'])
+        $products = Product::with(['brand', 'images', 'colors', 'imageColors',  'sizes', 'article', 'promotion', 'category', 'wear'])
             ->paginate(9); // 9 products per page
         $categories = Category::with('subcategories')->get();
+
+        // dd($products);
 
         return view('frontend.product.all-product', compact('products', 'categories'));
     }
@@ -33,7 +35,7 @@ class ProductController extends Controller
 
     public function productPage($id)
     {
-        $product = Product::with(['brand', 'images', 'colors', 'sizes', 'article', 'promotion', 'category', 'weight', 'wear', 'images.sizes'])
+        $product = Product::with(['brand', 'images', 'colors', 'imageColors', 'sizes', 'article', 'promotion', 'category', 'weight', 'wear', 'images.sizes'])
             ->find($id);
 
         if (!$product) {

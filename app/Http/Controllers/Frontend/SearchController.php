@@ -17,7 +17,9 @@ class SearchController extends Controller
 
         if ($query) {
             // Search in 'product_name' column (adjust to match your database structure)
-            $results = Product::where('product_name', 'LIKE', "%{$query}%")->get();
+            $results = Product::where('product_name', 'LIKE', "%{$query}%")->with('brands')->get();
+
+            // dd($results);
             return view('frontend.product.search_results', compact('results', 'query', 'categories'));
         }
 
