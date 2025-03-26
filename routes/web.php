@@ -38,6 +38,7 @@ use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\SubscriptionController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController;
+use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -201,6 +202,8 @@ Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('front
 // ProductController
 Route::get('/', [FrontendController::class, 'publicHome'])->name('frontend.home');
 Route::get('/product-page/{id}', [FrontendProductController::class, 'productPage'])->name('frontend.all.product-page');
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+
 
 
 

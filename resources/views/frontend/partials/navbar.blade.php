@@ -54,12 +54,13 @@
     <!-- Download Button -->
     @if (session()->has('company_user_id'))
         <div class="downloadPricelist_button">
-            <button
+            <a href="{{ asset('frontend/assets/pdf/my_catalog.pdf') }}" target="_blank"
                 class="bg-[#F4F4F4] px-[13px] py-[12px] text-[#E2001A] flex justify-between items-center gap-2 text-[12px] rounded-xl">
                 Download Catalog
                 <img src="{{ asset('frontend/assets/images/basil_download-outline.svg') }}" alt="">
-            </button>
+            </a>
         </div>
     @endif
+
 
 </div>

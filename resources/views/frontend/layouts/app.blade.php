@@ -872,7 +872,28 @@
         });
     </script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBtn = document.getElementById("searchBtn");
+            const searchForm = document.getElementById("searchForm");
 
+            // Show search form on button click
+            searchBtn.addEventListener("click", function() {
+                searchForm.classList.toggle("hidden"); // Toggle visibility
+                searchForm.classList.toggle("flex"); // Ensure flex layout when visible
+            });
+
+            // Hide search bar when clicking outside (only for mobile)
+            document.addEventListener("click", function(event) {
+                if (!searchForm.contains(event.target) && !searchBtn.contains(event.target)) {
+                    if (window.innerWidth < 1024) { // Only hide on mobile
+                        searchForm.classList.add("hidden");
+                        searchForm.classList.remove("flex");
+                    }
+                }
+            });
+        });
+    </script>
 
 
 

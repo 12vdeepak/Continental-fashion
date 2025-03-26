@@ -10,12 +10,19 @@
             </button>
 
             <!-- Full Search Bar (Hidden on Mobile, Visible on Larger Screens) -->
-            <div
-                class="hidden lg:flex items-center border border-gray-300 rounded-xl px-3 gap-3 py-2 w-72 bg-transparent">
-                <img src="{{ asset('frontend/assets/images/search.svg') }}" alt="Search Icon">
-                <input type="text" placeholder="Search"
-                    class="outline-none w-full bg-transparent text-gray-800 placeholder-gray-400" />
-            </div>
+            <form action="{{ route('search') }}" method="GET"
+                class="hidden lg:flex items-center border border-gray-300 rounded-xl px-3 gap-3 py-2 w-60 bg-white">
+                <img src="{{ asset('frontend/assets/images/search.svg') }}" alt="Search Icon" class="w-5 h-5"
+                    style="filter: brightness(0);">
+                <input type="text" name="query" placeholder="Search"
+                    class="outline-none w-full bg-transparent text-black placeholder-gray-600" required />
+                <button type="submit" class="hidden"></button> <!-- Triggers form submission when Enter is pressed -->
+            </form>
+
+
+
+
+
         </div>
         <!-- search bar end -->
         <!-- cart start -->

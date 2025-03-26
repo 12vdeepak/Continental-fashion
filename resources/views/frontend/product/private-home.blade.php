@@ -198,12 +198,12 @@
                                         </div>
                                         <div class="productName text-[24px] font-medium mb-3">{{ $product->product_name }}
                                         </div>
-                                        <div
+                                        {{--  <div
                                             class="seeProductsButton flex items-center gap-2 text-[#54114C] font-bold w-full">
                                             See All Products
                                             <img src="{{ asset('frontend/assets/images/productArrowAhead.svg') }}"
                                                 alt="" class="mt-1">
-                                        </div>
+                                        </div>  --}}
                                     </div>
                                 </a>
                             @endforeach
