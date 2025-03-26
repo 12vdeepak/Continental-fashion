@@ -19,7 +19,10 @@
                                         class="text-gray-700 font-semibold block text-lg">
                                         {{ $product->product_name }}
                                     </a>
-
+                                    <!-- Added category display -->
+                                    <p class="text-gray-500 mb-2">
+                                        Category: {{ $product->category->category_name ?? 'N/A' }}
+                                    </p>
                                     <div class="productTag mb-2 text-[#E2001A] text-lg font-bold uppercase">
                                         @foreach ($product->brands as $brand)
                                             <span class="mr-2">{{ $brand->brand_name }}</span>
