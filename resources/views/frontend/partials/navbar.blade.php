@@ -23,9 +23,9 @@
             <div
                 class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[300px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
 
-                <div class="container mx-auto grid grid-cols-3 gap-4 bg-white p-5">
+                <div class="container mx-auto flex flex-wrap gap-6 bg-white p-5">
                     @foreach ($categories as $category)
-                        <div class="space-y-1">
+                        <div class="w-full sm:w-[48%] md:w-[30%] lg:w-[15%] space-y-2 mb-4">
                             <h3 class="font-bold text-black">{{ $category->category_name }}</h3>
                             <ul class="text-gray-600 space-y-1">
                                 @foreach ($category->subcategories as $subcategory)
@@ -43,6 +43,7 @@
 
             </div>
         </li>
+
 
         <li><a href="{{ route('frontend.aboutus') }}">About Us</a></li>
         {{--  <li><a href="#">Quotation</a></li>  --}}
