@@ -206,8 +206,14 @@ class UserController extends Controller
         // Generate PDF filename
         $filename = 'invoice_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf';
 
-        // Temporarily save the PDF to a temporary file
-        $pdfPath = storage_path('app/temp/' . $filename);
+        // Ensure the temp directory exists
+        $tempPath = storage_path('app/temp');
+        if (!file_exists($tempPath)) {
+            mkdir($tempPath, 0777, true);
+        }
+
+        // Temporarily save the PDF to a file
+        $pdfPath = $tempPath . '/' . $filename;
         $pdf->save($pdfPath);
 
         try {
@@ -229,7 +235,7 @@ class UserController extends Controller
             // Log the error
             Log::error('Invoice Email Error: ' . $e->getMessage());
 
-            // Delete the temporary PDF file
+            // Delete the temporary PDF file if it exists
             if (file_exists($pdfPath)) {
                 unlink($pdfPath);
             }
@@ -238,6 +244,7 @@ class UserController extends Controller
             return back()->with('error', 'Failed to send invoice email. Please try again.');
         }
     }
+
 
 
 
