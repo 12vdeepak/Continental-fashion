@@ -3,7 +3,12 @@
 
         <!-- Logo & Contact -->
         <div class="flex flex-col gap-6">
-            <h2 class="text-3xl font-bold leading-tight">Continental Fashion <br> Merchandising UG</h2>
+            <h2 class="text-3xl font-bold leading-tight">
+                <a href="{{ route('frontend.home') }}" class="text-white-500">
+                    Continental Fashion <br> Merchandising UG
+                </a>
+            </h2>
+
             <div class="flex items-center gap-3 text-lg">
                 <img src="{{ asset('frontend/assets/images/phoneIcon.svg') }}" alt="Phone">
                 <span>+49 6108 826960</span>

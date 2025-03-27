@@ -1,6 +1,11 @@
 <!-- ==== TOPNAV_PURPLE - START ==== -->
 <div class=" px-4 lg:px-[120px] purple_nav_top bg-[#54114C] h-22 text-[#FFFFFF]   flex justify-between items-center  ">
-    <div class="logo  text-xl lg:text-2xl font-bold">Continental Fashion</div>
+    <div class="logo text-xl lg:text-2xl font-bold">
+        <a href="{{ route('frontend.home') }}" class="text-white-500">
+            Continental Fashion
+        </a>
+    </div>
+
     <div class="sideContent flex items-center gap-5">
         <!-- search bar  -->
         <div class="relative flex items-center">

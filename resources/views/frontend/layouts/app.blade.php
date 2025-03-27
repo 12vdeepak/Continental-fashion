@@ -879,7 +879,7 @@
             function setSelectionIcon(element, isSelected) {
                 if (isSelected) {
                     element.querySelector('.selection').innerHTML =
-                        `<img src="${window.location.origin}/frontend/assets/images/checked.svg" class="w-[25px] h-[25px]">`;
+                        `<img src="${window.location.origin}/projects/Continental-fashion/public/frontend/assets/images/checked.svg" class="w-[25px] h-[25px]">`;
                 } else {
                     element.querySelector('.selection').innerHTML =
                         '<div class="circle w-[25px] h-[25px] bg-[#DADDDE] rounded-full"></div>';
