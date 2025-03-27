@@ -27,6 +27,8 @@ class CartItemController extends Controller
             ->where('user_id', $companyUserId)
             ->get();
 
+        $cartCount = $cartItems->count(); // Count the cart items
+
         // Fetch recent products (latest 6)
         $recentProducts = Product::latest()->take(6)->get();
 
@@ -43,9 +45,8 @@ class CartItemController extends Controller
             }
         }
 
-        return view('frontend.product.my-cart', compact('categories', 'cartItems', 'recentProducts', 'relatedProducts'));
+        return view('frontend.product.my-cart', compact('categories', 'cartItems', 'cartCount', 'recentProducts', 'relatedProducts'));
     }
-
 
 
     public function addToCart(Request $request)

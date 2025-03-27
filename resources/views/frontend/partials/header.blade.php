@@ -31,17 +31,25 @@
         </div>
         <!-- search bar end -->
         <!-- cart start -->
-        <div class="flex items-center mr-3 cursor-pointer">
+        <div class="flex items-center mr-3 cursor-pointer relative">
             @if (session()->has('company_user_id'))
-                <a href="{{ route('frontend.my-cart') }}">
-                    <img src="{{ asset('frontend/assets/images/cart.svg') }}" alt="Cart">
+                <a href="{{ route('frontend.my-cart') }}" class="relative">
+                    <img src="{{ asset('frontend/assets/images/cart.svg') }}" alt="Cart" class="w-8 h-8">
+                    @if ($cartCount > 0)
+                        <span
+                            class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                            {{ $cartCount }}
+                        </span>
+                    @endif
                 </a>
             @else
-                <a href="javascript:void(0);" onclick="showLoginToast();">
-                    <img src="{{ asset('frontend/assets/images/cart.svg') }}" alt="Cart">
+                <a href="javascript:void(0);" onclick="showLoginToast();" class="relative">
+                    <img src="{{ asset('frontend/assets/images/cart.svg') }}" alt="Cart" class="w-8 h-8">
                 </a>
             @endif
         </div>
+
+
 
 
 
