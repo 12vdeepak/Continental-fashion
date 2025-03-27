@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\InvoiceMail;
 use App\Mail\UserApprovalMail;
 use App\Models\Address;
 use App\Models\CompanyRegistration;
@@ -11,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -111,6 +112,54 @@ class UserController extends Controller
     }
 
 
+    // public function downloadFilteredInvoice(Request $request, $userId)
+    // {
+    //     // Validate the request parameters
+    //     $request->validate([
+    //         'start_date' => 'required|date',
+    //         'end_date' => 'required|date|after_or_equal:start_date',
+    //     ]);
+
+    //     // Convert to Carbon instances
+    //     $startDate = Carbon::parse($request->query('start_date'))->startOfDay();
+    //     $endDate = Carbon::parse($request->query('end_date'))->endOfDay();
+
+    //     // Fetch orders with products and their respective articles
+    //     $orders = Order::where('user_id', $userId)
+    //         ->whereBetween('created_at', [$startDate, $endDate])
+    //         ->with(['product.article', 'size', 'color']) // Eager load products with article
+    //         ->get();
+
+    //     if ($orders->isEmpty()) {
+    //         return back()->with('error', 'No orders found in the selected date range.');
+    //     }
+
+    //     // Fetch user details with multiple addresses
+    //     $user = CompanyRegistration::with('address')->find($userId);
+    //     if (!$user) {
+    //         return back()->with('error', 'User not found.');
+    //     }
+
+    //     $companyRegistration = $user->company_registration ?? 'N/A';
+
+    //     // Get Shipping Address (First Address)
+    //     $userAddress = optional($user->address->first())->full_address ?? 'N/A';
+
+    //     // Get Billing Address from the First Order's billing_address_id
+    //     $billingAddress = 'N/A';
+    //     if ($orders->first() && $orders->first()->billing_address_id) {
+    //         $billing = Address::find($orders->first()->billing_address_id);
+    //         $billingAddress = optional($billing)->full_address ?? 'N/A';
+    //     }
+
+    //     // Generate PDF
+    //     $pdf = Pdf::loadView('admin.user.invoice2', compact('orders', 'userAddress', 'billingAddress', 'companyRegistration'));
+
+    //     return $pdf->download('invoice_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf');
+    // }
+
+
+
     public function downloadFilteredInvoice(Request $request, $userId)
     {
         // Validate the request parameters
@@ -154,7 +203,40 @@ class UserController extends Controller
         // Generate PDF
         $pdf = Pdf::loadView('admin.user.invoice2', compact('orders', 'userAddress', 'billingAddress', 'companyRegistration'));
 
-        return $pdf->download('invoice_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf');
+        // Generate PDF filename
+        $filename = 'invoice_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf';
+
+        // Temporarily save the PDF to a temporary file
+        $pdfPath = storage_path('app/temp/' . $filename);
+        $pdf->save($pdfPath);
+
+        try {
+            // Send email to user with PDF attachment
+            Mail::to($user->email)->send(new InvoiceMail(
+                $pdfPath,
+                $filename,
+                $startDate,
+                $endDate
+            ));
+
+            // Download the PDF
+            $response = response()->download($pdfPath, $filename, [
+                'Content-Type' => 'application/pdf',
+            ])->deleteFileAfterSend(true);
+
+            return $response;
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Invoice Email Error: ' . $e->getMessage());
+
+            // Delete the temporary PDF file
+            if (file_exists($pdfPath)) {
+                unlink($pdfPath);
+            }
+
+            // Return with error message
+            return back()->with('error', 'Failed to send invoice email. Please try again.');
+        }
     }
 
 
