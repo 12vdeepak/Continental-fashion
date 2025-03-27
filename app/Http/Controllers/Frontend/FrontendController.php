@@ -42,6 +42,12 @@ class FrontendController extends Controller
         return view('frontend.aboutus', compact('categories'));
     }
 
+    public function terms()
+    {
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.product.terms-and-condition', compact('categories'));
+    }
+
 
 
 

@@ -26,7 +26,8 @@
             <ul class="space-y-2">
                 <li><a href="#" class="hover:text-purple-400 transition">Imprint</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Privacy Policy</a></li>
-                <li><a href="#" class="hover:text-purple-400 transition">Terms & Conditions</a></li>
+                <li><a href="{{ route('frontend.terms') }}" class="hover:text-purple-400 transition">Terms &
+                        Conditions</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Delivery Conditions</a></li>
                 <li><a href="#" class="hover:text-purple-400 transition">Cancellation & Returns</a></li>
             </ul>

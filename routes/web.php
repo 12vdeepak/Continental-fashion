@@ -193,6 +193,7 @@ Route::post('/company-login', [AuthController::class, 'Login'])->name('post.fron
 Route::get('/company-register', [AuthController::class, 'userRegister'])->name('frontend.register');
 Route::post('/company-register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('frontend.logout');
+Route::get('/terms-and-conditions', [FrontendController::class, 'terms'])->name('frontend.terms');
 
 
 // SubscriptionController
