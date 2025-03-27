@@ -45,6 +45,30 @@
     </style>
 
     <style>
+        @keyframes scrollBanner {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .animate-scroll-banner {
+            display: flex;
+            animation: scrollBanner 20s linear infinite;
+            width: 200%;
+            /* Double the width to accommodate duplicated slides */
+        }
+
+        .animate-scroll-banner:hover {
+            animation-play-state: paused;
+        }
+    </style>
+
+
+    <style>
         .carousel-container {
             position: relative;
             width: 100%;
@@ -142,15 +166,36 @@
         }
     </style>
     <style>
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+        @keyframes scrollBanners {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .banner-wrapper {
+            display: flex;
+            animation: scrollBanners 20s linear infinite;
+            width: 200%;
+            /* Double width for continuous scroll */
+        }
+
+        .banner-slide {
+            flex-shrink: 0;
+            width: 50%;
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
+
+
+
+
 
 
 
@@ -541,37 +586,54 @@
             // Filter only active banners
             const filteredSlides = slides.filter(banner => banner.status == 1);
 
-            let currentSlide = 0;
-            let autoSlideInterval;
-
-            // Get DOM elements
-            const bgImage = document.getElementById("bgImage");
-            const title = document.getElementById("title");
-            const description = document.getElementById("description");
+            // Get DOM elements for dynamic content
+            const bannerContainer = document.getElementById("bannerContainer");
+            const titleElement = document.getElementById("title");
+            const descriptionElement = document.getElementById("description");
             const prevBtn = document.getElementById("prevSlide");
             const nextBtn = document.getElementById("nextSlide");
 
-            function updateSlide() {
-                if (filteredSlides.length === 0) return; // Exit if no active banners exist
+            // Create wrapper for continuous scrolling
+            const wrapper = document.createElement("div");
+            wrapper.classList.add("banner-wrapper");
 
-                let imagePath = filteredSlides[currentSlide].image;
+            let currentSlide = 0;
+            let autoSlideInterval;
 
-                // Ensure the image path does not include "banner_images/" twice
-                if (imagePath.includes("banner_images/")) {
-                    imagePath = imagePath.replace("banner_images/", "");
-                }
+            // Function to create banner slides
+            function createBannerSlides(slides) {
+                slides.forEach(slide => {
+                    let imagePath = slide.image;
 
-                console.log("Updating slide:", currentSlide, "Corrected Image URL:", baseUrl + imagePath);
+                    // Ensure the image path does not include "banner_images/" twice
+                    if (imagePath.includes("banner_images/")) {
+                        imagePath = imagePath.replace("banner_images/", "");
+                    }
 
-                bgImage.style.backgroundImage = `url('${baseUrl}${imagePath}')`;
-                bgImage.style.backgroundSize = "cover";
-                bgImage.style.backgroundPosition = "center";
-                bgImage.style.backgroundRepeat = "no-repeat";
+                    const slideElement = document.createElement("div");
+                    slideElement.classList.add("banner-slide");
+                    slideElement.style.backgroundImage = `url('${baseUrl}${imagePath}')`;
 
-                title.innerHTML = filteredSlides[currentSlide].title || "";
-                description.textContent = filteredSlides[currentSlide].description || "";
+                    wrapper.appendChild(slideElement);
+                });
+
+                // Duplicate slides for continuous scrolling
+                slides.forEach(slide => {
+                    const clonedSlide = wrapper.children[slides.indexOf(slide)].cloneNode(true);
+                    wrapper.appendChild(clonedSlide);
+                });
             }
 
+            // Function to update slide content
+            function updateSlide() {
+                if (filteredSlides.length === 0) return;
+
+                // Update title and description
+                titleElement.innerHTML = filteredSlides[currentSlide].title || 'Banner Title';
+                descriptionElement.textContent = filteredSlides[currentSlide].description || 'Banner Description';
+            }
+
+            // Navigation functions
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % filteredSlides.length;
                 updateSlide();
@@ -582,34 +644,58 @@
                 updateSlide();
             }
 
+            // Auto slide function
             function startAutoSlide() {
                 clearInterval(autoSlideInterval);
                 autoSlideInterval = setInterval(nextSlide, 7000);
             }
 
-            // Event listeners for navigation
-            prevBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                prevSlide();
-                startAutoSlide();
-            });
+            // Initialize the carousel
+            function initCarousel() {
+                if (filteredSlides.length === 0) {
+                    console.warn("No active banners found.");
+                    return;
+                }
 
-            nextBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                nextSlide();
-                startAutoSlide();
-            });
+                // Create slides
+                createBannerSlides(filteredSlides);
 
-            // Initialize slider only if active banners exist
-            if (filteredSlides.length > 0) {
+                // Add wrapper to container
+                bannerContainer.appendChild(wrapper);
+
+                // Initial slide update
                 updateSlide();
+
+                // Start auto sliding
                 startAutoSlide();
-            } else {
-                console.warn("No active banners found.");
+
+                // Pause on hover
+                bannerContainer.addEventListener('mouseenter', () => {
+                    wrapper.style.animationPlayState = 'paused';
+                });
+
+                bannerContainer.addEventListener('mouseleave', () => {
+                    wrapper.style.animationPlayState = 'running';
+                });
+
+                // Navigation button event listeners
+                prevBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    prevSlide();
+                    startAutoSlide();
+                });
+
+                nextBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    nextSlide();
+                    startAutoSlide();
+                });
             }
+
+            // Initialize
+            initCarousel();
         });
     </script>
-
 
 
 

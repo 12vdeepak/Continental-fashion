@@ -3,21 +3,21 @@
     <main>
 
 
-        <section id="carouselSection" class="flex items-center justify-center h-[70vh] ">
-            <div class="relative w-full h-[70vh] overflow-hidden rounded-lg " id="carousel">
+        <section id="carouselSection" class="flex items-center justify-center h-[70vh]">
+            <div class="relative w-full h-[70vh] overflow-hidden rounded-lg" id="carousel">
                 <!-- Background Image -->
-                <div class="absolute inset-0 bg-cover bg-top transition-all duration-500" id="bgImage"></div>
+                <div class="absolute inset-0 bg-cover bg-top transition-all duration-500" id="bannerContainer"></div>
                 <div class="absolute inset-0 bg-black/50"></div>
 
-                <!-- Content -->
+                <!-- Static Content -->
                 <div
                     class="relative z-10 flex flex-col justify-end items-end w-full h-full px-6 sm:px-12 md:px-16 lg:px-[100px] py-8 text-white">
                     <div class="contentCarousel w-full sm:max-w-[80%] md:max-w-[50%] lg:max-w-[30vw]">
                         <h2 id="title" class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
-                            Own Him <span class="bg-white text-red-500 px-2 py-1 rounded-md">Effortless</span> Style
+                            <!-- Dynamic title will be inserted here -->
                         </h2>
                         <p id="description" class="mt-4 text-base sm:text-lg md:text-xl w-full">
-                            Lorem ipsum dolor sit amet consectetur. At ultrices libero et congue mauris sed nisl.
+                            <!-- Dynamic description will be inserted here -->
                         </p>
                         <a href="{{ route('frontend.all.product') }}">
                             <button id="shopBtn"
@@ -28,19 +28,16 @@
                     </div>
                 </div>
 
-
                 <!-- Navigation Buttons -->
                 <button id="prevSlide"
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-300 text-white p-3 rounded-full h-8 w-8 lg:h-12 lg:w-12 flex items-center  justify-center z-10 ">
-                    <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="">
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-300 text-white p-3 rounded-full h-8 w-8 lg:h-12 lg:w-12 flex items-center justify-center z-10">
+                    <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="Previous">
                 </button>
                 <button id="nextSlide"
                     class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-300 text-white p-3 rounded-full h-8 w-8 lg:h-12 lg:w-12 flex items-center justify-center z-10">
-                    <img src="{{ asset('frontend/assets/images/forwardArrow.svg') }}" alt="">
+                    <img src="{{ asset('frontend/assets/images/forwardArrow.svg') }}" alt="Next">
                 </button>
             </div>
-
-
         </section>
 
 
