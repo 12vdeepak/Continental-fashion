@@ -275,11 +275,11 @@
                 class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 {{ session()->has('orderDetails') && !empty(session('orderDetails')) ? '' : 'hidden' }}">
                 <div id="popupContent" class="bg-white rounded-xl shadow-lg w-[500px] p-6 relative">
                     <!-- Close Button -->
-                    <a href="{{ route('frontend.confirm-order') }}">
-                        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">
-                            &times;
-                        </button>
+                    <a href="{{ route('frontend.confirm-order') }}"
+                        class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">
+                        &times;
                     </a>
+
 
 
                     <!-- Success Icon -->
