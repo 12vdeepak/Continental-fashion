@@ -46,7 +46,7 @@
                         <div class="text-[24px] font-bold lg:text-[32px]">Settings</div>
 
                         <div class="settingsContainer mt-5 w-full flex flex-col gap-2">
-                            <a href="/pages/languages.html">
+                            {{--  <a href="/pages/languages.html">
                                 <div class="setting flex justify-between items-center px-4 py-8 bg-[#F4F4F4] rounded-xl">
                                     <div class="settingIconAndheading flex items-center">
                                         <div class="icon">
@@ -62,7 +62,7 @@
                                         <img src="{{ asset('frontend/assets/images/forwardIcon.svg') }}" alt="">
                                     </div>
                                 </div>
-                            </a>
+                            </a>  --}}
                             <div class="setting flex justify-between items-center px-4 py-8 bg-[#F4F4F4] rounded-xl cursor-pointer"
                                 id="openPasswordPopup">
                                 <div class="settingIconAndheading flex items-center">
@@ -195,7 +195,8 @@
                     <div
                         class="imageContainer flex justify-center items-center bg-red-300 w-[80px] h-[80px] rounded-full my-3">
                         <div class="logImg bg-red-500 flex justify-center items-center p-4 w-[60px] h-[60px] rounded-full">
-                            <img src="/assets/images/logout.svg" alt="" class="w-[50px] h-[50px]">
+                            <img src="{{ asset('frontend/assets/images/logout.svg') }}" alt=""
+                                class="w-[50px] h-[50px]">
                         </div>
                     </div>
                 </div>
