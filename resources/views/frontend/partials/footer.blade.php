@@ -21,7 +21,7 @@
             <div class="text-lg mt-4">
                 <h3 class="font-bold">Opening Hours:</h3>
                 <p>Mon - Thursday: 9:00 - 17:00 Uhr</p>
-                <p>Fri: 9:00 - 15:00 Uhr</p>
+                <p>Fri: 9:00 - 14:00 Uhr</p>
             </div>
         </div>
 
