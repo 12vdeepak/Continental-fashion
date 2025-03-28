@@ -30,7 +30,7 @@
         .animate-scroll {
             display: flex;
             width: max-content;
-            animation: scroll 20s linear infinite;
+            animation: scroll 12s linear infinite;
         }
 
         @keyframes scroll {
@@ -57,7 +57,7 @@
 
         .animate-scroll-banner {
             display: flex;
-            animation: scrollBanner 20s linear infinite;
+            animation: scrollBanner 12s linear infinite;
             width: 200%;
             /* Double the width to accommodate duplicated slides */
         }
@@ -178,7 +178,7 @@
 
         .banner-wrapper {
             display: flex;
-            animation: scrollBanners 20s linear infinite;
+            animation: scrollBanners 12s linear infinite;
             width: 200%;
             /* Double width for continuous scroll */
         }
