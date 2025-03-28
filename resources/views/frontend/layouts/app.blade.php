@@ -30,7 +30,7 @@
         .animate-scroll {
             display: flex;
             width: max-content;
-            animation: scroll 12s linear infinite;
+            animation: scroll 20s linear infinite;
         }
 
         @keyframes scroll {
