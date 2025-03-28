@@ -223,4 +223,39 @@
     .goog-te-gadget span {
         display: none !important;
     }
+
+
+
+
+    #dropdownMenu {
+        position: absolute;
+        top: 74%;
+        /* Positions the dropdown below the button */
+        right: -45;
+        z-index: 10;
+        /* Ensures it stays above other elements */
+        min-width: 150px;
+        /* Adjust width as needed */
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 8px 0;
+    }
+
+    #dropdownMenu a {
+        display: block;
+        padding: 0px 12px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    #dropdownMenu a:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Ensure the parent button has relative positioning */
+    #dropdownButton {
+        position: relative;
+    }
 </style>
