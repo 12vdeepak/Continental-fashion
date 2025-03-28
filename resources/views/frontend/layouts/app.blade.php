@@ -865,6 +865,31 @@
     </script>
 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sizeButtons = document.querySelectorAll(".sizeButton");
+            const quantityDisplay = document.getElementById("quantityDisplay");
+
+            sizeButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    // Remove active class from all buttons
+                    sizeButtons.forEach(btn => btn.classList.remove("bg-gray-200"));
+
+                    // Add active class to selected size button
+                    this.classList.add("bg-gray-200");
+
+                    // Get quantity from the selected button
+                    const quantity = this.getAttribute("data-quantity");
+
+                    // Update quantity display
+                    quantityDisplay.textContent = `Available Quantity: ${quantity}`;
+                });
+            });
+        });
+    </script>
+
+
+
 
 
     <script>

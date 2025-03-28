@@ -92,7 +92,7 @@
 
                 <!-- Colors Options -->
                 <div class="mt-6">
-                    <h3 class="mb-2 text-lg font-semibold">Color Options:</h3>
+                    <h3 class="mb-2 text-lg font-semibold">Select Color Options:</h3>
                     <div class="flex flex-wrap gap-2">
                         @if ($product->images->pluck('color_id')->unique()->count() > 0)
                             @foreach ($product->images->pluck('color_id')->unique() as $colorId)
@@ -116,7 +116,7 @@
 
                 <!-- Size Options -->
                 <!-- Size Options -->
-                <div class="mt-6">
+                {{--  <div class="mt-6">
                     <h3 class="mb-2 text-lg font-semibold">Size:</h3>
                     <div class="flex flex-wrap gap-2" id="sizeContainer">
                         @foreach ($product->images as $image)
@@ -129,8 +129,31 @@
                             @endforeach
                         @endforeach
                     </div>
+                </div>  --}}
+
+
+                <!-- Size Options -->
+                <div class="mt-6">
+                    <h3 class="mb-2 text-lg font-semibold">Select Size:</h3>
+                    <div class="flex flex-wrap gap-2" id="sizeContainer">
+                        @foreach ($product->images as $image)
+                            @foreach ($image->sizes as $size)
+                                <button class="px-4 py-2 border rounded-md hover:bg-gray-100 sizeButton"
+                                    data-color="{{ $image->color_id }}" data-size-id="{{ $size->id }}"
+                                    data-quantity="{{ $size->pivot->quantity }}"
+                                    data-image="{{ asset('storage/' . $image->image_path) }}" style="display: none;">
+                                    {{ strtoupper($size->size_name) }}
+                                </button>
+                            @endforeach
+                        @endforeach
+                    </div>
                 </div>
 
+                <!-- Quantity Display -->
+                <div class="mt-4">
+                    <h3 class="mb-2 text-lg font-semibold">Quantity:</h3>
+                    <p id="quantityDisplay" class="text-lg font-medium text-gray-700">Select a size to see quantity</p>
+                </div>
 
 
             </div>
