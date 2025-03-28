@@ -124,7 +124,7 @@
                                     consectetur.<br> At
                                     ultrices libero et congue mauris sed nisl. </div>
                                 <div class="posterButton z-2  ">
-                                    <a href="{{ route('frontend.all.product-page') }}">
+                                    <a href="{{ route('frontend.all.product') }}">
                                         <button
                                             class="bg-[#FFFFFF] text-[#000000] rounded-2xl px-[16px] py-[10px] flex justify-between gap-[16px]">
                                             Shop Now
