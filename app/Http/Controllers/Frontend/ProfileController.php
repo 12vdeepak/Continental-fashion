@@ -20,6 +20,35 @@ class ProfileController extends Controller
         return view('frontend.my-profile.my-profile', compact('categories', 'user'));
     }
 
+
+    public function deleteAccount()
+    {
+        // Get user ID from session
+        $userId = session('company_user_id');
+
+        if (!$userId) {
+            return redirect()->back()->with('error', 'No user found in session.');
+        }
+
+        $user = CompanyRegistration::find($userId);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Soft delete instead of permanent deletion
+        $user->delete();
+
+        // Clear session and log out
+        session()->forget('company_user_id');
+
+        // Optional: Destroy session completely
+        session()->flush();
+
+
+        return redirect('/')->with('message', 'Your account has been deleted.');
+    }
+
     public function myOrder()
     {
         $categories = Category::with('subcategories')->get();

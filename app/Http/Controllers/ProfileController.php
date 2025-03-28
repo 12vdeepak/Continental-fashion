@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\CompanyRegistration;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +22,10 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+
+
+
+
 
     /**
      * Update the user's profile information.

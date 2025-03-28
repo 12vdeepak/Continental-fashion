@@ -412,15 +412,15 @@
                         // Insert new order items
                         data.order_items.forEach(item => {
                             let itemHTML = `
-                            <div class="flex items-center bg-gray-100 p-4 rounded-lg">
-                                <img src="{{ asset('frontend/assets/images/blueHoodie.png') }}" alt="Hoodie" class="w-16 h-16 object-cover rounded-lg">
+                            <div class="flex items-center p-4 bg-gray-100 rounded-lg">
+                                <img src="{{ asset('frontend/assets/images/blueHoodie.png') }}" alt="Hoodie" class="object-cover w-16 h-16 rounded-lg">
                                 <div class="ml-4">
                                     <p class="text-lg font-semibold">${item.product_name}</p>
-                                    <div class="text-gray-600 text-sm flex gap-2 mt-1">
+                                    <div class="flex gap-2 mt-1 text-sm text-gray-600">
                                         <span>Size: ${item.size}</span> |
                                         <span>Qty: ${item.quantity}</span>
                                     </div>
-                                    <div class="mt-2 text-sm flex gap-4">
+                                    <div class="flex gap-4 mt-2 text-sm">
                                         <span class="text-gray-600">Unit Price: <span class="font-semibold">€${item.unit_price}</span></span>
                                         <span class="text-gray-600">Total Price: <span class="font-semibold text-blue-600">€${item.total_price}</span></span>
                                     </div>
@@ -862,6 +862,16 @@
                 document.getElementById('selectedSize').value = firstSizeButton.getAttribute('data-size-id');
             }
         }
+    </script>
+
+    <script>
+        document.getElementById("openPopup").addEventListener("click", function() {
+            document.getElementById("deletePopup").classList.remove("hidden");
+        });
+
+        document.getElementById("cancelNo").addEventListener("click", function() {
+            document.getElementById("deletePopup").classList.add("hidden");
+        });
     </script>
 
 

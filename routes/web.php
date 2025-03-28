@@ -251,4 +251,6 @@ Route::middleware(['company', 'company.auth.status'])->group(function () {
     Route::get('/manage-language', [FrontendProfileController::class, 'manageLanguage'])->name('frontend.manageslanguage');
 
     Route::patch('/settings/update-password', [FrontendProfileController::class, 'updatePassword'])->name('frontend.update-password');
+    Route::get('/delete-account', [FrontendProfileController::class, 'deleteAccount'])
+        ->name('delete.account');
 });

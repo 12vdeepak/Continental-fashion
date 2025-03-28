@@ -1,26 +1,26 @@
 <!-- ==== TOPNAV_PURPLE - START ==== -->
 <div class=" px-4 lg:px-[120px] purple_nav_top bg-[#54114C] h-22 text-[#FFFFFF]   flex justify-between items-center  ">
-    <div class="logo text-xl lg:text-2xl font-bold">
+    <div class="text-xl font-bold logo lg:text-2xl">
         <a href="{{ route('frontend.home') }}" class="text-white-500">
             Continental Fashion
         </a>
     </div>
 
-    <div class="sideContent flex items-center gap-5">
+    <div class="flex items-center gap-5 sideContent">
         <!-- search bar  -->
         <div class="relative flex items-center">
             <!-- Search Icon (Visible on Mobile) -->
-            <button class="lg:hidden p-2">
+            <button class="p-2 lg:hidden">
                 <img src="{{ asset('frontend/assets/images/search.svg') }}" alt="Search Icon">
             </button>
 
             <!-- Full Search Bar (Hidden on Mobile, Visible on Larger Screens) -->
             <form action="{{ route('search') }}" method="GET"
-                class="hidden lg:flex items-center border border-gray-300 rounded-xl px-3 gap-3 py-2 w-60 bg-white">
+                class="items-center hidden gap-3 px-3 py-2 bg-white border border-gray-300 lg:flex rounded-xl w-60">
                 <img src="{{ asset('frontend/assets/images/search.svg') }}" alt="Search Icon" class="w-5 h-5"
                     style="filter: brightness(0);">
                 <input type="text" name="query" placeholder="Search"
-                    class="outline-none w-full bg-transparent text-black placeholder-gray-600" required />
+                    class="w-full text-black placeholder-gray-600 bg-transparent outline-none" required />
                 <button type="submit" class="hidden"></button> <!-- Triggers form submission when Enter is pressed -->
             </form>
 
@@ -31,7 +31,7 @@
         </div>
         <!-- search bar end -->
         <!-- cart start -->
-        <div class="flex items-center mr-3 cursor-pointer relative">
+        <div class="relative flex items-center mr-3 cursor-pointer">
             @if (session()->has('company_user_id'))
                 <a href="{{ route('frontend.my-cart') }}" class="relative">
                     <img src="{{ asset('frontend/assets/images/cart.svg') }}" alt="Cart" class="w-8 h-8">
@@ -55,7 +55,7 @@
 
         <!-- cart end  -->
 
-        <div class="adminButton flex justify-between items-center gap-2 mr-2 relative">
+        <div class="relative flex items-center justify-between gap-2 mr-2 adminButton">
             @if (session()->has('company_user_id'))
                 @php
                     $user = \App\Models\CompanyRegistration::find(session('company_user_id'));
@@ -103,14 +103,14 @@
 
 
         {{--  <div class="langMenu">
-            <div class="relative text-left  ">
+            <div class="relative text-left ">
                 <!-- Dropdown Toggle -->
                 <button id="langToggle" type="button"
-                    class="flex items-center space-x-2 h-full  text-white px-3 py-2 rounded-md focus:outline-none"
+                    class="flex items-center h-full px-3 py-2 space-x-2 text-white rounded-md focus:outline-none"
                     onclick="toggleLangDropdown()">
                     <!-- Flag Image -->
                     <img src="{{ asset('frontend/assets/images/flag.svg') }}" alt="UK Flag"
-                        class="w-6 h-4 object-cover" />
+                        class="object-cover w-6 h-4" />
                     <!-- Down Arrow Icon (SVG) -->
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -123,21 +123,21 @@
 
                 <!-- Dropdown Menu -->
                 <div id="langMenu"
-                    class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg">
+                    class="absolute right-0 hidden w-40 mt-2 bg-white border border-gray-200 rounded shadow-lg">
                     <ul class="py-2 text-gray-700">
-                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2">
+                        <li class="flex items-center px-4 py-2 space-x-2 cursor-pointer hover:bg-gray-100">
                             <img src="{{ asset('frontend/assets/images/flag.svg') }}" alt="US Flag"
-                                class="w-5 h-3 object-cover" />
+                                class="object-cover w-5 h-3" />
                             <span>English (US)</span>
                         </li>
-                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2">
+                        <li class="flex items-center px-4 py-2 space-x-2 cursor-pointer hover:bg-gray-100">
                             <img src="{{ asset('frontend/assets/images/flag.svg') }}" alt="France Flag"
-                                class="w-5 h-3 object-cover" />
+                                class="object-cover w-5 h-3" />
                             <span>Français</span>
                         </li>
-                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2">
+                        <li class="flex items-center px-4 py-2 space-x-2 cursor-pointer hover:bg-gray-100">
                             <img src="{{ asset('frontend/assets/images/flag.svg') }}" alt="Spain Flag"
-                                class="w-5 h-3 object-cover" />
+                                class="object-cover w-5 h-3" />
                             <span>Español</span>
                         </li>
                         <!-- Add more languages as needed -->

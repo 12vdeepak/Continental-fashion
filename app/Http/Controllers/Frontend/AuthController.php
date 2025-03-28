@@ -37,23 +37,34 @@ class AuthController extends Controller
 
     public function login(CompanyLoginRequest $request)
     {
-        // Find user by email
-        $user = CompanyRegistration::where('email', $request->email)->first();
+        // Find user by email, including soft-deleted ones
+        $user = CompanyRegistration::withTrashed()->where('email', $request->email)->first();
 
-        // Check if user exists and password is correct
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Check if the account is approved
-            if ($user->is_approve == 1) {
-                session(['company_user_id' => $user->id]); // Store user ID in session
-                return redirect()->route('frontend.home.private')->with([
-                    'message' => 'Login successful!',
-                    'alert-type' => 'success'
-                ]);
-            } else {
+        // If user exists
+        if ($user) {
+            // Check if the account is soft-deleted
+            if ($user->deleted_at !== null) {
                 return redirect()->back()->with([
-                    'message' => 'Your account is pending approval. Please wait for admin approval.',
-                    'alert-type' => 'warning'
+                    'message' => 'Your account has been deleted. Please contact support.',
+                    'alert-type' => 'error'
                 ]);
+            }
+
+            // Check if password is correct
+            if (Hash::check($request->password, $user->password)) {
+                // Check if the account is approved
+                if ($user->is_approve == 1) {
+                    session(['company_user_id' => $user->id]); // Store user ID in session
+                    return redirect()->route('frontend.home.private')->with([
+                        'message' => 'Login successful!',
+                        'alert-type' => 'success'
+                    ]);
+                } else {
+                    return redirect()->back()->with([
+                        'message' => 'Your account is pending approval. Please wait for admin approval.',
+                        'alert-type' => 'warning'
+                    ]);
+                }
             }
         }
 
