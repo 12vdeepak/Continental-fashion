@@ -326,7 +326,7 @@
 
                     <div class="mt-6 text-center">
                         <a href="{{ route('frontend.confirm-order') }}">
-                            <button id="closePopup" class="bg-[#54114C] text-white px-6 py-3 rounded-lg text-lg w-full">
+                            <button class="bg-[#54114C] text-white px-6 py-3 rounded-lg text-lg w-full">
                                 Continue Shopping
                             </button>
                         </a>
