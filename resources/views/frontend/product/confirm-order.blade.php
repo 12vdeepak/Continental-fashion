@@ -275,8 +275,12 @@
                 class="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50 {{ session()->has('orderDetails') && !empty(session('orderDetails')) ? '' : 'hidden' }}">
                 <div id="popupContent" class="bg-white rounded-xl shadow-lg w-[500px] p-6 relative">
                     <!-- Close Button -->
-                    <button id="closePopupBtn"
-                        class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">&times;</button>
+                    <a href="{{ route('frontend.confirm-order') }}">
+                        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">
+                            &times;
+                        </button>
+                    </a>
+
 
                     <!-- Success Icon -->
                     <div class="flex justify-center">
@@ -325,7 +329,7 @@
                     @endif
 
                     <div class="mt-6 text-center">
-                        <a href="{{ route('frontend.confirm-order') }}">
+                        <a href="{{ route('frontend.all.product') }}">
                             <button class="bg-[#54114C] text-white px-6 py-3 rounded-lg text-lg w-full">
                                 Continue Shopping
                             </button>
