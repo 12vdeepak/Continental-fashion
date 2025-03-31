@@ -8,7 +8,7 @@
     </style>
 @endsection
 <main>
-    <section id="registerPage" class=" w-full">
+    <section id="registerPage" class="w-full ">
         <!-- pageNavShow -->
         <div id="pageNavShow " class="flex items-center bg-[#F4F4F4] gap-4 py-4 px-4  lg:px-[120px] ">
             <div class="backIcon">
@@ -70,8 +70,8 @@
 
                 @csrf
                 <!-- form line 1 -->
-                <div id="company_Street " class="flex flex-col lg:flex-row w-full gap-3 lg:gap-10 ">
-                    <div class="flex flex-col  lg:w-1/2 gap-1">
+                <div id="company_Street " class="flex flex-col w-full gap-3 lg:flex-row lg:gap-10 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2">
 
 
                         <label for="country">Company Name <span class="text-red-500">*</span></label>
@@ -81,7 +81,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="flex flex-col lg:w-1/2 gap-1 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2 ">
 
 
                         <label for="street">Street <span class="text-red-500">*</span></label>
@@ -94,8 +94,8 @@
 
                 </div>
                 <!-- zipcode city -->
-                <div id="zipCode_City" class="flex flex-col lg:flex-row w-full gap-3 lg:gap-10 ">
-                    <div class="flex flex-col lg:w-1/2 gap-1">
+                <div id="zipCode_City" class="flex flex-col w-full gap-3 lg:flex-row lg:gap-10 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2">
 
 
                         <label for="zipCode">Zip Code <span class="text-red-500">*</spa></label>
@@ -105,7 +105,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class=" flex flex-col lg:w-1/2 gap-1 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2">
 
 
                         <label for="city">City <span class="text-red-500">*</span></label>
@@ -117,8 +117,8 @@
                     </div>
 
                 </div>
-                <div id="country_PhoneNumber " class="flex flex-col lg:flex-row w-full gap-3 lg:gap-10 ">
-                    <div class="flex flex-col lg:w-1/2 gap-1">
+                <div id="country_PhoneNumber " class="flex flex-col w-full gap-3 lg:flex-row lg:gap-10 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2">
 
 
                         <label for="country">Country <span class="text-red-500">*</span></label>
@@ -128,7 +128,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="flex flex-col lg:w-1/2 gap-1 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2 ">
 
 
                         <label for="phoneNumber">Phone Number <span class="text-red-500">*</span></label>
@@ -150,7 +150,7 @@
                             <option value="female">Female</option>
                             <option value="other">Other</option>
                         </select>
-                        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                        <div class="absolute inset-y-0 flex items-center pointer-events-none right-4">
                             <img src="{{ asset('frontend/assets/images/arrowDown.svg') }}" alt="">
                         </div>
                         @error('gender')
@@ -160,8 +160,8 @@
                 </div>
                 <!-- == Name field == -->
 
-                <div id="name_fields " class="flex flex-col lg:flex-row w-full gap-3 lg:gap-10  ">
-                    <div class="flex flex-col lg:w-1/2 gap-1">
+                <div id="name_fields " class="flex flex-col w-full gap-3 lg:flex-row lg:gap-10 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2">
 
 
                         <label for="firstName">First Name <span class="text-red-500">*</span></label>
@@ -171,7 +171,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="flex flex-col lg:w-1/2 gap-1 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2 ">
 
 
                         <label for="lastName">Last Name <span class="text-red-500">*</span></label>
@@ -187,7 +187,7 @@
 
                 <!-- == SuperVisory And email ==   -->
 
-                <div id="SuperVisory_And_Email " class="flex flex-col lg:flex-row w-full gap-3 lg:gap-10  ">
+                <div id="SuperVisory_And_Email " class="flex flex-col w-full gap-3 lg:flex-row lg:gap-10 ">
                     <div class="flex flex-col gap-1 text-[#6E6E6E] lg:w-1/2">
                         <label for="supervisory" class="text-zinc-900">Supervisory <span
                                 class="text-red-500">*</span></label>
@@ -199,7 +199,7 @@
                                 <option value="female">Female</option>
                                 <option value="other">Other</option>
                             </select>
-                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                            <div class="absolute inset-y-0 flex items-center pointer-events-none right-4">
                                 <img src="{{ asset('frontend/assets/images/arrowDown.svg') }}" alt="">
                             </div>
                             @error('supervisory')
@@ -207,7 +207,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="flex flex-col lg:w-1/2 gap-1 ">
+                    <div class="flex flex-col gap-1 lg:w-1/2 ">
 
 
                         <label for="emailAddress">Email Address <span class="text-red-500">*</span></label>
@@ -222,9 +222,9 @@
 
 
                 <!-- == Password Fields == -->
-                <div id="password_fields" class="flex flex-col lg:flex-row w-full gap-3 lg:gap-10">
+                <div id="password_fields" class="flex flex-col w-full gap-3 lg:flex-row lg:gap-10">
                     <!-- New Password -->
-                    <div class="flex flex-col lg:w-1/2 gap-1 relative">
+                    <div class="relative flex flex-col gap-1 lg:w-1/2">
                         <label for="newPassword">Password <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input type="password" name="new_password" id="newPassword"
@@ -232,17 +232,17 @@
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-2xl p-[16px] w-full focus:outline-none focus:ring-2 focus:ring-purple-500 @error('new_password') is-invalid @enderror"
                                 onkeyup="validatePassword()">
                             <button type="button" id="toggleNewPassword"
-                                class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                class="absolute transform -translate-y-1/2 right-4 top-1/2">
                                 👁️
                             </button>
                         </div>
                         @error('new_password')
-                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                            <div class="text-sm text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <!-- Confirm New Password -->
-                    <div class="flex flex-col lg:w-1/2 gap-1 relative">
+                    <div class="relative flex flex-col gap-1 lg:w-1/2">
                         <label for="confirmPassword">Re-confirm Password <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <input type="password" id="confirmPassword" name="new_password_confirmation"
@@ -250,13 +250,13 @@
                                 class="border border-gray-300 bg-[#F4F4F4] rounded-2xl p-[16px] w-full focus:outline-none focus:ring-2 focus:ring-purple-500 @error('new_password_confirmation') is-invalid @enderror"
                                 onkeyup="validatePassword()">
                             <button type="button" id="toggleConfirmPassword"
-                                class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                class="absolute transform -translate-y-1/2 right-4 top-1/2">
                                 👁️
                             </button>
                         </div>
-                        <span id="passwordError" class="text-red-500 text-sm hidden">Passwords do not match!</span>
+                        <span id="passwordError" class="hidden text-sm text-red-500">Passwords do not match!</span>
                         @error('new_password_confirmation')
-                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                            <div class="text-sm text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -280,14 +280,14 @@
                     class="flex flex-col w-full gap-10 bg-[#F4F4F4] rounded-2xl p-4 border border-gray-300 my-5 ">
 
                     <!-- <div class="checkBoxAndText">
-                                    <div class="flex   gap-2">
+                                    <div class="flex gap-2">
 
 
                                         <input type="checkbox" id="noVAT"
                                             class="border border-gray-300 rounded-2xl p-[16px] focus:outline-none focus:ring-2 focus:ring-purple-500">
                                         <label for="noVAT"> I have no VAT ID <span class="text-red-500">*</span></label>
                                     </div>
-                                    <p class="text-gray-500 text-sm mt-2">
+                                    <p class="mt-2 text-sm text-gray-500">
                                         Please note, if you have a VAT ID and don’t insert it, later changes of the invoices are not
                                         possible.
                                     </p>
@@ -318,7 +318,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="businessRegistration">Your Business Registration <span
                                 class="text-red-500">*</span>
-                            <span class="text-blue-500 text-sm">(only with new customer registration)</span></label>
+                            <span class="text-sm text-blue-500">(only with new customer registration)</span></label>
 
                         <div
                             class="border border-gray-300 bg-[#F4F4F4] rounded-2xl p-[16px] flex items-center justify-between cursor-pointer">
@@ -340,9 +340,9 @@
                             @enderror
 
                         </div>
-                        <div class="instructionBusinessReg flex flex-col gap-2 mt-3">
-                            <p class="text-sm text-blue-500 font-medium">Note: Upload only pdf</p>
-                            <p class="text-[#6E6E6E]"> <span class="text-zinc-700 font-medium"> Alternatively: </span>
+                        <div class="flex flex-col gap-2 mt-3 instructionBusinessReg">
+                            <p class="text-sm font-medium text-blue-500">Note: Upload only pdf</p>
+                            <p class="text-[#6E6E6E]"> <span class="font-medium text-zinc-700"> Alternatively: </span>
                                 Send your business registration afterwards</p>
                             <p class="text-[#6E6E6E]">By Mail to: MAPROM GmbH, Rohrweg 33, 37671 Höxter</p>
                             <!-- <p class="text-[#6E6E6E]">By Fax to: 05271 9719-99</p> -->
@@ -359,6 +359,7 @@
                 <!-- Note Field  -->
 
                 <div class="flex flex-col gap-1">
+                    <label for="note">Street <span class="text-red-500">*</span></label>
                     <label for="note">Enter your note</label>
                     <textarea id="note" name="note" placeholder="Write Your Note Here..."
                         class="border border-gray-300 bg-[#F4F4F4] rounded-2xl p-[16px] focus:outline-none focus:ring-2 focus:ring-purple-500 h-32 overflow-hidden resize-none @error('note') is-invalid @enderror">{{ old('note') }}</textarea>
@@ -367,7 +368,7 @@
                     @enderror
                 </div>
 
-                <div class="flex   gap-2">
+                <div class="flex gap-2">
 
 
                     <input type="checkbox" id="terms_Conditions" name="terms_accepted"
@@ -402,19 +403,19 @@
             </form>
         </div>
         <!-- Add this success modal HTML right after your form closing div -->
-        <div id="successModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-            <div class="bg-white rounded-2xl p-8 max-w-md w-full">
+        <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+            <div class="w-full max-w-md p-8 bg-white rounded-2xl">
                 <div class="text-center">
-                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full">
                         <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Your Account Registration request send
+                    <h3 class="mb-2 text-2xl font-bold text-gray-900">Your Account Registration request send
                         Successful!</h3>
-                    <p class="text-gray-600 mb-6">Your account Registration request has been send successfully and you
+                    <p class="mb-6 text-gray-600">Your account Registration request has been send successfully and you
                         will receive Confirmation mail soon.</p>
                     <button onclick="closeModal()"
                         class="bg-[#54114C] text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition">
