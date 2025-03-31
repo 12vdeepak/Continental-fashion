@@ -61,7 +61,7 @@
 </head>
 
 <body>
-    <div class="text-center border-b pb-4 mb-4">
+    <div class="pb-4 mb-4 text-center border-b">
         <h1 style="font-size: 24px; color: #54114C;">Continental Fashion Merchandising UG (Limited Liability)</h1>
         <p>Manufacturer, Importer, Exporter & Wholesaler</p>
     </div>
@@ -69,7 +69,7 @@
     <div style="text-align: center; margin-bottom: 1rem;">
         <h2 style="font-size: 18px;">Our Brands</h2>
         <div
-            style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 3rem; margin-top: 1.5rem;">
+            style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 5rem; margin-top: 1.5rem;">
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/design.png'))) }}"
                 alt="Basic Wear" style="max-width: 150px; height: auto;">
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('frontend/assets/images/design1.png'))) }}"
@@ -78,6 +78,7 @@
                 alt="Fleet Active Wear" style="max-width: 150px; height: auto;">
         </div>
     </div>
+
 
 
 
