@@ -29,18 +29,18 @@
 
                 @if ($cartItems->isEmpty())
                     <!-- No Products Available -->
-                    <div class="text-center p-10 bg-gray-100 rounded-lg">
-                        <img src="{{ asset('frontend/assets/images/cart.jpeg') }}" alt="Empty Cart" class="mx-auto w-32">
-                        <h2 class="text-lg font-bold mt-4">Your cart is empty</h2>
+                    <div class="p-10 text-center bg-gray-100 rounded-lg">
+                        <img src="{{ asset('frontend/assets/images/cart.jpeg') }}" alt="Empty Cart" class="w-32 mx-auto">
+                        <h2 class="mt-4 text-lg font-bold">Your cart is empty</h2>
                         <p class="text-gray-500">Looks like you haven't added any products yet.</p>
-                        <a href="{{ route('frontend.home.private') }}"
+                        <a href="{{ route('frontend.all.product') }}"
                             class="mt-4 inline-block bg-[#54114C] text-white px-6 py-2 rounded-lg">
                             Start Shopping
                         </a>
                     </div>
                 @else
                     <!-- Desktop Table Layout -->
-                    <div class="hidden sm:block overflow-x-auto">
+                    <div class="hidden overflow-x-auto sm:block">
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="text-left bg-gray-100">
@@ -58,7 +58,7 @@
                                 @foreach ($cartItems as $key => $item)
                                     <tr class="border-b border-gray-300">
                                         <td class="p-3">{{ $key + 1 }}</td>
-                                        <td class="p-3 flex items-center">
+                                        <td class="flex items-center p-3">
                                             @php
                                                 // Get the correct image that matches the selected color
                                                 $image = $item->product->images
@@ -85,15 +85,15 @@
                                                         <!-- Decrease Quantity -->
                                                         <button type="submit" name="quantity"
                                                             value="{{ max(1, $item->quantity - 1) }}"
-                                                            class="decrease text-black rounded-md text-md px-3">−</button>
+                                                            class="px-3 text-black rounded-md decrease text-md">−</button>
 
                                                         <span
-                                                            class="quantity text-gray-800 font-medium text-md">{{ $item->quantity }}</span>
+                                                            class="font-medium text-gray-800 quantity text-md">{{ $item->quantity }}</span>
 
                                                         <!-- Increase Quantity -->
                                                         <button type="submit" name="quantity"
                                                             value="{{ $item->quantity + 1 }}"
-                                                            class="increase text-black rounded-md text-md px-3">+</button>
+                                                            class="px-3 text-black rounded-md increase text-md">+</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -119,7 +119,7 @@
                     </div>
 
                     <!-- Mobile List View -->
-                    <div class="sm:hidden space-y-4">
+                    <div class="space-y-4 sm:hidden">
                         @foreach ($cartItems as $key => $item)
                             @php
                                 $image = $item->product->images->where('color_id', $item->color_id)->first();
@@ -128,7 +128,7 @@
                                     : asset('frontend/assets/images/default-image.png');
                             @endphp
 
-                            <div class="bg-white p-4 shadow rounded-lg flex flex-col gap-2">
+                            <div class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow">
                                 <!-- Product Info -->
                                 <div class="flex items-center">
                                     <img src="{{ $imagePath }}" class="w-16 h-16 mr-3 rounded-lg" alt="Product">
@@ -140,25 +140,25 @@
                                 </div>
 
                                 <!-- Quantity Control -->
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-700 font-medium">Quantity:</span>
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium text-gray-700">Quantity:</span>
                                     <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                         @csrf
                                         @method('POST')
-                                        <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
+                                        <div class="flex items-center gap-3 p-2 bg-gray-100 rounded-xl">
                                             <button type="submit" name="quantity"
                                                 value="{{ max(1, $item->quantity - 1) }}"
-                                                class="text-black text-md px-3">−</button>
-                                            <span class="text-gray-800 font-medium">{{ $item->quantity }}</span>
+                                                class="px-3 text-black text-md">−</button>
+                                            <span class="font-medium text-gray-800">{{ $item->quantity }}</span>
                                             <button type="submit" name="quantity" value="{{ $item->quantity + 1 }}"
-                                                class="text-black text-md px-3">+</button>
+                                                class="px-3 text-black text-md">+</button>
                                         </div>
                                     </form>
                                 </div>
 
                                 <!-- Price and Action -->
-                                <div class="flex justify-between items-center">
-                                    <p class="text-gray-800 font-medium">Total: <span
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium text-gray-800">Total: <span
                                             class="font-semibold">€{{ number_format($item->price * $item->quantity, 2) }}</span>
                                     </p>
                                     <form action="{{ route('cart.remove', $item->id) }}" method="POST">
@@ -177,7 +177,7 @@
                     <div class="mt-6 bg-[#F4F4F4] p-8 rounded-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <h3 class="text-lg font-bold">Payment summary</h3>
-                            <p class="text-gray-500 text-sm">Total cost consists of temporary costs, not including
+                            <p class="text-sm text-gray-500">Total cost consists of temporary costs, not including
                                 shipping.</p>
                         </div>
                         <div class="text-right sm:text-left">
@@ -186,7 +186,7 @@
                                 <span
                                     class="net-amount">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
                             </p>
-                            <p class="flex justify-between text-md font-semibold mt-3 border-y border-dashed">
+                            <p class="flex justify-between mt-3 font-semibold border-dashed text-md border-y">
                                 <span>Final amount:</span>
                                 <span
                                     class="final-amount text-[#3CC4D5]">€{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity), 2) }}</span>
@@ -239,14 +239,14 @@
                             <div class="relative product w-full md:w-1/2 lg:w-[25vw] flex-shrink-0 snap-start">
                                 @if ($related->sale_percentage)
                                     <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm px-2 lg:px-3 py-1 rounded-md">
+                                        class="absolute px-2 py-1 text-sm text-white rounded-md top-5 left-2 bg-sky-500 lg:px-3">
                                         {{ $related->sale_percentage }}% offer
                                     </div>
                                 @endif
                                 <div
                                     class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
                                     <img src="{{ asset('storage/' . optional($related->images->first())->image_path) }}"
-                                        alt="{{ $related->name }}" class="w-full h-full object-cover rounded-xl">
+                                        alt="{{ $related->name }}" class="object-cover w-full h-full rounded-xl">
                                 </div>
 
 
@@ -288,7 +288,7 @@
                         @endforeach
                     </div>
                 @else
-                    <p class="text-center text-lg text-gray-500">No related products available.</p>
+                    <p class="text-lg text-center text-gray-500">No related products available.</p>
                 @endif
             </div>
         </section>
@@ -330,7 +330,7 @@
                                 <div
                                     class="mb-4 productImage w-full h-[300px] overflow-hidden flex justify-center items-center">
                                     <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
-                                        alt="{{ $product->name }}" class="w-full h-full object-cover rounded-xl">
+                                        alt="{{ $product->name }}" class="object-cover w-full h-full rounded-xl">
                                 </div>
 
                                 <div class="flex items-center justify-between mb-3 productSubIcons">
@@ -338,7 +338,7 @@
                                     {{--  <div class="flex items-center justify-between gap-2 productIconSet">
                                         @if ($product->category)
                                             <span
-                                                class="text-gray-700 font-medium">{{ $product->category->category_name }}</span>
+                                                class="font-medium text-gray-700">{{ $product->category->category_name }}</span>
                                         @endif
                                     </div>  --}}
                                 </div>
@@ -373,7 +373,7 @@
 
                     </div>
                 @else
-                    <p class="text-center text-lg text-gray-500">No recent products available.</p>
+                    <p class="text-lg text-center text-gray-500">No recent products available.</p>
                 @endif
             </div>
         </section>
