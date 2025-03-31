@@ -49,6 +49,12 @@ class FrontendController extends Controller
     }
 
 
+    public function imprint()
+    {
+        $categories = Category::with('subcategories')->get();
+        return view('frontend.imprint', compact('categories'));
+    }
+
 
 
 
