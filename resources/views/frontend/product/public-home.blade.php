@@ -85,9 +85,10 @@
             <div class="container mx-auto text-center">
                 <h2 class="mb-2 text-xl font-bold md:text-3xl">Stock items - available immediate delivery</h2>
                 <img src="{{ asset('frontend/assets/images/featured_brand.png') }}"
-                    class="object-contain mx-auto h-80 md:h-100">
+                    class="object-contain mx-auto h-80 md:h-[500px] lg:h-[600px] w-auto">
             </div>
         </section>
+
 
 
 
