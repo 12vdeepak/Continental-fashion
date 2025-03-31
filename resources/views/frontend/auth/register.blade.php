@@ -375,7 +375,8 @@
                         class="border border-gray-300 rounded-2xl p-[16px] focus:outline-none @error('terms_accepted') is-invalid @enderror"
                         {{ old('terms_accepted') ? 'checked' : '' }}>
                     <label for="terms_Conditions" class="text-[#6E6E6E]"> I have read <span
-                            class="text-blue-500">privacy policy</span> and <span class="text-blue-500"> terms and
+                            class="text-blue-500">privacy policy</span> <span class="text-red-500">*</span>and <span
+                            class="text-blue-500"> terms and
                             conditions</span> <span class="text-red-500">*</span></label>
                     @error('terms_accepted')
                         <div class="invalid-feedback">{{ $message }}</div>
