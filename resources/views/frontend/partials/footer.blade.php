@@ -11,8 +11,11 @@
 
             <div class="flex items-center gap-3 text-lg">
                 <img src="{{ asset('frontend/assets/images/phoneIcon.svg') }}" alt="Phone">
-                <span>+49 6108 826960</span>
+                <a href="tel:+496108826960">
+                    +49 6108 826960
+                </a>
             </div>
+
             <div class="flex items-center gap-3 text-lg">
                 <img src="{{ asset('frontend/assets/images/mailIcon.svg') }}" alt="Email">
                 <a href="mailto:sales@continental-fashion.de">
