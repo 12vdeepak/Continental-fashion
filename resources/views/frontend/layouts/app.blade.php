@@ -11,14 +11,14 @@
 
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/global.css') }}">
+    {{--  <link rel="stylesheet" href="{{ asset('frontend/assets/css/index.global.js') }}">  --}}
 
 
     <!-- ======= TAILWIND CDN LINK - start  ====== -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <!-- ======= TAILWIND CDN LINK - end ====== -->
 
     <!-- ==== Icon Pack Lucide -- start  ==== -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    {{--  <script src="https://unpkg.com/lucide@latest"></script>  --}}
     <!-- ==== Icon Pack Lucide -- end  ==== -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
@@ -227,6 +227,7 @@
     <script></script>
 
 
+    <script src="{{ asset('frontend/assets/css/index.global.js') }}"></script>
 
 
     <!-- ==== Importing main js - start ==== -->
