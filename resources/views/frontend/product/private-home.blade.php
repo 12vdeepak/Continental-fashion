@@ -6,17 +6,17 @@
         <section id="carouselSection" class="flex items-center justify-center h-[70vh]">
             <div class="relative w-full h-[70vh] overflow-hidden rounded-lg" id="carousel">
                 <!-- Background Image -->
-                <div class="absolute inset-0 bg-cover bg-top transition-all duration-500" id="bannerContainer"></div>
+                <div class="absolute inset-0 transition-all duration-500 bg-top bg-cover" id="bannerContainer"></div>
                 <div class="absolute inset-0 bg-black/50"></div>
 
                 <!-- Static Content -->
                 <div
                     class="relative z-10 flex flex-col justify-end items-end w-full h-full px-6 sm:px-12 md:px-16 lg:px-[100px] py-8 text-white">
                     <div class="contentCarousel w-full sm:max-w-[80%] md:max-w-[50%] lg:max-w-[30vw]">
-                        <h2 id="title" class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+                        <h2 id="title" class="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
                             <!-- Dynamic title will be inserted here -->
                         </h2>
-                        <p id="description" class="mt-4 text-base sm:text-lg md:text-xl w-full">
+                        <p id="description" class="w-full mt-4 text-base sm:text-lg md:text-xl">
                             <!-- Dynamic description will be inserted here -->
                         </p>
                         <a href="{{ route('frontend.all.product') }}">
@@ -30,11 +30,11 @@
 
                 <!-- Navigation Buttons -->
                 <button id="prevSlide"
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-300 text-white p-3 rounded-full h-8 w-8 lg:h-12 lg:w-12 flex items-center justify-center z-10">
+                    class="absolute z-10 flex items-center justify-center w-8 h-8 p-3 text-white transform -translate-y-1/2 bg-gray-100 rounded-full left-4 top-1/2 hover:bg-gray-300 lg:h-12 lg:w-12">
                     <img src="{{ asset('frontend/assets/images/productBack.svg') }}" alt="Previous">
                 </button>
                 <button id="nextSlide"
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-300 text-white p-3 rounded-full h-8 w-8 lg:h-12 lg:w-12 flex items-center justify-center z-10">
+                    class="absolute z-10 flex items-center justify-center w-8 h-8 p-3 text-white transform -translate-y-1/2 bg-gray-100 rounded-full right-4 top-1/2 hover:bg-gray-300 lg:h-12 lg:w-12">
                     <img src="{{ asset('frontend/assets/images/forwardArrow.svg') }}" alt="Next">
                 </button>
             </div>
@@ -45,34 +45,34 @@
         <br><br>
         <section id="brandLogos" class="w-full py-10 bg-gray-100">
             <div class="container mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-6">Our Trusted Brands</h2>
-                <div class="overflow-hidden relative">
+                <h2 class="mb-6 text-3xl font-bold text-center">Our Trusted Brands</h2>
+                <div class="relative overflow-hidden">
                     <div class="flex gap-10 animate-scroll whitespace-nowrap"
                         onmouseover="this.style.animationPlayState='paused'"
                         onmouseout="this.style.animationPlayState='running'">
 
                         <!-- Ensure only valid images are included -->
                         <img src="{{ asset('frontend/assets/images/basic_wear.jpg') }}"
-                            class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
                         <img src="{{ asset('frontend/assets/images/blank_cheque.png') }}"
-                            class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
                         <img src="{{ asset('frontend/assets/images/blue_pacific.jpg') }}"
-                            class="h-20 max-w-none object-contain">
-                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="h-20 max-w-none object-contain">
-                        <img src="{{ asset('frontend/assets/images/russell.png') }}" class="h-20 max-w-none object-contain">
-                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
+                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="object-contain h-20 max-w-none">
+                        <img src="{{ asset('frontend/assets/images/russell.png') }}" class="object-contain h-20 max-w-none">
+                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="object-contain h-20 max-w-none">
 
                         <!-- Repeat images for smooth scrolling -->
                         <img src="{{ asset('frontend/assets/images/basic_wear.jpg') }}"
-                            class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
                         <img src="{{ asset('frontend/assets/images/blank_cheque.png') }}"
-                            class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
                         <img src="{{ asset('frontend/assets/images/blue_pacific.jpg') }}"
-                            class="h-20 max-w-none object-contain">
-                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
+                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="object-contain h-20 max-w-none">
                         <img src="{{ asset('frontend/assets/images/russell.png') }}"
-                            class="h-20 max-w-none object-contain">
-                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="h-20 max-w-none object-contain">
+                            class="object-contain h-20 max-w-none">
+                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="object-contain h-20 max-w-none">
                     </div>
                 </div>
             </div>
@@ -81,11 +81,23 @@
         </section>
 
 
+        <br><br>
+        <section id="singleImage" class="w-full py-2 bg-white md:py-8">
+            <div class="container mx-auto text-center">
+                <h2 class="mb-2 text-xl font-bold md:text-3xl">Stock items - available immediate delivery</h2>
+                <img src="{{ asset('frontend/assets/images/featured_brand.png') }}"
+                    class="object-contain mx-auto h-80 md:h-100">
+            </div>
+        </section>
+
+
+
+
         <!-- === Benifits of purchasing from us ==== -->
 
         <section id="benifits_of_purchasing" class="flex flex-col gap-10 px-4 lg:px-[120px] my-[80px]">
 
-            <div class="heading_description flex flex-col items-center justify-center gap-3">
+            <div class="flex flex-col items-center justify-center gap-3 heading_description">
 
                 <div class="title text-[58px] font-bold text-center leading-[75px] ">Benefits Of Purchasing <br> With Us
                 </div>
@@ -93,11 +105,11 @@
                     fit every occasion and style. <br> From bold to classic, we’ve got you covered</div>
 
             </div>
-            <div class="image_gallery flex  flex-col justify-between   gap-5 ">
-                <div class="sectionSecond flex  justify-between  w-full    gap-5">
+            <div class="flex flex-col justify-between gap-5 image_gallery ">
+                <div class="flex justify-between w-full gap-5 sectionSecond">
                     <div
                         class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute rounded-3xl inset-0 custom-gradient"></div>
+                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
 
                         <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
                             High Stock Availability
@@ -105,7 +117,7 @@
                     </div>
                     <div
                         class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute rounded-3xl inset-0 custom-gradient"></div>
+                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
 
                         <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
                             High Stock Availability
@@ -113,10 +125,10 @@
                     </div>
 
                 </div>
-                <div class="sectionSecond flex  justify-between  w-full    gap-5">
+                <div class="flex justify-between w-full gap-5 sectionSecond">
                     <div
                         class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute rounded-3xl inset-0 custom-gradient"></div>
+                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
 
                         <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
                             High Stock Availability
@@ -124,7 +136,7 @@
                     </div>
                     <div
                         class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute rounded-3xl inset-0 custom-gradient"></div>
+                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
 
                         <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
                             High Stock Availability
@@ -142,8 +154,8 @@
 
             <!-- ============ heading description and button ====================== -->
 
-            <div id="heading_Button" class="flex flex-col justify-between lg:flex-row lg:items-end  ">
-                <div class="heading_description flex flex-col  ">
+            <div id="heading_Button" class="flex flex-col justify-between lg:flex-row lg:items-end ">
+                <div class="flex flex-col heading_description ">
                     <div class="heading_news_offer text-[32px] lg:text-[58px] font-bold  ">
                         Our Popular Category
                     </div>
@@ -165,26 +177,26 @@
             <div id="product_showcase" class="my-[50px] flex flex-col gap-10 w-full">
                 @if ($products->isEmpty())
                     <!-- No Products Message -->
-                    <div class="text-center text-gray-500 text-lg font-semibold">
+                    <div class="text-lg font-semibold text-center text-gray-500">
                         No products available.
                     </div>
                 @else
                     @foreach ($products->chunk(3) as $productRow)
                         <!-- Each Row -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                        <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             @foreach ($productRow as $product)
                                 <a href="{{ route('frontend.all.product-page', $product->id) }}" class="w-full">
                                     <div
-                                        class="productCard flex flex-col w-full bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                                        class="flex flex-col w-full transition-shadow duration-300 bg-white shadow-md productCard rounded-2xl hover:shadow-lg">
                                         <div
                                             class="w-full h-[300px] overflow-hidden flex justify-center items-center bg-gray-100 rounded-t-2xl">
                                             @if ($product->images->isNotEmpty())
                                                 <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded-t-2xl"
+                                                    class="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-2xl"
                                                     alt="{{ $product->product_name }}">
                                             @else
                                                 <img src="{{ asset('frontend/assets/images/default-placeholder.jpg') }}"
-                                                    class="w-full h-full object-cover rounded-t-2xl"
+                                                    class="object-cover w-full h-full rounded-t-2xl"
                                                     alt="No Image Available">
                                             @endif
                                         </div>
@@ -219,7 +231,7 @@
 
         <!-- ===== News And Offer ====== -->
         <section id="newsAndOffer" class="px-4 w-full lg:px-[120px] my-[80px]">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between">
+            <div class="flex flex-col justify-between lg:flex-row lg:items-end">
                 <div>
                     <h2 class="text-[32px] lg:text-[58px] font-bold">News & Offer</h2>
                     <p class="mt-2 text-[16px] text-gray-600 max-w-2xl">
@@ -231,12 +243,12 @@
 
             <div class="mt-[50px] space-y-10">
                 @foreach ($newsOffers->chunk(3) as $chunk)
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($chunk as $newsOffer)
-                            <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <div class="transition-shadow duration-300 bg-white shadow-md rounded-2xl hover:shadow-lg">
                                 <div class="w-full h-[250px] overflow-hidden rounded-t-2xl bg-gray-200">
                                     <img src="{{ asset('storage/' . $newsOffer->image) }}" alt="{{ $newsOffer->title }}"
-                                        class="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105">
+                                        class="object-cover object-top w-full h-full transition-transform duration-300 hover:scale-105">
                                 </div>
                                 <div class="p-4">
                                     <h3 class="text-[20px] sm:text-[22px] lg:text-[24px] font-medium">
@@ -258,16 +270,16 @@
 
         <section id="benifits_of_purchasing" class="flex flex-col gap-10 px-4 lg:px-[120px] my-[80px]">
 
-            <div class="heading_description flex flex-col items-center justify-center gap-3">
+            <div class="flex flex-col items-center justify-center gap-3 heading_description">
 
                 <div class="title text-[32px] text-[58px] font-bold text-center leading-[75px] ">Why people trust us?</div>
                 <div class="description text-md text-[#6E6E6E] text-center ">Browse our exclusive collections designed to
                     fit every occasion and style. <br> From bold to classic, we’ve got you covered</div>
 
             </div>
-            <div class="image_gallery flex justify-between flex-col lg:flex-row   gap-10 ">
+            <div class="flex flex-col justify-between gap-10 image_gallery lg:flex-row ">
                 <div class="sectionFirst flex flex-col bg-[#F4F4F4] rounded-3xl p-10 ">
-                    <div class="bigRoundSvg mb-2">
+                    <div class="mb-2 bigRoundSvg">
                         <img src="{{ asset('frontend/assets/images/rocket.svg') }}" alt="">
                     </div>
                     <div class="headingShort text-[24px] font-medium mt-5 mb-3  ">More than 35 years of experience </div>
@@ -292,7 +304,7 @@
 
                 </div>
                 <div class="sectionSecond flex flex-col bg-[#F4F4F4] rounded-3xl p-10  ">
-                    <div class="bigRoundSvg mb-2">
+                    <div class="mb-2 bigRoundSvg">
                         <img src="{{ asset('frontend/assets/images/rocket.svg') }}" alt="">
                     </div>
                     <div class="headingShort text-[24px] font-medium mt-5 mb-3  ">More than 35 years of experience </div>
