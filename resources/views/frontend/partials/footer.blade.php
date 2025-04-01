@@ -40,7 +40,15 @@
                 <li><a href="{{ route('frontend.terms') }}" class="transition hover:text-purple-400">Terms &
                         Conditions</a></li>
                 <li><a href="#" class="transition hover:text-purple-400">Delivery Conditions</a></li>
-                <li><a href="#" class="transition hover:text-purple-400">Cancellation & Returns</a></li>
+                <li>
+                    <a href="{{ asset('frontend/assets/pdf/RETURN_CANCELLATION.pdf') }}" target="_blank"
+                        class="transition hover:text-purple-400">
+                        Cancellation & Returns
+                    </a>
+                </li>
+
+
+
             </ul>
         </div>
 
@@ -49,9 +57,11 @@
             <h3 class="mb-4 text-xl font-bold">Quick Links</h3>
             <ul class="space-y-2">
                 <li><a href="#" class="transition hover:text-purple-400">FAQ</a></li>
-                <li><a href="#" class="transition hover:text-purple-400">Download Pricelist</a></li>
+                <li><a href="{{ asset('frontend/assets/pdf/price_list.pdf') }}" target="_blank"
+                        class="transition hover:text-purple-400">Download Pricelist</a></li>
                 <li><a href="#" class="transition hover:text-purple-400">Measurement Charts</a></li>
-                <li><a href="#" class="transition hover:text-purple-400">Shipping Cost</a></li>
+                <li><a href="{{ asset('frontend/assets/pdf/shipping_cost.pdf') }}" target="_blank"
+                        class="transition hover:text-purple-400">Shipping Cost</a></li>
             </ul>
         </div>
 
