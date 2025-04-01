@@ -28,10 +28,10 @@ class BannerRequest extends FormRequest
 
         if ($this->isMethod('post')) {
             // Validation rules for creation
-            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif';
         } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
             // Validation rules for updating
-            $rules['image'] = 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['image'] = 'sometimes|image|mimes:jpeg,png,jpg,gif';
         }
 
         return $rules;
