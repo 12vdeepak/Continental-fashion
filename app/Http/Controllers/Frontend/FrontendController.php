@@ -30,11 +30,13 @@ class FrontendController extends Controller
 
     public function publicPrivateHome()
     {
-        $products = Product::with(['brand', 'images', 'colors', 'sizes'])->get();
+        $products = Product::with(['brands', 'images', 'colors', 'sizes'])->get();
         $categories = Category::with('subcategories')->get();
         $banners = Banner::all();
         $newsOffers = NewsOffer::where('status', 1)->get();
-        return view('frontend.product.public-home', compact('products', 'categories', 'banners', 'newsOffers'));
+        $brands = Brand::whereNotNull('brand_logo')->get(); // Fetch brands with logos
+
+        return view('frontend.product.public-home', compact('products', 'categories', 'banners', 'newsOffers', 'brands'));
     }
 
     public function aboutUs()
