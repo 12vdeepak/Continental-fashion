@@ -15,16 +15,32 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function allProduct()
+    public function allProduct(Request $request)
     {
-        $products = Product::with(['brand', 'images', 'colors', 'imageColors',  'sizes', 'article', 'promotion', 'category', 'wear'])
-            ->paginate(9); // 9 products per page
+        $sortBy = $request->query('sort', 'newest'); // Default sorting by newest
+
+        $query = Product::with(['brand', 'images', 'colors', 'imageColors', 'sizes', 'article', 'promotion', 'category', 'wear']);
+
+        // Apply sorting
+        switch ($sortBy) {
+            case 'price_low_high':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high_low':
+                $query->orderBy('price', 'desc');
+                break;
+            default: // Newest by default
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $products = $query->paginate(9); // 9 products per page
         $categories = Category::with('subcategories')->get();
 
-        // dd($products);
-
-        return view('frontend.product.all-product', compact('products', 'categories'));
+        return view('frontend.product.all-product', compact('products', 'categories', 'sortBy'));
     }
+
+
 
 
     public function specialProduct()

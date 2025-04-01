@@ -255,6 +255,7 @@
     </script>
     <!-- ==== Importing main js - end ==== -->
 
+
     <script>
         // js for popup
 
@@ -299,6 +300,11 @@
             }
         }
     </script>
+
+
+
+
+
     <script>
         function changeImage(imageSrc) {
             document.getElementById('mainImage').src = imageSrc;

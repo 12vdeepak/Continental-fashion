@@ -26,7 +26,7 @@
                 All Products
             </div>
 
-            <div class="mainContent flex  flex-col  lg:flex-row gap-5 ">
+            <div class="flex flex-col gap-5 mainContent lg:flex-row ">
                 <!-- === filter section ===== -->
                 <div class="filterDropDown lg:w-[25%]    ">
 
@@ -51,7 +51,7 @@
                         </button>
 
                         <!-- Category Filters -->
-                        <div class="category_filter_dropDown space-y-2  ">
+                        <div class="space-y-2 category_filter_dropDown ">
                             <div class="pb-2">
                                 <button
                                     class="flex   gap-2 items-center w-full text-left font-[500] text-[18px] text-[#283138]"
@@ -60,25 +60,25 @@
                                     <span><img src="{{ asset('frontend/assets/images/arrowDown.png') }}"
                                             alt="img"></span>
                                 </button>
-                                <div id="categories" class="mt-4 flex flex-col gap-1 hidden space-y-2 ml-2">
-                                    <button class="flex justify-between items-center w-full text-left"
+                                <div id="categories" class="flex flex-col hidden gap-1 mt-4 ml-2 space-y-2">
+                                    <button class="flex items-center justify-between w-full text-left"
                                         onclick="toggleFilter('bags')">
                                         Bags
                                         <span><img src="{{ asset('frontend/assets/images/arrowDown.png') }}"
                                                 alt=""></span>
                                     </button>
-                                    <div id="bags" class="ml-4 hidden space-y-1">
+                                    <div id="bags" class="hidden ml-4 space-y-1">
                                         <label class="block cursor-pointer"><input type="checkbox"> Cotton Bags</label>
                                         <label class="block cursor-pointer"><input type="checkbox"> Leather Bags</label>
                                     </div>
 
-                                    <button class="flex justify-between items-center w-full text-left"
+                                    <button class="flex items-center justify-between w-full text-left"
                                         onclick="toggleFilter('jackets')">
                                         Jackets
                                         <span><img src="{{ asset('frontend/assets/images/arrowDown.png') }}"
                                                 alt=""></span>
                                     </button>
-                                    <div id="jackets" class="ml-4 hidden space-y-1">
+                                    <div id="jackets" class="hidden ml-4 space-y-1">
                                         <label class="block cursor-pointer"><input type="checkbox"> Denim Jackets</label>
                                         <label class="block cursor-pointer"><input type="checkbox"> Leather Jackets</label>
                                     </div>
@@ -107,13 +107,13 @@
                 <!-- === content section ==== -->
                 <div class="productGalleryShowcase w-full lg:w-[85%] flex flex-col ">
 
-                    <div class=" relative poster rounded-xl      lg:rounded-3xl flex items-end justify-end    ">
+                    <div class="relative flex items-end justify-end poster rounded-xl lg:rounded-3xl">
 
 
 
 
 
-                        <div class="absolute rounded-xl lg:rounded-3xl inset-0 redGradient"></div>
+                        <div class="absolute inset-0 rounded-xl lg:rounded-3xl redGradient"></div>
 
                         <div
                             class="textAndButton   lg:flex   lg:flex-col items-end justify-end  h-full w-full text-[#ffffff] ">
@@ -123,7 +123,7 @@
                                 <div class="posterDescription z-1 text-[#ffffff] hidden lg:show ">Lorem ipsum dolor sit amet
                                     consectetur.<br> At
                                     ultrices libero et congue mauris sed nisl. </div>
-                                <div class="posterButton z-2  ">
+                                <div class="posterButton z-2 ">
                                     <a href="{{ route('frontend.all.product') }}">
                                         <button
                                             class="bg-[#FFFFFF] text-[#000000] rounded-2xl px-[16px] py-[10px] flex justify-between gap-[16px]">
@@ -143,16 +143,18 @@
                         </div>
                     </div>
                     <div
-                        class="showingAndSort flex justify-between items-center gap-2 w-full mt-5 border-y border-dashed border-gray-300 py-3">
-                        <div class="showing text-sm">
-                            Showing 1-15 of 150 <span class="hidden">results</span>.
+                        class="flex items-center justify-between w-full gap-2 py-3 mt-5 border-gray-300 border-dashed showingAndSort border-y">
+                        <div class="text-sm showing">
+                            Showing {{ $products->firstItem() }}-{{ $products->lastItem() }} of {{ $products->total() }}
+                            <span class="hidden">results</span>.
                         </div>
+
                         <div class="sort">
                             <div class="relative inline-block text-left">
                                 <div class="flex items-center space-x-2 cursor-pointer" onclick="toggleDropdown()">
-                                    <span class="text-gray-500 text-sm">Sort by</span>
-                                    <span class="border-l-2 border-red-600 h-5"></span>
-                                    <span class="lg:font-medium font-regular text-sm">Popularity</span>
+                                    <span class="text-sm text-gray-500">Sort by</span>
+                                    <span class="h-5 border-l-2 border-red-600"></span>
+                                    <span class="text-sm lg:font-medium font-regular">Popularity</span>
                                     <svg class="w-4 h-4 text-gray-700" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd"
@@ -162,396 +164,25 @@
                                 </div>
                                 <!-- Dropdown Menu -->
                                 <div id="dropdownMenu"
-                                    class="absolute right-0 mt-2 z-5 w-40 bg-white border border-gray-200 shadow-lg rounded-lg hidden">
+                                    class="absolute right-0 hidden w-40 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-5">
                                     <ul class="py-2 text-gray-700">
-                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Popularity</li>
-                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Newest</li>
-                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Price: Low to High</li>
-                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Price: High to Low</li>
+                                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100">Popularity</li>
+                                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100">Newest</li>
+                                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100">Price: Low to High</li>
+                                        <li class="px-4 py-2 cursor-pointer hover:bg-gray-100">Price: High to Low</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{--  <div class="productSection mt-5 flex flex-col gap-10">
-                        <div class="productRow flex justify-between items-center gap-4  ">
-                            <a href="/pages/productPage.html">
-                                <div class=" relative product w-full  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
 
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/pages/productPage.html">
-                                <div class=" relative product w-full  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/pages/productPage.html" class="hidden lg:block">
-                                <div class=" relative product w-full hidden lg:flex lg:flex-col  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-
-
-
-                        </div>
-                        <!-- row 2 -->
-                        <div class="productRow flex justify-between items-center gap-4  w-full ">
-                            <a href="/pages/productPage.html">
-                                <div class=" relative product w-full  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/pages/productPage.html">
-                                <div class=" relative product w-full  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/pages/productPage.html" class="hidden lg:block">
-                                <div class=" relative product w-full hidden lg:flex lg:flex-col  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-
-
-
-                        </div>
-                        <!-- row 3 -->
-                        <div class="productRow flex justify-between items-center gap-4  w-full ">
-                            <a href="/pages/productPage.html">
-                                <div class=" relative product w-full  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/pages/productPage.html">
-                                <div class=" relative product w-full  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="/pages/productPage.html" class="hidden lg:block">
-                                <div class=" relative product w-full hidden lg:flex lg:flex-col  ">
-                                    <div
-                                        class="absolute top-5 left-2 bg-sky-500 text-white text-sm font-regular  px-2 text-[12px] lg:px-3 py-1 rounded-md">
-                                        25% offer
-                                    </div>
-                                    <div class="productImage mb-4  ">
-                                        <img src="{{ asset('frontend/assets/images/productDemImg.jpeg')}}" alt="" class="rounded-xl">
-                                    </div>
-                                    <div class="productSubIcons mb-3 flex justify-between items-center  ">
-                                        <div class="productLeft text-[#6E6E6E] ">620020</div>
-                                        <div class="productIconSet flex justify-between gap-2 items-center">
-                                            <img src="{{ asset('frontend/assets/images/ma;e.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/female.svg')}}" alt="">
-                                            <img src="{{ asset('frontend/assets/images/kid.svg')}}" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="productTitle mb-1 text-md font-medium lg:text-xl">Shopping Bags</div>
-                                    <div class="productTag mb-2 text-[#E2001A] text-[12px] ">Fruit of the loom</div>
-                                    <div class="productColors mb-2 ">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="relative flex -space-x-3">
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-purple-700 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class=" w-6 h-6 lg:w-8 lg:h-8 bg-blue-600 rounded-full border-2 border-white">
-                                                </div>
-                                                <div
-                                                    class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-400 rounded-full border-2 border-white">
-                                                </div>
-                                            </div>
-                                            <span class="text-gray-500 text-sm lg:text-md  font-medium">16+</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </a>
-
-
-
-                        </div>
-
-
-                    </div>  --}}
-                    <div class="productSection mt-5 flex flex-col gap-6">
+                    <div class="flex flex-col gap-6 mt-5 productSection">
                         @foreach ($products->chunk(3) as $chunk)
-                            <div class="productRow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                            <div class="grid grid-cols-1 gap-6 productRow sm:grid-cols-2 md:grid-cols-3">
                                 @foreach ($chunk as $product)
                                     <a href="{{ route('frontend.all.product-page', $product->id) }}" class="block">
                                         <div
-                                            class="relative product bg-white shadow-md rounded-lg p-3 transition-transform transform hover:scale-105">
+                                            class="relative p-3 transition-transform transform bg-white rounded-lg shadow-md product hover:scale-105">
                                             <!-- Sale Offer -->
                                             <div
                                                 class="absolute top-2 left-2 text-white text-xs px-2 py-1 rounded-md
@@ -560,7 +191,7 @@
                                             </div>
 
                                             <!-- Product Image -->
-                                            <div class="productImage mb-3">
+                                            <div class="mb-3 productImage">
                                                 <img src="{{ asset('storage/' . optional($product->images->first())->image_path) }}"
                                                     alt="{{ $product->product_name }}"
                                                     class="w-full h-[180px] object-contain rounded-md bg-gray-100">
@@ -568,9 +199,9 @@
 
                                             <!-- Product Code & Gender Icons -->
                                             <div
-                                                class="productSubIcons mb-2 flex justify-between items-center text-gray-600 text-xs">
+                                                class="flex items-center justify-between mb-2 text-xs text-gray-600 productSubIcons">
                                                 <div>{{ $product->code }}</div>
-                                                <div class="productIconSet flex gap-1 items-center">
+                                                <div class="flex items-center gap-1 productIconSet">
                                                     @if ($product->wear->wear_name === 'Male')
                                                         <img src="{{ asset('frontend/assets/images/male.svg') }}"
                                                             alt="Male" class="w-3 h-3">
@@ -588,7 +219,7 @@
                                             </div>
 
                                             <!-- Product Title -->
-                                            <div class="productTitle mb-1 text-sm font-semibold text-gray-700 text-center">
+                                            <div class="mb-1 text-sm font-semibold text-center text-gray-700 productTitle">
                                                 {{ $product->product_name }}
                                             </div>
 
@@ -600,15 +231,15 @@
                                             </div>
 
                                             <!-- Product Colors -->
-                                            <div class="productColors mb-2 flex items-center justify-center space-x-2">
+                                            <div class="flex items-center justify-center mb-2 space-x-2 productColors">
                                                 <div class="relative flex -space-x-1">
                                                     @foreach ($product->imageColors as $color)
-                                                        <div class="w-4 h-4 rounded-full border border-white"
+                                                        <div class="w-4 h-4 border border-white rounded-full"
                                                             style="background-color: {{ $color->color_code }};">
                                                         </div>
                                                     @endforeach
                                                 </div>
-                                                <span class="text-gray-500 text-xs font-medium">
+                                                <span class="text-xs font-medium text-gray-500">
                                                     {{ count($product->imageColors) }}+ Colors
                                                 </span>
                                             </div>
@@ -624,7 +255,7 @@
 
 
 
-                    <div class="pages flex justify-center items-center mt-10">
+                    <div class="flex items-center justify-center mt-10 pages">
                         @if ($products->lastPage() > 1)
                             <div class="flex flex-wrap items-center gap-2 sm:gap-4">
                                 <!-- Previous Page Button -->
@@ -639,10 +270,10 @@
                                 @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
                                     @if ($page == $products->currentPage())
                                         <button
-                                            class="px-4 py-3 bg-red-600 text-white font-medium rounded-md">{{ $page }}</button>
+                                            class="px-4 py-3 font-medium text-white bg-red-600 rounded-md">{{ $page }}</button>
                                     @else
                                         <a href="{{ $url }}"
-                                            class="px-3 py-2 text-gray-700 hover:bg-gray-200 rounded-md">{{ $page }}</a>
+                                            class="px-3 py-2 text-gray-700 rounded-md hover:bg-gray-200">{{ $page }}</a>
                                     @endif
                                 @endforeach
 
