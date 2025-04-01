@@ -54,7 +54,7 @@ class BrandController extends Controller
         // Handle the description update
         $brand->brand_name = $request->input('brand_name');
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('brand_logo')) {
             // Delete the old image if it exists
             if ($brand->brand_logo) {
                 Storage::disk('public')->delete($brand->brand_logo);

@@ -50,34 +50,25 @@
                         onmouseover="this.style.animationPlayState='paused'"
                         onmouseout="this.style.animationPlayState='running'">
 
-                        <!-- Ensure only valid images are included -->
-                        <img src="{{ asset('frontend/assets/images/basic_wear.jpg') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/blank_cheque.png') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/blue_pacific.jpg') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/russell.png') }}" class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="object-contain h-20 max-w-none">
+                        @foreach ($brands as $brand)
+                            @if ($brand->brand_logo)
+                                <img src="{{ asset('storage/' . $brand->brand_logo) }}" alt="{{ $brand->brand_name }}"
+                                    class="object-contain h-20 max-w-none">
+                            @endif
+                        @endforeach
 
-                        <!-- Repeat images for smooth scrolling -->
-                        <img src="{{ asset('frontend/assets/images/basic_wear.jpg') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/blank_cheque.png') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/blue_pacific.jpg') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/result.png') }}" class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/russell.png') }}"
-                            class="object-contain h-20 max-w-none">
-                        <img src="{{ asset('frontend/assets/images/sol.png') }}" class="object-contain h-20 max-w-none">
+                        <!-- Repeat for smooth scrolling -->
+                        @foreach ($brands as $brand)
+                            @if ($brand->brand_logo)
+                                <img src="{{ asset('storage/' . $brand->brand_logo) }}" alt="{{ $brand->brand_name }}"
+                                    class="object-contain h-20 max-w-none">
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
-
-
         </section>
+
 
 
         <br><br>
