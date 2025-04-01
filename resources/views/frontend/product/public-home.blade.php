@@ -52,22 +52,27 @@
 
                         @foreach ($brands as $brand)
                             @if ($brand->brand_logo)
-                                <img src="{{ asset('storage/' . $brand->brand_logo) }}" alt="{{ $brand->brand_name }}"
-                                    class="object-contain h-20 max-w-none">
+                                <a href="{{ route('search', ['query' => $brand->brand_name]) }}">
+                                    <img src="{{ asset('storage/' . $brand->brand_logo) }}" alt="{{ $brand->brand_name }}"
+                                        class="object-contain h-20 max-w-none">
+                                </a>
                             @endif
                         @endforeach
 
                         <!-- Repeat for smooth scrolling -->
                         @foreach ($brands as $brand)
                             @if ($brand->brand_logo)
-                                <img src="{{ asset('storage/' . $brand->brand_logo) }}" alt="{{ $brand->brand_name }}"
-                                    class="object-contain h-20 max-w-none">
+                                <a href="{{ route('search', ['query' => $brand->brand_name]) }}">
+                                    <img src="{{ asset('storage/' . $brand->brand_logo) }}" alt="{{ $brand->brand_name }}"
+                                        class="object-contain h-20 max-w-none">
+                                </a>
                             @endif
                         @endforeach
                     </div>
                 </div>
             </div>
         </section>
+
 
 
 
