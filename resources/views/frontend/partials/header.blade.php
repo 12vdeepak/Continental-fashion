@@ -10,12 +10,7 @@
     <div class="flex items-center gap-5 sideContent">
         <!-- search bar  -->
         <div class="relative flex items-center">
-            <!-- Search Icon (Visible on Mobile) -->
-            <button class="p-2 lg:hidden">
-                <img src="{{ asset('frontend/assets/images/search.svg') }}" alt="Search Icon">
-            </button>
-
-            <!-- Full Search Bar (Hidden on Mobile, Visible on Larger Screens) -->
+            <!-- Full Search Bar (Only Visible on Larger Screens) -->
             <form action="{{ route('search') }}" method="GET"
                 class="items-center hidden gap-3 px-3 py-2 bg-white border border-gray-300 lg:flex rounded-xl w-60">
                 <img src="{{ asset('frontend/assets/images/search.svg') }}" alt="Search Icon" class="w-5 h-5"
@@ -24,12 +19,8 @@
                     class="w-full text-black placeholder-gray-600 bg-transparent outline-none" required />
                 <button type="submit" class="hidden"></button> <!-- Triggers form submission when Enter is pressed -->
             </form>
-
-
-
-
-
         </div>
+
         <!-- search bar end -->
         <!-- cart start -->
         <div class="relative flex items-center mr-3 cursor-pointer">
@@ -62,17 +53,17 @@
                     $user = \App\Models\CompanyRegistration::find(session('company_user_id'));
                 @endphp
                 @if ($user)
-                    <div class="relative flex items-center gap-2">
-                        <!-- User Icon -->
+                    <div class="relative flex items-center gap-3">
+                        <!-- User Icon (Bigger for Mobile) -->
                         <a href="{{ route('frontend.manageprofile') }}">
                             <img src="{{ asset('frontend/assets/images/User Icon.svg') }}" alt="User Icon"
-                                class="w-6 h-6">
+                                class="w-10 h-10 md:w-6 md:h-6"> <!-- Larger icon on mobile -->
                         </a>
 
                         <!-- Button to Toggle Dropdown -->
-                        <button id="dropdownButton" class="flex items-center gap-1 px-3 py-2">
+                        <button id="dropdownButton" class="flex items-center gap-2 px-3 py-2 text-sm md:text-base">
                             {{ $user->first_name }}
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            <svg class="w-5 h-5 md:w-4 md:h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                 fill="currentColor">
                                 <path fill-rule="evenodd"
                                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -92,13 +83,15 @@
                 @endif
             @else
                 <a href="{{ route('frontend.login') }}">
-                    <img src="{{ asset('frontend/assets/images/User Icon.svg') }}" alt="User Icon">
+                    <img src="{{ asset('frontend/assets/images/User Icon.svg') }}" alt="User Icon"
+                        class="w-10 h-10 md:w-6 md:h-6"> <!-- Larger icon for mobile -->
                 </a>
                 <a href="{{ route('frontend.login') }}">
-                    <span class="hidden md:flex"> Login </span>
+                    <span class="hidden md:flex text-base"> Login </span>
                 </a>
             @endif
         </div>
+
 
 
 
