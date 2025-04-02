@@ -2,7 +2,7 @@
 <div class=" px-4 lg:px-[120px] purple_nav_top bg-[#54114C] h-22 text-[#FFFFFF]   flex justify-between items-center  ">
     <div class="text-xl font-bold logo lg:text-2xl">
         <a href="{{ route('frontend.home') }}" class="text-white-500">
-            Continental Fashion
+            Continental Fashion <br> Merchandising UG
         </a>
     </div>
 
