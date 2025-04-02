@@ -138,22 +138,26 @@
                     <div class="flex flex-wrap gap-2" id="sizeContainer">
                         @foreach ($product->images as $image)
                             @foreach ($image->sizes as $size)
-                                <button class="px-4 py-2 border rounded-md hover:bg-gray-100 sizeButton"
+                                <button
+                                    class="px-4 py-2 border rounded-md hover:bg-gray-100 sizeButton flex items-center justify-between"
                                     data-color="{{ $image->color_id }}" data-size-id="{{ $size->id }}"
                                     data-quantity="{{ $size->pivot->quantity }}"
                                     data-image="{{ asset('storage/' . $image->image_path) }}" style="display: none;">
                                     {{ strtoupper($size->size_name) }}
+                                    <span class="ml-2 text-sm text-gray-500">({{ $size->pivot->quantity }}
+                                        available)</span>
                                 </button>
                             @endforeach
                         @endforeach
                     </div>
                 </div>
 
+
                 <!-- Quantity Display -->
-                <div class="mt-4">
+                {{--  <div class="mt-4">
                     <h3 class="mb-2 text-lg font-semibold">Quantity:</h3>
                     <p id="quantityDisplay" class="text-lg font-medium text-gray-700">Select a size to see quantity</p>
-                </div>
+                </div>  --}}
 
 
             </div>
