@@ -11,7 +11,6 @@
 
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/global.css') }}">
-    {{--  <link rel="stylesheet" href="{{ asset('frontend/assets/css/index.global.js') }}">  --}}
 
 
     <!-- ======= TAILWIND CDN LINK - start  ====== -->
@@ -225,10 +224,10 @@
 
 
 
-    <script></script>
 
 
-    {{--  <script src="{{ asset('frontend/assets/css/index.global.js') }}"></script>  --}}
+
+
 
 
     <!-- ==== Importing main js - start ==== -->
@@ -710,7 +709,7 @@
 
 
 
-    <script>
+    {{--  <script>
         function changeColor(colorId, imageUrl, element) {
             // Update the main product image
             document.getElementById('mainImage').src = imageUrl;
@@ -723,10 +722,10 @@
             // Add a black border to the selected button
             element.classList.add('border-black', 'ring-2', 'ring-gray-900');
         }
-    </script>
+    </script>  --}}
 
 
-    <script>
+    {{--  <script>
         // Function to change product image and update sizes dynamically
         function changeColors(colorId, imageUrl) {
             // Update the main image
@@ -750,12 +749,12 @@
                 firstColorButton.click(); // Simulate a click on the first color
             }
         });
-    </script>
+    </script>  --}}
 
 
 
 
-    <script>
+    {{--  <script>
         // Add this to your product detail page JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             // Quantity controls
@@ -870,6 +869,95 @@
                 document.getElementById('selectedSize').value = firstSizeButton.getAttribute('data-size-id');
             }
         }
+    </script>  --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let mainImage = document.getElementById("mainImage");
+            let colorButtons = document.querySelectorAll(".colorButton");
+            let sizeButtons = document.querySelectorAll(".sizeButton");
+            let selectedColorInput = document.getElementById("selectedColor");
+            let selectedSizeInput = document.getElementById("selectedSize");
+
+            // Ensure the first color is selected on page load
+            if (colorButtons.length > 0) {
+                colorButtons[0].click();
+            }
+
+            // Color Selection - Change Image and Show Relevant Sizes
+            colorButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    let colorId = this.getAttribute("onclick").match(/changeColors\('(\d+)'/)[1];
+                    let imageUrl = this.getAttribute("onclick").match(/'([^']+)'/g)[1].replace(/'/g,
+                        "");
+
+                    // Update the main product image
+                    mainImage.src = imageUrl;
+
+                    // Set selected color
+                    selectedColorInput.value = colorId;
+
+                    // Remove highlight from other buttons
+                    colorButtons.forEach(btn => btn.classList.remove("border-black", "ring-2",
+                        "ring-gray-900"));
+                    this.classList.add("border-black", "ring-2", "ring-gray-900");
+
+                    // Show only sizes for the selected color
+                    sizeButtons.forEach(button => {
+                        if (button.getAttribute("data-color") === colorId) {
+                            button.style.display = "inline-block";
+                        } else {
+                            button.style.display = "none";
+                        }
+                    });
+
+                    // Auto-select the first available size (if exists)
+                    let firstSize = document.querySelector(`.sizeButton[data-color='${colorId}']`);
+                    if (firstSize) {
+                        firstSize.click();
+                    } else {
+                        selectedSizeInput.value = ""; // Reset size if no matching sizes
+                    }
+                });
+            });
+
+            // Size Selection - Update Selected Size
+            sizeButtons.forEach(button => {
+                button.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    let sizeId = this.getAttribute("data-size-id");
+
+                    // Update the selected size
+                    selectedSizeInput.value = sizeId;
+
+                    // Remove highlight from other buttons
+                    sizeButtons.forEach(btn => btn.classList.remove("bg-[#54114C]", "text-white"));
+                    this.classList.add("bg-[#54114C]", "text-white");
+                });
+            });
+
+            // Quantity Controls
+            const decreaseBtn = document.getElementById("decreaseQty");
+            const increaseBtn = document.getElementById("increaseQty");
+            const quantityDisplay = document.getElementById("quantity");
+            const quantityInput = document.getElementById("productQuantity");
+
+            decreaseBtn.addEventListener("click", function() {
+                let currentQty = parseInt(quantityDisplay.textContent);
+                if (currentQty > 1) {
+                    currentQty--;
+                    quantityDisplay.textContent = currentQty;
+                    quantityInput.value = currentQty;
+                }
+            });
+
+            increaseBtn.addEventListener("click", function() {
+                let currentQty = parseInt(quantityDisplay.textContent);
+                currentQty++;
+                quantityDisplay.textContent = currentQty;
+                quantityInput.value = currentQty;
+            });
+        });
     </script>
 
     <script>
