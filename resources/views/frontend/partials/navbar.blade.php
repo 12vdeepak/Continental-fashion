@@ -16,11 +16,14 @@
         </button>
 
         <li><a href="{{ route('frontend.home') }}">Home</a></li>
-        <li class="relative group">
-            <span class="cursor-pointer">Collection</span>
+        <li class="relative">
+            <span class="cursor-pointer md:group" id="collection-toggle">Collection</span>
             <!-- Dropdown Menu -->
-            <div
-                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[600px] lg:max-w-[90vw] lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg hidden">
+            <div id="collection-dropdown"
+                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[600px] lg:max-w-[90vw] lg:max-h-[80vh]
+                lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col
+                lg:shadow-lg border border-gray-200 rounded-lg hidden md:block md:group-hover:block md:absolute md:left-0">
+
                 <div class="container mx-auto grid grid-cols-4 gap-4 bg-white p-5">
                     @php
                         $firstSixCategories = $categories->take(6);

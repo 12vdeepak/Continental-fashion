@@ -1156,20 +1156,30 @@
             const menuBtn = document.getElementById("menu-btn");
             const closeBtn = document.getElementById("close-menu");
             const navMenu = document.getElementById("nav-menu");
+            const collectionToggle = document.getElementById("collection-toggle");
+            const collectionDropdown = document.getElementById("collection-dropdown");
 
-            // Function to open the menu
+            // Open menu on mobile
             menuBtn.addEventListener("click", function() {
                 navMenu.classList.remove("-translate-x-full");
                 navMenu.classList.add("translate-x-0");
             });
 
-            // Function to close the menu
+            // Close menu on mobile
             closeBtn.addEventListener("click", function() {
                 navMenu.classList.remove("translate-x-0");
                 navMenu.classList.add("-translate-x-full");
             });
+
+            // Toggle Collection Dropdown on mobile
+            collectionToggle.addEventListener("click", function() {
+                if (window.innerWidth < 1024) { // Only for mobile screens
+                    collectionDropdown.classList.toggle("hidden");
+                }
+            });
         });
     </script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
