@@ -49,13 +49,12 @@
         {{--  <li><a href="#">Quotation</a></li>  --}}
         {{--  <li class="flex gap-2 justify-center items-center"><img src="{{ asset('frontend/assets/images/Vector.svg') }}"
                 alt="">Sale</li>  --}}
-        @if (session()->has('company_user_id'))
-            <li>
-                <a href="{{ route('frontend.specialproduct') }}" class="transition hover:text-purple-400">
-                    Special Production
-                </a>
-            </li>
-        @endif
+        <li>
+            <a href="{{ session()->has('company_user_id') ? route('frontend.specialproduct') : route('frontend.login') }}"
+                class="transition hover:text-purple-400">
+                Special Production
+            </a>
+        </li>
 
     </ul>
 
