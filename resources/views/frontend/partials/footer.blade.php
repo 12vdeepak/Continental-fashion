@@ -41,8 +41,9 @@
                         Conditions</a></li>
                 <li><a href="#" class="transition hover:text-purple-400">Delivery Conditions</a></li>
                 <li>
-                    <a href="{{ asset('frontend/assets/pdf/RETURN_CANCELLATION.pdf') }}" target="_blank"
-                        class="transition hover:text-purple-400">
+                    <a href="{{ session()->has('company_user_id') ? asset('frontend/assets/pdf/RETURN_CANCELLATION.pdf') : route('frontend.login') }}"
+                        class="transition hover:text-purple-400"
+                        {{ session()->has('company_user_id') ? 'target="_blank"' : '' }}>
                         Cancellation & Returns
                     </a>
                 </li>
@@ -56,12 +57,33 @@
         <div>
             <h3 class="mb-4 text-xl font-bold">Quick Links</h3>
             <ul class="space-y-2">
-                <li><a href="#" class="transition hover:text-purple-400">FAQ</a></li>
-                <li><a href="{{ asset('frontend/assets/pdf/price_list.pdf') }}" target="_blank"
-                        class="transition hover:text-purple-400">Download Pricelist</a></li>
-                <li><a href="#" class="transition hover:text-purple-400">Measurement Charts</a></li>
-                <li><a href="{{ asset('frontend/assets/pdf/shipping_cost.pdf') }}" target="_blank"
-                        class="transition hover:text-purple-400">Shipping Cost</a></li>
+                <li><a href="{{ route('frontend.faqs') }}" class="transition hover:text-purple-400">FAQ</a></li>
+
+                <li>
+                    <a href="{{ session()->has('company_user_id') ? asset('frontend/assets/pdf/price_list.pdf') : route('frontend.login') }}"
+                        class="transition hover:text-purple-400"
+                        {{ session()->has('company_user_id') ? 'target="_blank"' : '' }}>
+                        Download Pricelist
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ session()->has('company_user_id') ? '#' : route('frontend.login') }}"
+                        class="transition hover:text-purple-400">
+                        Measurement Charts
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ session()->has('company_user_id') ? asset('frontend/assets/pdf/shipping_cost.pdf') : route('frontend.login') }}"
+                        class="transition hover:text-purple-400"
+                        {{ session()->has('company_user_id') ? 'target="_blank"' : '' }}>
+                        Shipping Cost
+                    </a>
+                </li>
+
+
+
             </ul>
         </div>
 

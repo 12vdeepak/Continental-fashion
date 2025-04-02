@@ -195,6 +195,8 @@ Route::post('/company-register', [AuthController::class, 'register'])->name('reg
 Route::get('/logout', [AuthController::class, 'logout'])->name('frontend.logout');
 Route::get('/terms-and-conditions', [FrontendController::class, 'terms'])->name('frontend.terms');
 Route::get('/imprint', [FrontendController::class, 'imprint'])->name('frontend.imprint');
+Route::get('/faqs', [FrontendController::class, 'showFaqs'])->name('frontend.faqs');
+
 
 
 // SubscriptionController

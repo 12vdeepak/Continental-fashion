@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Banner;
 use App\Models\Brand;
+use App\Models\Faq;
 use App\Models\NewsOffer;
 use Illuminate\Http\Request;
 
@@ -56,6 +57,13 @@ class FrontendController extends Controller
     {
         $categories = Category::with('subcategories')->get();
         return view('frontend.imprint', compact('categories'));
+    }
+
+    public function showFaqs()
+    {
+        $categories = Category::with('subcategories')->get();
+        $faqs = Faq::where('status', 1)->get();
+        return view('frontend.faqs', compact('faqs', 'categories'));
     }
 
 

@@ -49,7 +49,14 @@
         {{--  <li><a href="#">Quotation</a></li>  --}}
         {{--  <li class="flex gap-2 justify-center items-center"><img src="{{ asset('frontend/assets/images/Vector.svg') }}"
                 alt="">Sale</li>  --}}
-        <li><a href="{{ route('frontend.specialproduct') }}">Special Production</a></li>
+        @if (session()->has('company_user_id'))
+            <li>
+                <a href="{{ route('frontend.specialproduct') }}" class="transition hover:text-purple-400">
+                    Special Production
+                </a>
+            </li>
+        @endif
+
     </ul>
 
     <!-- Download Button -->
