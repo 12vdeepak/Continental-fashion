@@ -41,12 +41,12 @@
                         Conditions</a></li>
                 <li><a href="#" class="transition hover:text-purple-400">Delivery Conditions</a></li>
                 <li>
-                    <a href="{{ session()->has('company_user_id') ? asset('frontend/assets/pdf/RETURN_CANCELLATION.pdf') : route('frontend.login') }}"
-                        class="transition hover:text-purple-400"
-                        {{ session()->has('company_user_id') ? 'target="_blank"' : '' }}>
-                        Cancellation & Returns
+                    <a href="{{ session()->has('company_user_id') ? route('frontend.specialproduct') : route('frontend.login') }}"
+                        class="transition hover:text-purple-400">
+                        Special Production
                     </a>
                 </li>
+
 
 
 
