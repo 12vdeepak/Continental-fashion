@@ -1150,6 +1150,27 @@
             document.getElementById("dropdownMenu").classList.toggle("hidden");
         }
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuBtn = document.getElementById("menu-btn");
+            const closeBtn = document.getElementById("close-menu");
+            const navMenu = document.getElementById("nav-menu");
+
+            // Function to open the menu
+            menuBtn.addEventListener("click", function() {
+                navMenu.classList.remove("-translate-x-full");
+                navMenu.classList.add("translate-x-0");
+            });
+
+            // Function to close the menu
+            closeBtn.addEventListener("click", function() {
+                navMenu.classList.remove("translate-x-0");
+                navMenu.classList.add("-translate-x-full");
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const carousel = document.getElementById("carousel");

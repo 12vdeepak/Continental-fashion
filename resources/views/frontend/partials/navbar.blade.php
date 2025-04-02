@@ -45,10 +45,14 @@
             </div>
         </li>
 
-        <li><a href="{{ route('frontend.aboutus') }}">About Us</a></li>
-        {{--  <li><a href="#">Quotation</a></li>  --}}
-        {{--  <li class="flex gap-2 justify-center items-center"><img src="{{ asset('frontend/assets/images/Vector.svg') }}"
-                alt="">Sale</li>  --}}
+        <li>
+            <a href="{{ session()->has('company_user_id') ? route('frontend.aboutus') : route('frontend.login') }}"
+                class="transition hover:text-purple-400">
+                About Us
+            </a>
+        </li>
+
+
         <li>
             <a href="{{ session()->has('company_user_id') ? route('frontend.specialproduct') : route('frontend.login') }}"
                 class="transition hover:text-purple-400">
