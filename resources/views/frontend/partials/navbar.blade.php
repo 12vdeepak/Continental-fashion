@@ -16,27 +16,33 @@
         </button>
 
         <li><a href="{{ route('frontend.home') }}">Home</a></li>
-        <li class="relative">
-            <span class="cursor-pointer md:group" id="collection-toggle">Collection</span>
+        <li class="relative group">
+            <span class="cursor-pointer" id="collection-toggle">Collection</span>
+
             <!-- Dropdown Menu -->
             <div id="collection-dropdown"
-                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[600px] lg:max-w-[90vw] lg:max-h-[80vh]
-                lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden lg:group-hover:flex lg:flex-col
-                lg:shadow-lg border border-gray-200 rounded-lg hidden md:block md:group-hover:block md:absolute md:left-0">
+                class="lg:absolute lg:top-full lg:left-0 lg:w-auto lg:min-w-[700px] lg:max-w-[90vw]
+                lg:max-h-[80vh] lg:overflow-y-auto lg:mt-2 lg:bg-white lg:z-50 lg:hidden
+                lg:group-hover:flex lg:flex-col lg:shadow-lg border border-gray-200 rounded-lg
+                hidden md:absolute md:left-0 md:hidden">
 
-                <div class="container mx-auto grid grid-cols-4 gap-4 bg-white p-5">
+                <div
+                    class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+                    gap-4 bg-white p-5">
+
                     @php
                         $firstSixCategories = $categories->take(6);
                     @endphp
 
                     @foreach ($firstSixCategories as $category)
                         <div class="space-y-2">
-                            <h3 class="font-bold text-black text-lg">{{ $category->category_name }}</h3>
+                            <h3 class="font-bold text-black text-lg whitespace-nowrap">{{ $category->category_name }}
+                            </h3>
                             <ul class="text-gray-600 space-y-1">
                                 @foreach ($category->subcategories->take(6) as $subcategory)
                                     <li>
                                         <a href="{{ route('frontend.subcategory.products', $subcategory->id) }}"
-                                            class="hover:text-black hover:underline">
+                                            class="hover:text-black hover:underline block whitespace-nowrap">
                                             {{ $subcategory->subcategory_name }}
                                         </a>
                                     </li>
@@ -47,6 +53,9 @@
                 </div>
             </div>
         </li>
+
+
+
 
         <li>
             <a href="{{ session()->has('company_user_id') ? route('frontend.aboutus') : route('frontend.login') }}"

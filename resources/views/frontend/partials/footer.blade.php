@@ -37,6 +37,7 @@
             <ul class="space-y-2">
                 <li><a href="{{ route('frontend.imprint') }}" class="transition hover:text-purple-400">Imprint</a></li>
                 <li><a href="#" class="transition hover:text-purple-400">Privacy Policy</a></li>
+                <li><a href="#" class="transition hover:text-purple-400">Legal Notes</a></li>
                 <li><a href="{{ route('frontend.terms') }}" class="transition hover:text-purple-400">Terms &
                         Conditions</a></li>
                 <li><a href="#" class="transition hover:text-purple-400">Delivery Conditions</a></li>

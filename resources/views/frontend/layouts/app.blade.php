@@ -1159,23 +1159,39 @@
             const collectionToggle = document.getElementById("collection-toggle");
             const collectionDropdown = document.getElementById("collection-dropdown");
 
-            // Open menu on mobile
-            menuBtn.addEventListener("click", function() {
+            // Open mobile menu
+            menuBtn?.addEventListener("click", function() {
                 navMenu.classList.remove("-translate-x-full");
                 navMenu.classList.add("translate-x-0");
             });
 
-            // Close menu on mobile
-            closeBtn.addEventListener("click", function() {
+            // Close mobile menu
+            closeBtn?.addEventListener("click", function() {
                 navMenu.classList.remove("translate-x-0");
                 navMenu.classList.add("-translate-x-full");
             });
 
-            // Toggle Collection Dropdown on mobile
-            collectionToggle.addEventListener("click", function() {
-                if (window.innerWidth < 1024) { // Only for mobile screens
-                    collectionDropdown.classList.toggle("hidden");
+            // Open dropdown on hover for all screen sizes
+            collectionToggle?.addEventListener("mouseenter", function() {
+                collectionDropdown.classList.remove("hidden");
+            });
+
+            // Close dropdown when mouse leaves (all screens)
+            collectionDropdown?.addEventListener("mouseleave", function() {
+                collectionDropdown.classList.add("hidden");
+            });
+
+            // Close dropdown when clicking outside (only for mobile)
+            document.addEventListener("click", function(event) {
+                if (!collectionDropdown.contains(event.target) && !collectionToggle.contains(event
+                    .target)) {
+                    collectionDropdown.classList.add("hidden");
                 }
+            });
+
+            // Prevent auto-open issue when resizing between mobile and desktop
+            window.addEventListener("resize", function() {
+                collectionDropdown.classList.add("hidden"); // Hide dropdown when switching screen sizes
             });
         });
     </script>
