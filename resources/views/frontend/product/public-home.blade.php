@@ -94,55 +94,51 @@
         <section id="benifits_of_purchasing" class="flex flex-col gap-10 px-4 lg:px-[120px] my-[80px]">
 
             <div class="flex flex-col items-center justify-center gap-3 heading_description">
-
-                <div class="title text-[58px] font-bold text-center leading-[75px] ">Benefits Of Purchasing <br> With Us
+                <div class="title text-[58px] font-bold text-center leading-[75px]">
+                    Benefits Of Purchasing <br> With Us
                 </div>
-                <div class="description text-md text-[#6E6E6E] text-center ">Browse our exclusive collections designed to
-                    fit every occasion and style. <br> From bold to classic, we’ve got you covered</div>
-
-            </div>
-            <div class="flex flex-col justify-between gap-5 image_gallery ">
-                <div class="flex justify-between w-full gap-5 sectionSecond">
-                    <div
-                        class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
-
-                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
-                            High Stock Availability
-                        </div>
-                    </div>
-                    <div
-                        class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
-
-                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
-                            High Stock Availability
-                        </div>
-                    </div>
-
-                </div>
-                <div class="flex justify-between w-full gap-5 sectionSecond">
-                    <div
-                        class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
-
-                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
-                            High Stock Availability
-                        </div>
-                    </div>
-                    <div
-                        class="highStock relative lg:h-[320px] h-[20vh]  w-1/2 rounded-3xl flex justify-center items-center  items-end ">
-                        <div class="absolute inset-0 rounded-3xl custom-gradient"></div>
-
-                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold  text-center lg:text-[32px] z-2">
-                            High Stock Availability
-                        </div>
-                    </div>
-
+                <div class="description text-md text-[#6E6E6E] text-center">
+                    Browse our exclusive collections designed to fit every occasion and style. <br>
+                    From bold to classic, we’ve got you covered
                 </div>
             </div>
 
+            <div class="flex flex-col justify-between gap-5 image_gallery">
+                <div class="flex justify-between w-full gap-5 sectionSecond">
+                    <div
+                        class="relative lg:h-[320px] h-[20vh] w-1/2 rounded-3xl flex justify-center items-center items-end">
+                        <img src="{{ asset('frontend/assets/images/high4.jpeg') }}" alt="High Stock Availability"
+                            class="absolute inset-0 w-full h-full object-cover rounded-3xl">
+                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold text-center lg:text-[32px] z-2">
+                        </div>
+                    </div>
+                    <div
+                        class="relative lg:h-[320px] h-[20vh] w-1/2 rounded-3xl flex justify-center items-center items-end">
+                        <img src="{{ asset('frontend/assets/images/high3.jpeg') }}" alt="Fast & Secure Delivery"
+                            class="absolute inset-0 w-full h-full object-cover rounded-3xl">
+                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold text-center lg:text-[32px] z-2">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between w-full gap-5 sectionSecond">
+                    <div
+                        class="relative lg:h-[320px] h-[20vh] w-1/2 rounded-3xl flex justify-center items-center items-end">
+                        <img src="{{ asset('frontend/assets/images/high2.jpeg') }}" alt="Affordable Prices"
+                            class="absolute inset-0 w-full h-full object-cover rounded-3xl">
+                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold text-center lg:text-[32px] z-2">
+                        </div>
+                    </div>
+                    <div
+                        class="relative lg:h-[320px] h-[20vh] w-1/2 rounded-3xl flex justify-center items-center items-end">
+                        <img src="{{ asset('frontend/assets/images/high1.jpeg') }}" alt="Customer Support 24/7"
+                            class="absolute inset-0 w-full h-full object-cover rounded-3xl">
+                        <div class="titleHighStock mb-5 text-[#FFFFFF] text-lg font-bold text-center lg:text-[32px] z-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+
 
         <!-- ===== Our Popular Category ====== -->
 
@@ -285,15 +281,16 @@
                         <p>
 
 
-                            Since 1987 MAPROM has been dealing with importing, manufacturing, and the refinement of
-                            promotional textiles. Today we employ around 160 people. In our in-house production with
-                            state-of-the-art machinery, we can print or embroider your textiles upon request – starting from
-                            just one piece!
+                            We have been in the textile and advertising industry for over 30 years, providing high-quality
+                            products since 1991. Our textiles are durable, comfortable, and available in many styles. We
+                            ensure ethical production by working with certified factories in Europe and the Far East.
                             <br>
                         <p class="mt-5">
 
-                            Do you need large quantities or custom-made bags? No problem – we would be glad to make you an
-                            offer.
+                            Sustainability is important to us, and we are using more eco-friendly materials to reduce our
+                            impact on the environment. Our focus on quality, reliability, and customer satisfaction has
+                            helped us build long-term trust. Whether you need bulk orders or customized textiles, we are
+                            here to help—all in one place!
 
                         </p>
 
@@ -310,15 +307,17 @@
                         <p>
 
 
-                            Since 1987 MAPROM has been dealing with importing, manufacturing, and the refinement of
-                            promotional textiles. Today we employ around 160 people. In our in-house production with
-                            state-of-the-art machinery, we can print or embroider your textiles upon request – starting from
-                            just one piece!
+                            People trust us because we have been in the textile and advertising industry for over 30 years,
+                            which means we have a lot of experience and knowledge. Since 1991, we have been providing
+                            high-quality textiles that are durable, comfortable, and available in different styles and
+                            colors to meet various needs.
                             <br>
                         <p class="mt-5">
 
-                            Do you need large quantities or custom-made bags? No problem – we would be glad to make you an
-                            offer.
+                            We care about the environment and are using more eco-friendly materials to reduce our impact on
+                            the planet. Our focus is on providing great products, reliable service, and flexible solutions.
+                            That’s why customers continue to trust us—whether they need large orders or customized textiles,
+                            we make the process easy and efficient.
 
                         </p>
 

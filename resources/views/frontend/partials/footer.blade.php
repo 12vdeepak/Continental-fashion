@@ -40,7 +40,8 @@
                 <li><a href="#" class="transition hover:text-purple-400">Legal Notes</a></li>
                 <li><a href="{{ route('frontend.terms') }}" class="transition hover:text-purple-400">Terms &
                         Conditions</a></li>
-                <li><a href="#" class="transition hover:text-purple-400">Delivery Conditions</a></li>
+                <li><a href="{{ asset('frontend/assets/pdf/Delivery Condition.pdf') }}"
+                        class="transition hover:text-purple-400">Delivery Conditions</a></li>
                 <li>
                     <a href="{{ session()->has('company_user_id') ? asset('frontend/assets/pdf/RETURN_CANCELLATION.pdf') : route('frontend.login') }}"
                         class="transition hover:text-purple-400"
@@ -82,6 +83,11 @@
                         Shipping Cost
                     </a>
                 </li>
+
+                <li><a href="{{ asset('frontend/assets/pdf/Versand kosten Deutschland.pdf') }}" target="_blank"
+                        class="transition hover:text-purple-400">Transportation Cost</a></li>
+
+
 
 
 
