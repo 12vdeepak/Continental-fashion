@@ -206,6 +206,7 @@
 
 
 <body>
+    @include('cookie-consent::index')
 
     <!-- header -->
     @include('frontend.partials.header')
@@ -1184,7 +1185,7 @@
             // Close dropdown when clicking outside (only for mobile)
             document.addEventListener("click", function(event) {
                 if (!collectionDropdown.contains(event.target) && !collectionToggle.contains(event
-                    .target)) {
+                        .target)) {
                     collectionDropdown.classList.add("hidden");
                 }
             });

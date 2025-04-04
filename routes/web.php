@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VatController;
 use App\Http\Controllers\Admin\WearController;
 use App\Http\Controllers\Admin\WeightController;
+use App\Http\Controllers\CookieSettingsController;
 use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartItemController;
@@ -211,6 +212,8 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 
 
+Route::get('/cookie-settings', [CookieSettingsController::class, 'index'])->name('cookie.settings');
+Route::post('/cookie-settings', [CookieSettingsController::class, 'save'])->name('cookie.save');
 
 
 // Private (Logged-In) Homepage
