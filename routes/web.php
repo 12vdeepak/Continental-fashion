@@ -211,9 +211,12 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 
 
-
 Route::get('/cookie-settings', [CookieSettingsController::class, 'index'])->name('cookie.settings');
 Route::post('/cookie-settings', [CookieSettingsController::class, 'save'])->name('cookie.save');
+
+
+
+
 
 
 // Private (Logged-In) Homepage

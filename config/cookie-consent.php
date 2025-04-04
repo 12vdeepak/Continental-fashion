@@ -1,5 +1,4 @@
 <?php
-
 return [
     // The cookie name that will be used to remember the user's choice
     'cookie_name' => 'laravel_cookie_consent',

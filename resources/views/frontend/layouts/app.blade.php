@@ -206,7 +206,6 @@
 
 
 <body>
-    @include('cookie-consent::index')
 
     <!-- header -->
     @include('frontend.partials.header')
@@ -1582,7 +1581,7 @@
 
 
 
-
+    @include('cookie-consent::index')
 </body>
 
 </html>
