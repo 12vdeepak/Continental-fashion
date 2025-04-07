@@ -564,6 +564,720 @@
         });
     </script>
     <script>
+        // Color name mapping
+        const colorMap = {
+            "#000000": "Black",
+            "#FFFFFF": "White",
+            "#FF0000": "Red",
+            "#00FF00": "Lime",
+            "#0000FF": "Blue",
+            "#FFFF00": "Yellow",
+            "#00FFFF": "Cyan",
+            "#FF00FF": "Magenta",
+            "#C0C0C0": "Silver",
+            "#C0C0C0": "Silver Grey",
+            "#4F42B5": "Ocean Blue",
+
+
+            "#808080": "Gray",
+            "#696969": "DimGray",
+            "#A9A9A9": "DarkGray",
+            "#D3D3D3": "LightGray",
+            "#DCDCDC": "Gainsboro",
+            "#F5F5F5": "WhiteSmoke",
+            "#800000": "Maroon",
+            "#8B0000": "DarkRed",
+            "#A52A2A": "Brown",
+            "#B22222": "FireBrick",
+            "#CD5C5C": "IndianRed",
+            "#DC143C": "Crimson",
+            "#F08080": "LightCoral",
+            "#FA8072": "Salmon",
+            "#E9967A": "DarkSalmon",
+            "#FFA07A": "LightSalmon",
+            "#FF4500": "OrangeRed",
+            "#FF6347": "Tomato",
+            "#FF7F50": "Coral",
+            "#FF8C00": "DarkOrange",
+            "#FFA500": "Orange",
+            "#FFD700": "Gold",
+            "#FFFFE0": "LightYellow",
+            "#FFFACD": "LemonChiffon",
+            "#FAFAD2": "LightGoldenrodYellow",
+            "#FFEFD5": "PapayaWhip",
+            "#FFE4B5": "Moccasin",
+            "#FFDAB9": "PeachPuff",
+            "#EEE8AA": "PaleGoldenrod",
+            "#F0E68C": "Khaki",
+            "#BDB76B": "DarkKhaki",
+            "#006400": "DarkGreen",
+            "#8EE53F": "Kiwi Green",
+            "#7BB661": "Dark Kiwi",
+            "#008000": "Green",
+            "#228B22": "ForestGreen",
+            "#32CD32": "LimeGreen",
+            "#90EE90": "LightGreen",
+            "#98FB98": "PaleGreen",
+            "#8FBC8F": "DarkSeaGreen",
+            "#00FA9A": "MediumSpringGreen",
+            "#00FF7F": "SpringGreen",
+            "#2E8B57": "SeaGreen",
+            "#3CB371": "MediumSeaGreen",
+            "#66CDAA": "MediumAquamarine",
+            "#7FFFD4": "Aquamarine",
+            "#808000": "Olive",
+            "#556B2F": "DarkOliveGreen",
+            "#6B8E23": "OliveDrab",
+            "#9ACD32": "YellowGreen",
+            "#ADFF2F": "GreenYellow",
+            "#7CFC00": "LawnGreen",
+            "#7FFF00": "Chartreuse",
+            "#008080": "Teal",
+            "#008B8B": "DarkCyan",
+            "#20B2AA": "LightSeaGreen",
+            "#40E0D0": "Turquoise",
+            "#48D1CC": "MediumTurquoise",
+            "#AFEEEE": "PaleTurquoise",
+            "#E0FFFF": "LightCyan",
+            "#000080": "Navy",
+            "#00008B": "DarkBlue",
+            "#0000CD": "MediumBlue",
+            "#4169E1": "RoyalBlue",
+            "#4682B4": "SteelBlue",
+            "#5F9EA0": "CadetBlue",
+            "#87CEEB": "SkyBlue",
+            "#87CEFA": "LightSkyBlue",
+            "#ADD8E6": "LightBlue",
+            "#B0C4DE": "LightSteelBlue",
+            "#B0E0E6": "PowderBlue",
+            "#6495ED": "CornflowerBlue",
+            "#7B68EE": "MediumSlateBlue",
+            "#6A5ACD": "SlateBlue",
+            "#483D8B": "DarkSlateBlue",
+            "#00BFFF": "DeepSkyBlue",
+            "#1E90FF": "DodgerBlue",
+            "#800080": "Purple",
+            "#8B008B": "DarkMagenta",
+            "#EE82EE": "Violet",
+            "#DDA0DD": "Plum",
+            "#DA70D6": "Orchid",
+            "#BA55D3": "MediumOrchid",
+            "#9370DB": "MediumPurple",
+            "#8A2BE2": "BlueViolet",
+            "#9400D3": "DarkViolet",
+            "#9932CC": "DarkOrchid",
+            "#4B0082": "Indigo",
+            "#C71585": "MediumVioletRed",
+            "#FF1493": "DeepPink",
+            "#FF69B4": "HotPink",
+            "#FFB6C1": "LightPink",
+            "#FFC0CB": "Pink",
+            "#8B4513": "SaddleBrown",
+            "#A0522D": "Sienna",
+            "#D2691E": "Chocolate",
+            "#CD853F": "Peru",
+            "#DEB887": "BurlyWood",
+            "#F4A460": "SandyBrown",
+            "#DAA520": "GoldenRod",
+            "#B8860B": "DarkGoldenRod",
+            "#F5F5DC": "Beige",
+            "#FFFAF0": "FloralWhite",
+            "#FFFFF0": "Ivory",
+            "#FAEBD7": "AntiqueWhite",
+            "#FFF0F5": "LavenderBlush",
+            "#FFE4E1": "MistyRose",
+            "#E6E6FA": "Lavender",
+            "#D8BFD8": "Thistle",
+            "#D2B48C": "Tan",
+            "#BC8F8F": "RosyBrown",
+            "#800020": "burgundy",
+        };
+
+        function updateColor() {
+            const colorInput = document.getElementById('color_code');
+            const colorPreview = document.getElementById('color_preview');
+            const colorNameDisplay = document.getElementById('color_name_display');
+
+            let colorCode = colorInput.value.trim();
+
+            // Add # if missing from hex code
+            if (/^[0-9A-Fa-f]{3,6}$/.test(colorCode)) {
+                colorCode = '#' + colorCode;
+            }
+
+            // Normalize 3-digit hex codes to 6-digit
+            if (/^#[0-9A-Fa-f]{3}$/.test(colorCode)) {
+                colorCode = '#' + colorCode[1] + colorCode[1] + colorCode[2] + colorCode[2] + colorCode[3] + colorCode[3];
+            }
+
+            // Update the preview
+            if (isValidColor(colorCode)) {
+                colorPreview.style.backgroundColor = colorCode;
+
+                // Find color name
+                const upperColorCode = colorCode.toUpperCase();
+                const colorName = colorMap[upperColorCode] || findSimilarColor(colorCode);
+
+                if (colorName) {
+                    colorNameDisplay.textContent = colorName + " (" + colorCode + ")";
+                } else {
+                    colorNameDisplay.textContent = "Custom color (" + colorCode + ")";
+                }
+            } else {
+                colorPreview.style.backgroundColor = "";
+                colorNameDisplay.textContent = "Enter a valid color code";
+            }
+        }
+
+        function isValidColor(color) {
+            // Check if the color is valid
+            const tempElement = document.createElement('div');
+            tempElement.style.color = color;
+            return tempElement.style.color !== "";
+        }
+
+        function findSimilarColor(colorCode) {
+            // Find similar color for unknown hex codes
+            if (!colorCode.startsWith('#') || colorCode.length !== 7) {
+                return null;
+            }
+
+            // Convert input color to RGB
+            const r1 = parseInt(colorCode.slice(1, 3), 16);
+            const g1 = parseInt(colorCode.slice(3, 5), 16);
+            const b1 = parseInt(colorCode.slice(5, 7), 16);
+
+            let closestColor = null;
+            let closestDistance = Number.MAX_VALUE;
+
+            // Find closest match
+            for (const [hex, name] of Object.entries(colorMap)) {
+                if (hex.length === 7) {
+                    const r2 = parseInt(hex.slice(1, 3), 16);
+                    const g2 = parseInt(hex.slice(3, 5), 16);
+                    const b2 = parseInt(hex.slice(5, 7), 16);
+
+                    // Calculate color distance
+                    const distance = Math.sqrt(
+                        Math.pow(r2 - r1, 2) +
+                        Math.pow(g2 - g1, 2) +
+                        Math.pow(b2 - b1, 2)
+                    );
+
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestColor = name;
+                    }
+                }
+            }
+
+            // Only return if it's reasonably close
+            if (closestDistance < 30) {
+                return "Similar to " + closestColor;
+            }
+
+            return null;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateColor();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorInput = document.getElementById('color_code');
+            const colorPreview = document.getElementById('color_preview');
+            const colorName = document.getElementById('color_name');
+
+            // Comprehensive color names mapping
+            const colorMap = {
+                // Basic Colors
+                "#000000": "Black",
+                "#FFFFFF": "White",
+                "#FF0000": "Red",
+                "#00FF00": "Lime",
+                "#0000FF": "Blue",
+                "#FFFF00": "Yellow",
+                "#00FFFF": "Cyan",
+                "#FF00FF": "Magenta",
+                "#4F42B5": "Ocean Blue",
+                "#8EE53F": "Kiwi Green",
+                "#7BB661": "Dark Kiwi",
+
+
+                "#C0C0C0": "Silver Grey",
+
+                // Shades of Gray
+                "#C0C0C0": "Silver",
+                "#808080": "Gray",
+                "#696969": "DimGray",
+                "#A9A9A9": "DarkGray",
+                "#D3D3D3": "LightGray",
+                "#DCDCDC": "Gainsboro",
+                "#F5F5F5": "WhiteSmoke",
+
+                // Red Colors
+                "#800000": "Maroon",
+                "#8B0000": "DarkRed",
+                "#A52A2A": "Brown",
+                "#B22222": "FireBrick",
+                "#CD5C5C": "IndianRed",
+                "#DC143C": "Crimson",
+                "#F08080": "LightCoral",
+                "#FA8072": "Salmon",
+                "#E9967A": "DarkSalmon",
+                "#FFA07A": "LightSalmon",
+
+                // Orange Colors
+                "#FF4500": "OrangeRed",
+                "#FF6347": "Tomato",
+                "#FF7F50": "Coral",
+                "#FF8C00": "DarkOrange",
+                "#FFA500": "Orange",
+
+                // Yellow Colors
+                "#FFD700": "Gold",
+                "#FFFFE0": "LightYellow",
+                "#FFFACD": "LemonChiffon",
+                "#FAFAD2": "LightGoldenrodYellow",
+                "#FFEFD5": "PapayaWhip",
+                "#FFE4B5": "Moccasin",
+                "#FFDAB9": "PeachPuff",
+                "#EEE8AA": "PaleGoldenrod",
+                "#F0E68C": "Khaki",
+                "#BDB76B": "DarkKhaki",
+
+                // Green Colors
+                "#006400": "DarkGreen",
+                "#008000": "Green",
+                "#228B22": "ForestGreen",
+                "#00FF00": "Lime",
+                "#32CD32": "LimeGreen",
+                "#90EE90": "LightGreen",
+                "#98FB98": "PaleGreen",
+                "#8FBC8F": "DarkSeaGreen",
+                "#00FA9A": "MediumSpringGreen",
+                "#00FF7F": "SpringGreen",
+                "#2E8B57": "SeaGreen",
+                "#3CB371": "MediumSeaGreen",
+                "#66CDAA": "MediumAquamarine",
+                "#7FFFD4": "Aquamarine",
+                "#20B2AA": "LightSeaGreen",
+                "#808000": "Olive",
+                "#556B2F": "DarkOliveGreen",
+                "#6B8E23": "OliveDrab",
+                "#9ACD32": "YellowGreen",
+                "#7CFC00": "LawnGreen",
+                "#ADFF2F": "GreenYellow",
+                "#7FFF00": "Chartreuse",
+
+                // Cyan Colors
+                "#008080": "Teal",
+                "#008B8B": "DarkCyan",
+                "#00FFFF": "Aqua/Cyan",
+                "#00CED1": "DarkTurquoise",
+                "#40E0D0": "Turquoise",
+                "#48D1CC": "MediumTurquoise",
+                "#AFEEEE": "PaleTurquoise",
+                "#E0FFFF": "LightCyan",
+
+                // Blue Colors
+                "#000080": "Navy",
+                "#00008B": "DarkBlue",
+                "#0000CD": "MediumBlue",
+                "#0000FF": "Blue",
+                "#1E90FF": "DodgerBlue",
+                "#4169E1": "RoyalBlue",
+                "#4682B4": "SteelBlue",
+                "#5F9EA0": "CadetBlue",
+                "#87CEEB": "SkyBlue",
+                "#87CEFA": "LightSkyBlue",
+                "#ADD8E6": "LightBlue",
+                "#B0C4DE": "LightSteelBlue",
+                "#B0E0E6": "PowderBlue",
+                "#6495ED": "CornflowerBlue",
+                "#7B68EE": "MediumSlateBlue",
+                "#6A5ACD": "SlateBlue",
+                "#483D8B": "DarkSlateBlue",
+                "#00BFFF": "DeepSkyBlue",
+                "#1E90FF": "DodgerBlue",
+
+                // Purple/Violet Colors
+                "#800080": "Purple",
+                "#8B008B": "DarkMagenta",
+                "#FF00FF": "Fuchsia/Magenta",
+                "#EE82EE": "Violet",
+                "#DDA0DD": "Plum",
+                "#DA70D6": "Orchid",
+                "#BA55D3": "MediumOrchid",
+                "#9370DB": "MediumPurple",
+                "#8A2BE2": "BlueViolet",
+                "#9400D3": "DarkViolet",
+                "#9932CC": "DarkOrchid",
+                "#4B0082": "Indigo",
+                "#8B008B": "DarkMagenta",
+                "#C71585": "MediumVioletRed",
+                "#FF1493": "DeepPink",
+                "#FF69B4": "HotPink",
+                "#FFB6C1": "LightPink",
+                "#FFC0CB": "Pink",
+                "#800020": "burgundy",
+
+                // Brown Colors
+                "#A52A2A": "Brown",
+                "#8B4513": "SaddleBrown",
+                "#A0522D": "Sienna",
+                "#D2691E": "Chocolate",
+                "#CD853F": "Peru",
+                "#DEB887": "BurlyWood",
+                "#F4A460": "SandyBrown",
+                "#DAA520": "GoldenRod",
+                "#B8860B": "DarkGoldenRod",
+
+                // White Colors
+                "#FFFAFA": "Snow",
+                "#F0FFF0": "Honeydew",
+                "#F5FFFA": "MintCream",
+                "#F0FFFF": "Azure",
+                "#F0F8FF": "AliceBlue",
+                "#F8F8FF": "GhostWhite",
+                "#F5F5F5": "WhiteSmoke",
+                "#FFF5EE": "SeaShell",
+                "#F5F5DC": "Beige",
+                "#FDF5E6": "OldLace",
+                "#FFFAF0": "FloralWhite",
+                "#FFFFF0": "Ivory",
+                "#FAEBD7": "AntiqueWhite",
+                "#FAF0E6": "Linen",
+                "#FFF0F5": "LavenderBlush",
+                "#FFE4E1": "MistyRose",
+
+                // Special Colors
+                "#E6E6FA": "Lavender",
+                "#D8BFD8": "Thistle",
+                "#FFFACD": "LemonChiffon",
+                "#FFE4C4": "Bisque",
+                "#FFEBCD": "BlanchedAlmond",
+                "#FFDEAD": "NavajoWhite",
+                "#F5DEB3": "Wheat",
+                "#FFE4B5": "Moccasin",
+                "#FFDAB9": "PeachPuff",
+                "#D2B48C": "Tan",
+                "#BC8F8F": "RosyBrown",
+                "#708090": "SlateGray",
+                "#778899": "LightSlateGray"
+            };
+
+            // Initialize with any existing value
+            updateColorDisplay(colorInput.value);
+
+            // Add event listener for input changes
+            colorInput.addEventListener('input', function() {
+                updateColorDisplay(this.value);
+            });
+
+            function updateColorDisplay(colorCode) {
+                // Normalize color code format
+                const normalizedCode = normalizeColorCode(colorCode);
+
+                // Update preview
+                if (isValidColor(normalizedCode)) {
+                    colorPreview.style.backgroundColor = normalizedCode;
+
+                    // Display color name if known, otherwise show generic name
+                    const knownName = getColorName(normalizedCode);
+                    if (knownName) {
+                        colorName.textContent = knownName + " (" + normalizedCode + ")";
+                    } else {
+                        colorName.textContent = "Custom color (" + normalizedCode + ")";
+                    }
+                } else {
+                    colorPreview.style.backgroundColor = "";
+                    colorName.textContent = "Enter a valid color code";
+                }
+            }
+
+            function getColorName(colorCode) {
+                // Try exact match first
+                const upperCode = colorCode.toUpperCase();
+                if (colorMap[upperCode]) {
+                    return colorMap[upperCode];
+                }
+
+                // If not found, try to find the closest color (only for hex codes)
+                if (colorCode.startsWith('#') && colorCode.length === 7) {
+                    let closestColor = null;
+                    let closestDistance = Number.MAX_VALUE;
+
+                    // Convert input color to RGB
+                    const r1 = parseInt(colorCode.slice(1, 3), 16);
+                    const g1 = parseInt(colorCode.slice(3, 5), 16);
+                    const b1 = parseInt(colorCode.slice(5, 7), 16);
+
+                    // Find closest match
+                    for (const [hex, name] of Object.entries(colorMap)) {
+                        if (hex.length === 7) {
+                            const r2 = parseInt(hex.slice(1, 3), 16);
+                            const g2 = parseInt(hex.slice(3, 5), 16);
+                            const b2 = parseInt(hex.slice(5, 7), 16);
+
+                            // Calculate color distance (simple Euclidean distance)
+                            const distance = Math.sqrt(
+                                Math.pow(r2 - r1, 2) +
+                                Math.pow(g2 - g1, 2) +
+                                Math.pow(b2 - b1, 2)
+                            );
+
+                            if (distance < closestDistance) {
+                                closestDistance = distance;
+                                closestColor = name;
+                            }
+                        }
+                    }
+
+                    // Only return closest match if it's reasonably close
+                    if (closestDistance < 30) {
+                        return "Similar to " + closestColor;
+                    }
+                }
+
+                return null;
+            }
+
+            function normalizeColorCode(colorCode) {
+                if (!colorCode) return "";
+
+                // Handle hex codes
+                if (colorCode.startsWith('#')) {
+                    return colorCode;
+                }
+
+                // Handle color names
+                for (const [hex, name] of Object.entries(colorMap)) {
+                    if (name.toLowerCase() === colorCode.toLowerCase()) {
+                        return hex;
+                    }
+                }
+
+                // If it seems like a hex code without #, add it
+                if (/^[0-9A-Fa-f]{3,6}$/.test(colorCode)) {
+                    // Convert 3-digit hex to 6-digit
+                    if (colorCode.length === 3) {
+                        return '#' + colorCode[0] + colorCode[0] + colorCode[1] + colorCode[1] + colorCode[2] +
+                            colorCode[2];
+                    }
+                    return '#' + colorCode;
+                }
+
+                return colorCode;
+            }
+
+            function isValidColor(colorStr) {
+                // Check if string is a valid CSS color
+                const tempElement = document.createElement('div');
+                tempElement.style.color = colorStr;
+                return tempElement.style.color !== '';
+            }
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Map of color codes to color names
+            const colorMap = {
+                "#000000": "Black",
+                "#FFFFFF": "White",
+                "#FF0000": "Red",
+                "#00FF00": "Lime",
+                "#0000FF": "Blue",
+                "#FFFF00": "Yellow",
+                "#00FFFF": "Cyan",
+                "#FF00FF": "Magenta",
+                "#4F42B5": "Ocean Blue",
+                "#8EE53F": "Kiwi Green",
+                "#7BB661": "Dark Kiwi",
+
+
+                "#C0C0C0": "Silver Grey",
+
+                // Shades of Gray
+                "#C0C0C0": "Silver",
+                "#808080": "Gray",
+                "#696969": "DimGray",
+                "#A9A9A9": "DarkGray",
+                "#D3D3D3": "LightGray",
+                "#DCDCDC": "Gainsboro",
+                "#F5F5F5": "WhiteSmoke",
+
+                // Red Colors
+                "#800000": "Maroon",
+                "#8B0000": "DarkRed",
+                "#A52A2A": "Brown",
+                "#B22222": "FireBrick",
+                "#CD5C5C": "IndianRed",
+                "#DC143C": "Crimson",
+                "#F08080": "LightCoral",
+                "#FA8072": "Salmon",
+                "#E9967A": "DarkSalmon",
+                "#FFA07A": "LightSalmon",
+                "#800020": "burgundy",
+
+                // Orange Colors
+                "#FF4500": "OrangeRed",
+                "#FF6347": "Tomato",
+                "#FF7F50": "Coral",
+                "#FF8C00": "DarkOrange",
+                "#FFA500": "Orange",
+
+                // Yellow Colors
+                "#FFD700": "Gold",
+                "#FFFFE0": "LightYellow",
+                "#FFFACD": "LemonChiffon",
+                "#FAFAD2": "LightGoldenrodYellow",
+                "#FFEFD5": "PapayaWhip",
+                "#FFE4B5": "Moccasin",
+                "#FFDAB9": "PeachPuff",
+                "#EEE8AA": "PaleGoldenrod",
+                "#F0E68C": "Khaki",
+                "#BDB76B": "DarkKhaki",
+
+                // Green Colors
+                "#006400": "DarkGreen",
+                "#008000": "Green",
+                "#228B22": "ForestGreen",
+                "#00FF00": "Lime",
+                "#32CD32": "LimeGreen",
+                "#90EE90": "LightGreen",
+                "#98FB98": "PaleGreen",
+                "#8FBC8F": "DarkSeaGreen",
+                "#00FA9A": "MediumSpringGreen",
+                "#00FF7F": "SpringGreen",
+                "#2E8B57": "SeaGreen",
+                "#3CB371": "MediumSeaGreen",
+                "#66CDAA": "MediumAquamarine",
+                "#7FFFD4": "Aquamarine",
+                "#20B2AA": "LightSeaGreen",
+                "#808000": "Olive",
+                "#556B2F": "DarkOliveGreen",
+                "#6B8E23": "OliveDrab",
+                "#9ACD32": "YellowGreen",
+                "#7CFC00": "LawnGreen",
+                "#ADFF2F": "GreenYellow",
+                "#7FFF00": "Chartreuse",
+
+                // Cyan Colors
+                "#008080": "Teal",
+                "#008B8B": "DarkCyan",
+                "#00FFFF": "Aqua/Cyan",
+                "#00CED1": "DarkTurquoise",
+                "#40E0D0": "Turquoise",
+                "#48D1CC": "MediumTurquoise",
+                "#AFEEEE": "PaleTurquoise",
+                "#E0FFFF": "LightCyan",
+
+                // Blue Colors
+                "#000080": "Navy",
+                "#00008B": "DarkBlue",
+                "#0000CD": "MediumBlue",
+                "#0000FF": "Blue",
+                "#1E90FF": "DodgerBlue",
+                "#4169E1": "RoyalBlue",
+                "#4682B4": "SteelBlue",
+                "#5F9EA0": "CadetBlue",
+                "#87CEEB": "SkyBlue",
+                "#87CEFA": "LightSkyBlue",
+                "#ADD8E6": "LightBlue",
+                "#B0C4DE": "LightSteelBlue",
+                "#B0E0E6": "PowderBlue",
+                "#6495ED": "CornflowerBlue",
+                "#7B68EE": "MediumSlateBlue",
+                "#6A5ACD": "SlateBlue",
+                "#483D8B": "DarkSlateBlue",
+                "#00BFFF": "DeepSkyBlue",
+                "#1E90FF": "DodgerBlue",
+
+                // Purple/Violet Colors
+                "#800080": "Purple",
+                "#8B008B": "DarkMagenta",
+                "#FF00FF": "Fuchsia/Magenta",
+                "#EE82EE": "Violet",
+                "#DDA0DD": "Plum",
+                "#DA70D6": "Orchid",
+                "#BA55D3": "MediumOrchid",
+                "#9370DB": "MediumPurple",
+                "#8A2BE2": "BlueViolet",
+                "#9400D3": "DarkViolet",
+                "#9932CC": "DarkOrchid",
+                "#4B0082": "Indigo",
+                "#8B008B": "DarkMagenta",
+                "#C71585": "MediumVioletRed",
+                "#FF1493": "DeepPink",
+                "#FF69B4": "HotPink",
+                "#FFB6C1": "LightPink",
+                "#FFC0CB": "Pink",
+
+                // Brown Colors
+                "#A52A2A": "Brown",
+                "#8B4513": "SaddleBrown",
+                "#A0522D": "Sienna",
+                "#D2691E": "Chocolate",
+                "#CD853F": "Peru",
+                "#DEB887": "BurlyWood",
+                "#F4A460": "SandyBrown",
+                "#DAA520": "GoldenRod",
+                "#B8860B": "DarkGoldenRod",
+
+
+                // White Colors
+                "#FFFAFA": "Snow",
+                "#F0FFF0": "Honeydew",
+                "#F5FFFA": "MintCream",
+                "#F0FFFF": "Azure",
+                "#F0F8FF": "AliceBlue",
+                "#F8F8FF": "GhostWhite",
+                "#F5F5F5": "WhiteSmoke",
+                "#FFF5EE": "SeaShell",
+                "#F5F5DC": "Beige",
+                "#FDF5E6": "OldLace",
+                "#FFFAF0": "FloralWhite",
+                "#FFFFF0": "Ivory",
+                "#FAEBD7": "AntiqueWhite",
+                "#FAF0E6": "Linen",
+                "#FFF0F5": "LavenderBlush",
+                "#FFE4E1": "MistyRose",
+
+                // Special Colors
+                "#E6E6FA": "Lavender",
+                "#D8BFD8": "Thistle",
+                "#FFFACD": "LemonChiffon",
+                "#FFE4C4": "Bisque",
+                "#FFEBCD": "BlanchedAlmond",
+                "#FFDEAD": "NavajoWhite",
+                "#F5DEB3": "Wheat",
+                "#FFE4B5": "Moccasin",
+                "#FFDAB9": "PeachPuff",
+                "#D2B48C": "Tan",
+                "#BC8F8F": "RosyBrown",
+                "#708090": "SlateGray",
+                "#778899": "LightSlateGray"
+                // Add all the colors from the previous list here
+                // (abbreviated for brevity)
+            };
+
+            // Get all color name elements
+            const colorElements = document.querySelectorAll('.color-name');
+
+            // Update each element with the color name
+            colorElements.forEach(function(element) {
+                const colorCode = element.getAttribute('data-color').toUpperCase();
+                const colorName = colorMap[colorCode] || "Custom";
+                element.textContent = colorCode + " (" + colorName + ")";
+            });
+        });
+    </script>
+    <script>
         $(document).ready(function() {
             $('#answer').summernote({
                 tabsize: 2,

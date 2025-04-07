@@ -63,9 +63,14 @@
                                     <td class="text-center">{{ $index + 1 }}</td>
 
                                     <td class="text-center">
-                                        <span
-                                            style="display: inline-block; width: 20px; height: 20px; background-color: {{ $colors->color_code }};
-                                            border: 1px solid #000; border-radius: 3px; margin-right: 5px;"></span>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <span
+                                                style="display: inline-block; width: 20px; height: 20px; background-color: {{ $colors->color_code }};
+                                                border: 1px solid #000; border-radius: 3px; margin-right: 5px;"
+                                                title="{{ $colors->color_code }}"></span>
+                                            <span class="color-name"
+                                                data-color="{{ $colors->color_code }}">{{ $colors->color_code }}</span>
+                                        </div>
                                     </td>
 
 

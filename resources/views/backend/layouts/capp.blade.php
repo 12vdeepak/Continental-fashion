@@ -351,7 +351,7 @@
 
 
 
-    <script>
+    {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('product_images').addEventListener('change', function(event) {
                 const files = event.target.files;
@@ -423,6 +423,303 @@
                             const option = document.createElement('option');
                             option.value = color.id;
                             option.textContent = color.name;
+                            colorSelect.appendChild(option);
+                        });
+
+                        colorFormGroup.appendChild(colorLabel);
+                        colorFormGroup.appendChild(colorSelect);
+
+                        // Size Selection with Quantity Input
+                        const sizeFormGroup = document.createElement('div');
+                        sizeFormGroup.className = 'form-group mt-2';
+
+                        const sizeLabel = document.createElement('label');
+                        sizeLabel.textContent = 'Select Sizes & Quantities:';
+
+                        const sizeContainer = document.createElement('div');
+
+                        sizeOptions.forEach(size => {
+                            const sizeWrapper = document.createElement('div');
+                            sizeWrapper.className = 'd-flex align-items-center mb-2';
+
+                            const sizeCheckbox = document.createElement('input');
+                            sizeCheckbox.type = 'checkbox';
+                            sizeCheckbox.name =
+                                `size_specific_images[${uniqueId}][sizes][]`;
+                            sizeCheckbox.value = size.id;
+                            sizeCheckbox.className = 'mr-2';
+
+                            const sizeText = document.createElement('span');
+                            sizeText.textContent = size.name;
+                            sizeText.className = 'mr-2';
+
+                            const quantityInput = document.createElement('input');
+                            quantityInput.type = 'number';
+                            quantityInput.name =
+                                `size_specific_images[${uniqueId}][quantities][${size.id}]`;
+                            quantityInput.placeholder = 'Qty';
+                            quantityInput.className = 'form-control ml-2';
+                            quantityInput.style.width = '80px';
+                            quantityInput.min = '0';
+                            quantityInput.disabled = true; // Initially disabled
+
+                            // Enable quantity input when checkbox is checked
+                            sizeCheckbox.addEventListener('change', function() {
+                                quantityInput.disabled = !this.checked;
+                                if (!this.checked) {
+                                    quantityInput.value =
+                                        ''; // Reset if unchecked
+                                }
+                            });
+
+                            sizeWrapper.appendChild(sizeCheckbox);
+                            sizeWrapper.appendChild(sizeText);
+                            sizeWrapper.appendChild(quantityInput);
+
+                            sizeContainer.appendChild(sizeWrapper);
+                        });
+
+                        sizeFormGroup.appendChild(sizeLabel);
+                        sizeFormGroup.appendChild(sizeContainer);
+
+                        // Append everything
+                        cardBody.appendChild(hiddenInput);
+                        cardBody.appendChild(colorFormGroup);
+                        cardBody.appendChild(sizeFormGroup);
+                        card.appendChild(img);
+                        card.appendChild(cardBody);
+                        col.appendChild(card);
+                        container.appendChild(col);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            });
+        });
+    </script>  --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Color name mapping for common hex codes
+            const colorNameMap = {
+                "#000000": "Black",
+                "#FFFFFF": "White",
+                "#FF0000": "Red",
+                "#00FF00": "Lime",
+                "#0000FF": "Blue",
+                "#FFFF00": "Yellow",
+                "#00FFFF": "Cyan",
+                "#FF00FF": "Magenta",
+                "#C0C0C0": "Silver",
+                "#C0C0C0": "Silver Grey",
+
+                "#808080": "Gray",
+                "#696969": "DimGray",
+                "#A9A9A9": "DarkGray",
+                "#D3D3D3": "LightGray",
+                "#DCDCDC": "Gainsboro",
+                "#F5F5F5": "WhiteSmoke",
+                "#800000": "Maroon",
+                "#8B0000": "DarkRed",
+                "#A52A2A": "Brown",
+                "#B22222": "FireBrick",
+                "#CD5C5C": "IndianRed",
+                "#DC143C": "Crimson",
+                "#F08080": "LightCoral",
+                "#FA8072": "Salmon",
+                "#E9967A": "DarkSalmon",
+                "#FFA07A": "LightSalmon",
+                "#FF4500": "OrangeRed",
+                "#FF6347": "Tomato",
+                "#FF7F50": "Coral",
+                "#FF8C00": "DarkOrange",
+                "#FFA500": "Orange",
+                "#FFD700": "Gold",
+                "#FFFFE0": "LightYellow",
+                "#FFFACD": "LemonChiffon",
+                "#FAFAD2": "LightGoldenrodYellow",
+                "#FFEFD5": "PapayaWhip",
+                "#FFE4B5": "Moccasin",
+                "#FFDAB9": "PeachPuff",
+                "#EEE8AA": "PaleGoldenrod",
+                "#F0E68C": "Khaki",
+                "#BDB76B": "DarkKhaki",
+                "#006400": "DarkGreen",
+                "#008000": "Green",
+                "#228B22": "ForestGreen",
+                "#32CD32": "LimeGreen",
+                "#90EE90": "LightGreen",
+                "#98FB98": "PaleGreen",
+                "#8FBC8F": "DarkSeaGreen",
+                "#00FA9A": "MediumSpringGreen",
+                "#00FF7F": "SpringGreen",
+                "#2E8B57": "SeaGreen",
+                "#3CB371": "MediumSeaGreen",
+                "#66CDAA": "MediumAquamarine",
+                "#7FFFD4": "Aquamarine",
+                "#808000": "Olive",
+                "#556B2F": "DarkOliveGreen",
+                "#6B8E23": "OliveDrab",
+                "#9ACD32": "YellowGreen",
+                "#ADFF2F": "GreenYellow",
+                "#7CFC00": "LawnGreen",
+                "#7FFF00": "Chartreuse",
+                "#008080": "Teal",
+                "#008B8B": "DarkCyan",
+                "#20B2AA": "LightSeaGreen",
+                "#40E0D0": "Turquoise",
+                "#48D1CC": "MediumTurquoise",
+                "#AFEEEE": "PaleTurquoise",
+                "#E0FFFF": "LightCyan",
+                "#000080": "Navy",
+                "#00008B": "DarkBlue",
+                "#0000CD": "MediumBlue",
+                "#4169E1": "RoyalBlue",
+                "#4682B4": "SteelBlue",
+                "#5F9EA0": "CadetBlue",
+                "#87CEEB": "SkyBlue",
+                "#87CEFA": "LightSkyBlue",
+                "#ADD8E6": "LightBlue",
+                "#B0C4DE": "LightSteelBlue",
+                "#B0E0E6": "PowderBlue",
+                "#6495ED": "CornflowerBlue",
+                "#7B68EE": "MediumSlateBlue",
+                "#6A5ACD": "SlateBlue",
+                "#483D8B": "DarkSlateBlue",
+                "#00BFFF": "DeepSkyBlue",
+                "#1E90FF": "DodgerBlue",
+                "#800080": "Purple",
+                "#8B008B": "DarkMagenta",
+                "#EE82EE": "Violet",
+                "#DDA0DD": "Plum",
+                "#4F42B5": "Ocean Blue",
+                "#DA70D6": "Orchid",
+                "#BA55D3": "MediumOrchid",
+                "#9370DB": "MediumPurple",
+                "#8A2BE2": "BlueViolet",
+                "#9400D3": "DarkViolet",
+                "#9932CC": "DarkOrchid",
+                "#4B0082": "Indigo",
+                "#C71585": "MediumVioletRed",
+                "#FF1493": "DeepPink",
+                "#FF69B4": "HotPink",
+                "#FFB6C1": "LightPink",
+                "#FFC0CB": "Pink",
+                "#8B4513": "SaddleBrown",
+                "#A0522D": "Sienna",
+                "#D2691E": "Chocolate",
+                "#CD853F": "Peru",
+                "#DEB887": "BurlyWood",
+                "#F4A460": "SandyBrown",
+                "#DAA520": "GoldenRod",
+                "#B8860B": "DarkGoldenRod",
+                "#F5F5DC": "Beige",
+                "#FFFAF0": "FloralWhite",
+                "#FFFFF0": "Ivory",
+                "#FAEBD7": "AntiqueWhite",
+                "#FFF0F5": "LavenderBlush",
+                "#FFE4E1": "MistyRose",
+                "#E6E6FA": "Lavender",
+                "#D8BFD8": "Thistle",
+                "#D2B48C": "Tan",
+                "#BC8F8F": "RosyBrown"
+                // Add more color mappings as needed
+            };
+
+            // Function to get a color name from hex code
+            function getColorName(hexCode) {
+                // Normalize hex code format (uppercase, with #)
+                const normalizedHex = hexCode.toUpperCase();
+
+                // Return the mapped name or just "Color" if not found
+                return colorNameMap[normalizedHex] || "Color";
+            }
+
+            document.getElementById('product_images').addEventListener('change', function(event) {
+                const files = event.target.files;
+                const container = document.getElementById('imagePreviewContainer');
+                container.innerHTML = ''; // Clear previous previews
+
+                // Fetch color options from Laravel Blade syntax safely
+                const colorOptions = [{
+                        id: "",
+                        name: "Default (All Colors)",
+                        code: null
+                    }
+                    @foreach ($colors as $color)
+                        , {
+                            id: "{{ $color->id }}",
+                            code: "{{ $color->color_code }}"
+                        }
+                    @endforeach
+                ];
+
+                // Fetch size options safely
+                const sizeOptions = [
+                    @foreach ($sizes as $size)
+                        {
+                            id: "{{ $size->id }}",
+                            name: "{{ $size->size_name }}"
+                        },
+                    @endforeach
+                ];
+
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const uniqueId = `img_${Date.now()}_${index}`; // Unique ID for tracking
+
+                        // Create image preview container
+                        const col = document.createElement('div');
+                        col.className = 'col-md-4 mb-3';
+
+                        const card = document.createElement('div');
+                        card.className = 'card shadow-sm';
+
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'card-img-top';
+                        img.style.height = '150px';
+                        img.style.objectFit = 'cover';
+
+                        const cardBody = document.createElement('div');
+                        cardBody.className = 'card-body';
+
+                        // Hidden input to track unique image identifier
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = `image_ids[]`;
+                        hiddenInput.value = uniqueId;
+
+                        // Color Selection Dropdown
+                        const colorFormGroup = document.createElement('div');
+                        colorFormGroup.className = 'form-group';
+
+                        const colorLabel = document.createElement('label');
+                        colorLabel.textContent = 'Assign to Color:';
+
+                        const colorSelect = document.createElement('select');
+                        colorSelect.className = 'form-control';
+                        colorSelect.name = `color_specific_images[${uniqueId}]`;
+
+                        colorOptions.forEach(color => {
+                            const option = document.createElement('option');
+                            option.value = color.id;
+
+                            if (color.code) {
+                                // Get color name for this hex code
+                                const colorName = getColorName(color.code);
+
+                                // Create colored box with name and code
+                                option.innerHTML = `
+                                    <span style="display: inline-block; width: 15px; height: 15px; background-color: ${color.code}; border: 1px solid #ccc; margin-right: 5px; vertical-align: middle;"></span>
+                                    ${colorName} (${color.code})
+                                `;
+                                option.setAttribute('data-color-code', color.code);
+                            } else {
+                                option.textContent = color.name;
+                            }
+
                             colorSelect.appendChild(option);
                         });
 

@@ -68,13 +68,22 @@
 
                                 <div class="form-group">
                                     <label for="color_code">Color Name</label>
-                                    <input type="text" id="color_code" name="color_code"
-                                        class="form-control @error('color_code') is-invalid @enderror"
-                                        value="{{ old('color_code', $color->color_code) }}">
+                                    <div class="input-group">
+                                        <input type="text" id="color_code" name="color_code"
+                                            class="form-control @error('color_code') is-invalid @enderror"
+                                            value="{{ old('color_code', $color->color_code) }}"
+                                            placeholder="Enter color code (e.g. #FF5733)">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="color_preview"
+                                                style="width: 40px;"></span>
+                                        </div>
+                                    </div>
+                                    <small id="color_name" class="form-text"></small>
                                     @error('color_code')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
 
                                 <!-- Color Preview -->
                                 <div style="margin-top: 10px;">
