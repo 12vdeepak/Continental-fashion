@@ -66,6 +66,13 @@ class FrontendController extends Controller
         return view('frontend.faqs', compact('faqs', 'categories'));
     }
 
+    public function privacy()
+    {
+        $categories = Category::with('subcategories')->get();
+
+        return view('frontend.privacy', compact('categories'));
+    }
+
 
 
 
