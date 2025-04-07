@@ -574,8 +574,7 @@
             "#FFFF00": "Yellow",
             "#00FFFF": "Cyan",
             "#FF00FF": "Magenta",
-            "#C0C0C0": "Silver",
-            "#C0C0C0": "Silver Grey",
+            "#C0C0C0": "Silver / Silver Grey",
             "#4F42B5": "Ocean Blue",
 
 
@@ -690,7 +689,7 @@
             "#D8BFD8": "Thistle",
             "#D2B48C": "Tan",
             "#BC8F8F": "RosyBrown",
-            "#800020": "burgundy",
+            "#800020": "Burgundy",
         };
 
         function updateColor() {
@@ -806,10 +805,10 @@
                 "#7BB661": "Dark Kiwi",
 
 
-                "#C0C0C0": "Silver Grey",
+                "#C0C0C0": "Silver / Silver Grey,
 
                 // Shades of Gray
-                "#C0C0C0": "Silver",
+             
                 "#808080": "Gray",
                 "#696969": "DimGray",
                 "#A9A9A9": "DarkGray",
@@ -1100,10 +1099,10 @@
                 "#7BB661": "Dark Kiwi",
 
 
-                "#C0C0C0": "Silver Grey",
+                "#C0C0C0": "Silver / Silver Grey",
 
                 // Shades of Gray
-                "#C0C0C0": "Silver",
+             
                 "#808080": "Gray",
                 "#696969": "DimGray",
                 "#A9A9A9": "DarkGray",
@@ -1271,7 +1270,7 @@
 
             // Update each element with the color name
             colorElements.forEach(function(element) {
-                const colorCode = element.getAttribute('data-color').toUpperCase();
+                const colorCode = element.getAttribute('data-color').trim().toUpperCase();
                 const colorName = colorMap[colorCode] || "Custom";
                 element.textContent = colorCode + " (" + colorName + ")";
             });
